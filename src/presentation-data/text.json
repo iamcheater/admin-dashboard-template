@@ -11,7 +11,8 @@
       "buttons": "Buttons",
       "inputs": "Inputs",
       "icons": "Icons",
-      "tables": "Tables"
+      "tables": "Tables",
+      "modals": "Modals"
     }
   },
   "code": {
@@ -244,6 +245,80 @@
       "errorMessage": "Cannot reach the API. Is the backend running?"
     },
     "done": "{action}: {name}"
+  },
+  "modals": {
+    "title": "Modals",
+    "description": "Every overlay the kit ships. Each one traps Tab, closes on Escape and on a click outside, and hands focus back to the button that opened it.",
+    "open": "Open",
+    "dialogs": {
+      "title": "Dialogs",
+      "description": "Modal with an icon, a tone, a title, and a description. The buttons go in a modal-actions row as children.",
+      "confirmNote": "A plain confirmation for a change that is easy to undo.",
+      "dangerNote": "Destructive and final. The confirm button is danger-solid.",
+      "successNote": "Tells the admin something worked when a toast is too easy to miss.",
+      "warningNote": "Reversible but disruptive, such as disabling an account.",
+      "infoNote": "Read-only content the admin can close with the X in the corner."
+    },
+    "confirm": {
+      "title": "Change this admin’s role?",
+      "description": "Ben Carter will become Manager. This takes effect immediately.",
+      "submit": "Change role",
+      "done": "Role changed."
+    },
+    "danger": {
+      "title": "Delete this admin?",
+      "description": "Ani Petrosyan loses access immediately and their sessions end. This cannot be undone.",
+      "submit": "Delete",
+      "done": "Admin deleted."
+    },
+    "success": {
+      "title": "Invitation sent",
+      "description": "We emailed a sign-in link to chloe.martin@example.com. It expires in 24 hours.",
+      "submit": "Done"
+    },
+    "warning": {
+      "title": "Disable this account?",
+      "description": "David Kim cannot sign in until the account is enabled again. Their data is kept.",
+      "submit": "Disable",
+      "done": "Account disabled."
+    },
+    "info": {
+      "title": "About roles",
+      "description": "Admins manage everything, managers run day-to-day work, viewers read only, and auditors read logs. Permissions are read from the token when an admin signs in."
+    },
+    "forms": {
+      "title": "Form in a modal",
+      "description": "A wide modal holding a form, laid out with modal-form. The dropdown inside it shows the layering: Escape closes the open dropdown first, then the modal.",
+      "note": "Validates on touch and enables submit once the form is valid."
+    },
+    "form": {
+      "title": "Add admin",
+      "email": "Email",
+      "fullName": "Full name",
+      "role": "Role",
+      "roleHint": "Pick the access level this admin starts with.",
+      "submit": "Create admin",
+      "done": "Created {email}."
+    },
+    "panels": {
+      "title": "Side panel and pop-up",
+      "description": "SidePanel slides in from the right for details next to a list. PopUp is a small card anchored to the button that opened it.",
+      "panelNote": "Details of one record. Its delete button opens a modal on top, and Escape closes the modal before the panel.",
+      "popUpNote": "A quick input next to its trigger. Closes on Escape or a click outside."
+    },
+    "panel": {
+      "title": "Ani Petrosyan",
+      "subtitle": "Admin account",
+      "delete": "Delete admin"
+    },
+    "popUp": {
+      "label": "Add a note",
+      "title": "Add a note",
+      "description": "Notes are visible to every admin.",
+      "placeholder": "Write a note",
+      "save": "Save note",
+      "done": "Note saved."
+    }
   },
   "sampleOptions": {
     "admin": "Admin",

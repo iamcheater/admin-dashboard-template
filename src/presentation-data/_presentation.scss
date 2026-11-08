@@ -193,3 +193,20 @@ $showcase-icon-tile-min-width: 148px;
     color: m.token("text-muted");
   }
 }
+
+.showcase-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: v.$space-sm v.$space-lg;
+  margin: 0 0 24px;
+  font-size: 14px;
+
+  dt {
+    color: m.token("text-muted");
+  }
+
+  dd {
+    margin: 0;
+    color: m.token("text");
+  }
+}

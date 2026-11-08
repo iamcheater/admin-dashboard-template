@@ -11,6 +11,7 @@ export const PRESENTATION_PATHNAMES = {
   RESET_PASSWORD: "/showcase/reset-password",
   BUTTONS: "/showcase/buttons",
   INPUTS: "/showcase/inputs",
+  MODALS: "/showcase/modals",
   ICONS: "/showcase/icons",
   TABLES: "/showcase/tables",
 } as const;
@@ -52,3 +53,14 @@ export const SAMPLE_COLUMN_WIDTH = {
   NOTE: "20%",
   CREATED: "18%",
 } as const;
+
+export const MODAL_DEMO = {
+  CONFIRM: "confirm",
+  DANGER: "danger",
+  SUCCESS: "success",
+  WARNING: "warning",
+  INFO: "info",
+  FORM: "form",
+} as const;
+
+export type ModalDemo = (typeof MODAL_DEMO)[keyof typeof MODAL_DEMO];
