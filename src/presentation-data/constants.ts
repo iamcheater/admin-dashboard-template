@@ -15,6 +15,7 @@ export const PRESENTATION_PATHNAMES = {
   RESET_PASSWORD: "/showcase/reset-password",
   BUTTONS: "/showcase/buttons",
   INPUTS: "/showcase/inputs",
+  MEDIA: "/showcase/media",
   TABLES: "/showcase/tables",
   FILTERS: "/showcase/filter-bar",
   MODALS: "/showcase/modals",

@@ -22,7 +22,7 @@ export const createFakeUpload =
         if (fails && progress >= FAKE_UPLOAD_FAIL_AT) {
           window.clearInterval(timer);
           const failure: RejectValue = {
-            message: presentationText.inputs.imageUpload.failure,
+            message: presentationText.media.imageUpload.failure,
             status: HTTP_STATUS.NETWORK_FAILURE,
             endsSession: false,
           };

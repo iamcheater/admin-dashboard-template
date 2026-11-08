@@ -672,7 +672,7 @@ sections: a living catalogue of the kit, rendered inside the shell next to the s
   `ResetPasswordPage`: the same `AuthScreen`, fields, copy, and validation, but submitting
   only shows a toast. The real screens stay at `/login`, `/forgot-password`, and
   `/reset-password`.
-- **Components** (buttons, inputs, tables, filter bar, modals, feedback) render every
+- **Components** (buttons, inputs, media, tables, filter bar, modals, feedback) render every
   variant of a primitive with fake data from `sample-data.ts`.
 - **Foundations** shows the design tokens and every export of `icons.tsx`. Icons are
   read from the module, so new ones appear on their own. Token values and swatches are

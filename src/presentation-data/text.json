@@ -12,6 +12,7 @@
       "resetPassword": "Reset password",
       "buttons": "Buttons",
       "inputs": "Inputs",
+      "media": "Media",
       "icons": "Icons",
       "tables": "Tables",
       "modals": "Modals",
@@ -56,7 +57,7 @@
         },
         "components": {
           "title": "Components",
-          "body": "Buttons, inputs, tables, the filter bar, modals, and feedback, each with every variant side by side."
+          "body": "Buttons, inputs, media, tables, the filter bar, modals, and feedback, each with every variant side by side."
         },
         "brand": {
           "title": "Brand playground",
@@ -357,6 +358,16 @@
         "ru": "<h2>Политика конфиденциальности</h2><p>Мы храним только <strong>необходимые</strong> данные.</p><ul><li><p>Имя</p></li><li><p>Электронная почта</p></li></ul><p>Есть вопросы? <a href=\"mailto:hello@example.com\">Напишите нам</a>.</p>"
       }
     },
+    "search": {
+      "title": "Search",
+      "description": "The search box of a list screen. It writes search to the URL after a short pause and resets the page.",
+      "criteria": "Name, email",
+      "default": "The info icon lists the fields the backend searches."
+    }
+  },
+  "media": {
+    "title": "Media",
+    "description": "Components for the images a content admin manages. Uploads go straight to storage, and every sample here works without a backend.",
     "imageUpload": {
       "title": "Image upload",
       "description": "Uploads straight to storage through a presigned URL and hands the form the stored key, never the file. Pages get the upload function from useMediaUpload(purpose); these samples use a fake one that needs no backend. Drag a file over any sample to see the drop state.",
@@ -372,12 +383,6 @@
       "requiredError": "Add a cover image.",
       "disabled": "Replace and Remove are off; the image stays visible.",
       "failure": "Storage rejected the file (fake error)."
-    },
-    "search": {
-      "title": "Search",
-      "description": "The search box of a list screen. It writes search to the URL after a short pause and resets the page.",
-      "criteria": "Name, email",
-      "default": "The info icon lists the fields the backend searches."
     }
   },
   "icons": {

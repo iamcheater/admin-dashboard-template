@@ -3,6 +3,7 @@ import {
   CopyIcon,
   DashboardIcon,
   EditIcon,
+  ImageIcon,
   InfoIcon,
   LockIcon,
   PlusIcon,
@@ -63,6 +64,11 @@ export const presentationNavSections = (): NavSection[] => {
           to: PRESENTATION_PATHNAMES.INPUTS,
           label: copy.items.inputs,
           Icon: EditIcon,
+        },
+        {
+          to: PRESENTATION_PATHNAMES.MEDIA,
+          label: copy.items.media,
+          Icon: ImageIcon,
         },
         {
           to: PRESENTATION_PATHNAMES.TABLES,

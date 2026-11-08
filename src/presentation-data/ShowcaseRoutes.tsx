@@ -9,6 +9,7 @@ import { ForgotPasswordPreviewPage } from "./ForgotPasswordPreviewPage";
 import { IconsPage } from "./IconsPage";
 import { InputsPage } from "./InputsPage";
 import { LoginPreviewPage } from "./LoginPreviewPage";
+import { MediaPage } from "./MediaPage";
 import { ModalsPage } from "./ModalsPage";
 import { WelcomePage } from "./WelcomePage";
 import { ResetPasswordPreviewPage } from "./ResetPasswordPreviewPage";
@@ -31,6 +32,7 @@ const SHOWCASE_PAGES = [
   },
   { path: PRESENTATION_PATHNAMES.BUTTONS, Page: ButtonsPage },
   { path: PRESENTATION_PATHNAMES.INPUTS, Page: InputsPage },
+  { path: PRESENTATION_PATHNAMES.MEDIA, Page: MediaPage },
   { path: PRESENTATION_PATHNAMES.TABLES, Page: TablesPage },
   { path: PRESENTATION_PATHNAMES.FILTERS, Page: FilterBarPage },
   { path: PRESENTATION_PATHNAMES.MODALS, Page: ModalsPage },
