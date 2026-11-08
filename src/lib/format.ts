@@ -1,6 +1,8 @@
 import { ADMIN_ROLE_LABELS, type AdminUserDto } from "../api/types";
 import { format, text } from "../i18n";
-import { fromDateKey } from "./date";
+import { DAYS_PER_WEEK, YEAR_SHORT_DIGITS } from "./constants";
+import { fromDateKey, pad2, to12Hour, toTimeKey } from "./date";
+import { ACTIVE_CONVENTIONS } from "./language";
 
 const parseIso = (iso: string | null): Date | null => {
   if (!iso) return null;
@@ -8,82 +10,90 @@ const parseIso = (iso: string | null): Date | null => {
   return Number.isNaN(date.getTime()) ? null : date;
 };
 
-const formatIso = (formatter: Intl.DateTimeFormat, iso: string | null) => {
-  const date = parseIso(iso);
-  return date ? formatter.format(date) : text.common.empty;
+const formatTime = (date: Date): string => {
+  const { hour, period } = to12Hour(toTimeKey(date));
+
+  return format(text.format.time, {
+    hour: ACTIVE_CONVENTIONS.uses24HourClock ? pad2(date.getHours()) : hour,
+    minute: pad2(date.getMinutes()),
+    period: period === "AM" ? text.datePicker.am : text.datePicker.pm,
+  });
 };
 
-const dateTime = new Intl.DateTimeFormat(undefined, {
-  dateStyle: "medium",
-  timeStyle: "short",
-});
+const formatPattern = (pattern: string, date: Date): string =>
+  format(pattern, {
+    day: date.getDate(),
+    dayPadded: pad2(date.getDate()),
+    monthNumber: date.getMonth() + 1,
+    monthPadded: pad2(date.getMonth() + 1),
+    month: text.format.months[date.getMonth()],
+    monthShort: text.format.monthsShort[date.getMonth()],
+    year: date.getFullYear(),
+    yearShort: String(date.getFullYear()).slice(-YEAR_SHORT_DIGITS),
+  });
 
-export const formatDateTime = (iso: string | null): string =>
-  formatIso(dateTime, iso);
+const withTime = (datePattern: string, date: Date): string =>
+  format(text.format.dateTime, {
+    date: formatPattern(datePattern, date),
+    time: formatTime(date),
+  });
 
-const dayMonth = new Intl.DateTimeFormat(undefined, {
-  day: "numeric",
-  month: "short",
-});
+export const formatDateTime = (iso: string | null): string => {
+  const date = parseIso(iso);
+  return date ? withTime(text.format.dayMonthYear, date) : text.common.empty;
+};
 
-const dayMonthYear = new Intl.DateTimeFormat(undefined, {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-});
-
-const monthYear = new Intl.DateTimeFormat(undefined, {
-  month: "long",
-  year: "numeric",
-});
-
-const monthName = new Intl.DateTimeFormat(undefined, { month: "short" });
-
-const shortDateTime = new Intl.DateTimeFormat(undefined, {
-  dateStyle: "short",
-  timeStyle: "short",
-});
-
-const shortDate = new Intl.DateTimeFormat(undefined, { dateStyle: "short" });
-
-export const formatShortDateTime = (iso: string, withTime: boolean): string => {
+export const formatShortDateTime = (iso: string, includeTime: boolean): string => {
   const date = parseIso(iso);
   if (!date) return "";
 
-  return withTime ? shortDateTime.format(date) : shortDate.format(date);
+  return includeTime
+    ? withTime(text.format.shortDate, date)
+    : formatPattern(text.format.shortDate, date);
 };
 
 export const formatMonthYear = (year: number, month: number): string =>
-  monthYear.format(new Date(year, month, 1));
+  formatPattern(text.format.monthYear, new Date(year, month, 1));
 
-export const formatMonthName = (year: number, month: number): string =>
-  monthName.format(new Date(year, month, 1));
+export const formatMonthName = (month: number): string =>
+  text.format.monthsShort[month];
+
+export const formatWeekdayNames = (): string[] =>
+  Array.from(
+    { length: DAYS_PER_WEEK },
+    (_, offset) =>
+      text.format.weekdaysShort[
+        (ACTIVE_CONVENTIONS.weekStartsOn + offset) % DAYS_PER_WEEK
+      ],
+  );
 
 export const formatDateRange = (fromKey: string, toKey: string): string => {
   const start = fromDateKey(fromKey);
   const end = fromDateKey(toKey);
+  const dayMonthYear = (date: Date) =>
+    formatPattern(text.format.dayMonthYear, date);
 
   if (!start && !end) return "";
-  if (!start) return dayMonthYear.format(end as Date);
-  if (!end) return dayMonthYear.format(start);
+  if (!start) return end ? dayMonthYear(end) : "";
+  if (!end) return dayMonthYear(start);
 
-  if (start.getTime() === end.getTime()) return dayMonthYear.format(start);
+  if (start.getTime() === end.getTime()) return dayMonthYear(start);
 
   const startLabel =
     start.getFullYear() === end.getFullYear()
-      ? dayMonth.format(start)
-      : dayMonthYear.format(start);
+      ? formatPattern(text.format.dayMonth, start)
+      : dayMonthYear(start);
 
   return format(text.format.dateRange, {
     from: startLabel,
-    to: dayMonthYear.format(end),
+    to: dayMonthYear(end),
   });
 };
 
-const longDate = new Intl.DateTimeFormat(undefined, { dateStyle: "long" });
-
-export const formatDate = (iso: string | null): string =>
-  formatIso(longDate, iso);
+export const formatDate = (iso: string | null): string => {
+  const date = parseIso(iso);
+  return date ? formatPattern(text.format.longDate, date) : text.common.empty;
+};
 
 export const formatAdminRole = (
   user: AdminUserDto | null,

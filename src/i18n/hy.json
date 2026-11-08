@@ -1,0 +1,259 @@
+{
+  "common": {
+    "empty": "—",
+    "cancel": "Չեղարկել",
+    "close": "Փակել",
+    "showPassword": "Ցույց տալ գաղտնաբառը",
+    "hidePassword": "Թաքցնել գաղտնաբառը",
+    "save": "Պահել",
+    "saving": "Պահվում է…",
+    "creating": "Ստեղծվում է…",
+    "loading": "Բեռնվում է…",
+    "signedIn": "Մուտք եք գործել",
+    "superAdmin": "Սուպերադմին",
+    "restoringSession": "Սեսիան վերականգնվում է…",
+    "logoAlt": "Ադմին վահանակ",
+    "dialog": "Պատուհան",
+    "retry": "Կրկնել",
+    "requiredMark": "*"
+  },
+  "table": {
+    "actions": "Գործողություններ"
+  },
+  "pageActions": {
+    "selectedCount": "{label} ({count})",
+    "noMatches": "Արդյունք չկա",
+    "searchPlaceholder": "Որոնել",
+    "searchCriteriaLabel": "Որոնման դաշտեր՝ {criteria}"
+  },
+  "pagination": {
+    "label": "Էջեր",
+    "previous": "Նախորդ",
+    "next": "Հաջորդ",
+    "gap": "...",
+    "goToPage": "Էջ {page}"
+  },
+  "api": {
+    "unreachable": "API-ն անհասանելի է։ Սերվերն աշխատո՞ւմ է։",
+    "sessionEnded": "Սեսիան ավարտվել է։ Կրկին մուտք գործեք։",
+    "requestFailedWithStatus": "Հարցումը ձախողվեց ({status})",
+    "requestFailed": "Հարցումը ձախողվեց։"
+  },
+  "auth": {
+    "unreadableToken": "API-ն վերադարձրեց անընթեռնելի թոքեն։"
+  },
+  "domain": {
+    "permissions": {
+      "ADMINS_INVITE": "Ադմինների հրավեր",
+      "ADMINS_MANAGE": "Ադմինների կառավարում",
+      "ROLES_MANAGE": "Դերերի կառավարում"
+    },
+    "adminRoles": {
+      "ADMIN": "Ադմին",
+      "MANAGER": "Մենեջեր"
+    }
+  },
+  "format": {
+    "dateRange": "{from} – {to}",
+    "dateTime": "{date}, {time}",
+    "time": "{hour}:{minute}",
+    "dayMonth": "{day} {monthShort}",
+    "dayMonthYear": "{day} {monthShort} {year}",
+    "longDate": "{day} {monthShort} {year}",
+    "monthYear": "{month} {year}",
+    "shortDate": "{dayPadded}.{monthPadded}.{year}",
+    "months": [
+      "Հունվար",
+      "Փետրվար",
+      "Մարտ",
+      "Ապրիլ",
+      "Մայիս",
+      "Հունիս",
+      "Հուլիս",
+      "Օգոստոս",
+      "Սեպտեմբեր",
+      "Հոկտեմբեր",
+      "Նոյեմբեր",
+      "Դեկտեմբեր"
+    ],
+    "monthsShort": [
+      "հնվ",
+      "փտվ",
+      "մրտ",
+      "ապր",
+      "մյս",
+      "հնս",
+      "հլս",
+      "օգս",
+      "սեպ",
+      "հոկ",
+      "նոյ",
+      "դեկ"
+    ],
+    "weekdaysShort": ["Կիր", "Երկ", "Երք", "Չրք", "Հնգ", "Ուր", "Շբթ"]
+  },
+  "validation": {
+    "required": "Պարտադիր դաշտ։",
+    "email": "Մուտքագրեք ճիշտ էլ. հասցե։"
+  },
+  "password": {
+    "tooShort": "Առնվազն {count} նիշ։",
+    "tooLong": "Առավելագույնը {count} նիշ։",
+    "mismatch": "Գաղտնաբառերը չեն համընկնում։",
+    "weak": "Ներառեք մեծատառ, փոքրատառ, թիվ և նշան։",
+    "complexityHint": "Առնվազն {count} նիշ՝ մեծատառ, փոքրատառ, թիվ և նշան։"
+  },
+  "nav": {
+    "label": "Հիմնական",
+    "empty": "Բաժիններ չկան",
+    "accountLink": "Հաշիվ և գաղտնաբառ",
+    "open": "Բացել մենյուն",
+    "close": "Փակել մենյուն",
+    "sections": {
+      "overview": "Ընդհանուր",
+      "administration": "Կառավարում"
+    },
+    "items": {
+      "dashboard": "Վահանակ",
+      "admins": "Ադմիններ"
+    }
+  },
+  "theme": {
+    "label": "Թեմա",
+    "light": "Լույս",
+    "dark": "Մութ"
+  },
+  "language": {
+    "label": "Լեզու",
+    "options": {
+      "en": "English",
+      "hy": "Հայերեն"
+    }
+  },
+  "guards": {
+    "notAvailableTitle": "Հասանելի չէ",
+    "missingPermissionLead": "Ձեր դերը չի ներառում",
+    "missingPermissionTail": " թույլտվությունը։ Խնդրեք սուպերադմինին փոխել դերը, ապա կրկին մուտք գործեք․ թույլտվությունները կարդացվում են մուտքի պահին։",
+    "superAdminOnly": "Էջը հասանելի է միայն սուպերադմինին։",
+    "welcomeTitle": "Բարի գալուստ",
+    "noPermissions": "Ձեր հաշիվը դեռ ոչ մի էջ չի տեսնում։ Խնդրեք սուպերադմինին փոխել դերը, ապա կրկին մուտք գործեք։"
+  },
+  "login": {
+    "title": "Մուտք",
+    "email": "Էլ. փոստ",
+    "password": "Գաղտնաբառ",
+    "submit": "Մուտք",
+    "submitting": "Ստուգվում է…",
+    "forgotPassword": "Մոռացե՞լ եք գաղտնաբառը",
+    "failed": "Մուտքը ձախողվեց։"
+  },
+  "forgotPassword": {
+    "title": "Մոռացված գաղտնաբառ",
+    "subtitle": "Մուտքագրեք ձեր հաշվի էլ. հասցեն, և մենք կուղարկենք նոր գաղտնաբառ ընտրելու հղում։",
+    "email": "Էլ. փոստ",
+    "submit": "Ուղարկել",
+    "submitting": "Ուղարկվում է…",
+    "sentLead": "Նամակն ուղարկվեց՝",
+    "checkSpam": "Չե՞ք գտնում, ստուգեք սպամը։",
+    "failed": "Չհաջողվեց ուղարկել հղումը։"
+  },
+  "resetPassword": {
+    "title": "Նոր գաղտնաբառ",
+    "verifying": "Հղումը ստուգվում է…",
+    "missingToken": "Հղումում թոքեն չկա։ Պահանջեք նոր նամակ։",
+    "invalidToken": "Հղումն անվավեր է կամ ժամկետանց։ Պահանջեք նորը։",
+    "requestNewLink": "Ստանալ նոր հղում",
+    "done": "Գաղտնաբառը պահվեց։ Մյուս բոլոր սեսիաները փակվեցին։ Մուտք գործեք նոր գաղտնաբառով։",
+    "newPassword": "Նոր գաղտնաբառ",
+    "confirmPassword": "Կրկնեք գաղտնաբառը",
+    "submit": "Պահել",
+    "failed": "Չհաջողվեց պահել գաղտնաբառը։"
+  },
+  "account": {
+    "title": "Հաշիվ",
+    "email": "Էլ. փոստ",
+    "role": "Դեր",
+    "memberSince": "Գրանցվել է",
+    "currentPassword": "Ընթացիկ գաղտնաբառ",
+    "newPassword": "Նոր գաղտնաբառ",
+    "confirmPassword": "Կրկնեք գաղտնաբառը",
+    "changed": "Գաղտնաբառը փոխվեց։ Մյուս սեսիաները փակվեցին, այս մեկը՝ ոչ։",
+    "failed": "Չհաջողվեց փոխել գաղտնաբառը։",
+    "personalInformation": "Անձնական տվյալներ",
+    "accountSecurity": "Անվտանգություն",
+    "fullName": "Անուն, ազգանուն",
+    "editName": "Խմբագրել անունը",
+    "nameChanged": "Անունը թարմացվեց։",
+    "nameFailed": "Չհաջողվեց թարմացնել անունը։",
+    "changePassword": "Փոխել գաղտնաբառը",
+    "logOut": "Ելք",
+    "changePasswordTitle": "Փոխել գաղտնաբառը",
+    "savePassword": "Պահել",
+    "updatePersonalInformation": "Խմբագրել տվյալները",
+    "logOutTitle": "Դուրս գա՞լ",
+    "logOutDescription": "Դուք դուրս կգաք այս սեսիայից։ Չպահված փոփոխությունները կկորեն։",
+    "loadFailed": "Չհաջողվեց բեռնել հաշիվը։"
+  },
+  "admins": {
+    "title": "Ադմիններ",
+    "description": "Վահանակ մուտք ունեցող հաշիվներ։",
+    "searchCriteria": "Անուն, էլ. փոստ",
+    "newAdmin": "+ Նոր ադմին",
+    "empty": "Ադմիններ չկան։",
+    "emptyFiltered": "«{search}» որոնմամբ ադմին չկա։",
+    "columns": {
+      "name": "Անուն",
+      "email": "Էլ. փոստ",
+      "role": "Դեր",
+      "created": "Ստեղծվել է"
+    },
+    "delete": "Ջնջել ադմինին",
+    "invite": {
+      "title": "Նոր ադմին",
+      "email": "Էլ. փոստ",
+      "fullName": "Անուն, ազգանուն",
+      "password": "Գաղտնաբառ",
+      "role": "Դեր",
+      "roleHint": "Ընտրեք ադմինի մուտքի մակարդակը։",
+      "submit": "Ստեղծել",
+      "done": "Ստեղծվեց՝ {email}։ Գաղտնաբառը փոխանցեք անվտանգ ճանապարհով։",
+      "failed": "Չհաջողվեց ստեղծել ադմինին։"
+    },
+    "remove": {
+      "title": "Ջնջե՞լ ադմինին",
+      "description": "Ադմին՝ {name}։ Մուտքը կփակվի անմիջապես, բոլոր սեսիաները կավարտվեն։ Սա անդառնալի է։",
+      "submit": "Ջնջել",
+      "done": "Ջնջվեց՝ {name}։",
+      "failed": "Չհաջողվեց ջնջել ադմինին։"
+    },
+    "changeRole": {
+      "title": "Փոխե՞լ դերը",
+      "description": "Ադմին՝ {name}։ Նոր դեր՝ {role}։ Փոփոխությունը գործում է անմիջապես և փակում է բոլոր սեսիաները։",
+      "submit": "Փոխել դերը",
+      "done": "{name}՝ նոր դեր՝ {role}։",
+      "failed": "Չհաջողվեց փոխել դերը։"
+    }
+  },
+  "datePicker": {
+    "previousMonth": "Նախորդ ամիս",
+    "nextMonth": "Հաջորդ ամիս",
+    "previousYear": "Նախորդ տարի",
+    "nextYear": "Հաջորդ տարի",
+    "pickStart": "Ընտրեք սկիզբը",
+    "pickEnd": "Սկիզբ՝ {date}։ Ընտրեք ավարտը",
+    "clear": "Մաքրել",
+    "apply": "Կիրառել",
+    "time": "Ժամ",
+    "hour": "Ժամ",
+    "minute": "Րոպե",
+    "period": "ԿԱ կամ ԿՀ",
+    "am": "ԿԱ",
+    "pm": "ԿՀ",
+    "tooEarly": "Այդ պահն անցել է։ Ընտրեք ավելի ուշ ժամ։"
+  },
+  "dashboard": {
+    "title": "Վահանակ",
+    "description": "Ձեր աշխատանքի ամփոփում։",
+    "placeholder": "Դեռ դատարկ է։ Փոխարինեք այս էջը ձեր առաջին էջով։"
+  }
+}

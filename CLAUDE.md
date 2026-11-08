@@ -72,9 +72,10 @@ only `.env.local` automatically. `.env.develop` and `.env.prod` are reference fi
 values are what gets entered into Vercel. A new key goes into `.env.example` and all three
 files in the same change.
 
-| Variable            | Used for  |
-| ------------------- | --------- |
-| `VITE_API_BASE_URL` | REST base |
+| Variable                      | Used for                                                  |
+| ----------------------------- | --------------------------------------------------------- |
+| `VITE_API_BASE_URL`           | REST base                                                 |
+| `VITE_DEFAULT_ADMIN_LANGUAGE` | UI language (`en` or `hy`) until the admin picks one; `en` if unset or unknown |
 
 It falls back to `http://localhost:3000` (`api/constants.ts`), so a missing `.env.local`
 fails silently against the default rather than loudly. Anything `VITE_`-prefixed is
@@ -103,8 +104,8 @@ GitHub Actions (`.github/workflows/ci.yml`) runs `npm ci`, `npm run lint`, and
 Vercel deploys.
 
 When starting a new project from this template, work through **Start a new project from
-it** in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`, `<title>`,
-the env files).
+it** in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`,
+`ADMIN_LANGUAGE_STORAGE_KEY`, `<title>`, the env files).
 
 ---
 
@@ -153,7 +154,7 @@ What is mirrored:
   `passwordMax`) — use them for `maxLength` and client-side checks
 
 All of them shape the UI only. The backend stays the authority. Enum labels are views onto
-`text.domain` (`ADMIN_ROLE_LABELS`, `PERMISSION_LABELS`), so the copy stays in `en.json`.
+`text.domain` (`ADMIN_ROLE_LABELS`, `PERMISSION_LABELS`), so the copy stays in the dictionaries.
 
 ### 4. Permission checks here are UX, never security
 
@@ -203,24 +204,51 @@ If a page grows a helper another page would want, it moves before it is copied
 (`formatAdminRole` in `lib/format.ts` is shared by `Sidebar` and `AccountPage` for this
 reason).
 
-### 6. Every user-facing string comes from `src/i18n/en.json`; every literal number from a `constants.ts`
+### 6. Every user-facing string comes from `src/i18n/`; every literal number from a `constants.ts`
 
 **No text in a component.** Headings, labels, hints, placeholders, buttons, `aria-label`,
-`title`, empty states, confirm prompts, errors, status labels — all live in `en.json` and
-are read through `text` from `src/i18n`. A quoted sentence in a `.tsx` file is a blocking
-finding.
+`title`, empty states, confirm prompts, errors, status labels — all live in the
+dictionaries and are read through `text` from `src/i18n`. A quoted sentence in a `.tsx`
+file is a blocking finding.
+
+**Two dictionaries, one shape.** The admin UI ships in English (`en.json`) and Armenian
+(`hy.json`). **Every key goes into both files in the same change**, with a real
+translation — never a copy of the English. `i18n/index.ts` types the pair so the build
+fails when either file has a key the other lacks; it cannot see a missing `{placeholder}`
+or a wrong array length (12 months, 7 weekdays), so check those by eye. Armenian copy
+stays short: pick the shortest natural word, use Armenian punctuation (`։`, `՞`, `«»`),
+and never attach a case ending to an interpolated value (`Ջնջվեց՝ {name}։`, not
+`{name}-ը ջնջվեց։`), because the right ending depends on the name.
 
 Keys mirror the tree: `common` for what appears on more than one screen; `api`, `auth`,
 `nav`, `guards`, `validation`, `password`, `table`, `pagination`, `pageActions`,
-`datePicker` for the layers that own them; `domain` for enum label maps; and one object
-per screen named after the page. Copy is sentence case ("Change password", not "Change
-Password"), and the app says "sign in" / "sign out", never "log in" / "log out". Delete a
-key when the last reader goes.
+`datePicker`, `theme`, `language` for the layers that own them; `format` for date
+patterns and month and weekday names; `domain` for enum label maps; and one object per
+screen named after the page. English copy is sentence case ("Change password", not
+"Change Password"), and the app says "sign in" / "sign out", never "log in" / "log out".
+Delete a key from both files when the last reader goes.
 
 Interpolation is `format(template, values)` with `{name}` placeholders — never string
 concatenation and never a template literal around a JSON value. A sentence that wraps an
-element (`<code>`, `<strong>`) splits into `…Lead` / `…Tail` keys around it. No markup and
-no `\n` in the JSON.
+element (`<code>`, `<strong>`) splits into `…Lead` / `…Tail` keys around it, and each
+language orders its own words around the element. No markup and no `\n` in the JSON.
+
+**Dates go through `lib/format.ts`, never `Intl` or `toLocale…`.** Chrome ships without
+Armenian locale data, so `Intl.DateTimeFormat("hy")` prints English month names. Date
+words and orders live in each dictionary's `format` object (`months`, `monthsShort`,
+`weekdaysShort` Sunday-first, and patterns like `dayMonthYear`), and the per-language
+first day of the week and 12/24-hour clock are `LANGUAGE_CONVENTIONS` in
+`lib/constants.ts`.
+
+**Language** is owned by `lib/language.ts`, outside React like the theme. It is fixed for
+the page's lifetime: `ACTIVE_LANGUAGE` is read once at startup from
+`ADMIN_LANGUAGE_STORAGE_KEY`, then `VITE_DEFAULT_ADMIN_LANGUAGE`, then `en`, and `text` is
+a plain module export of that dictionary. The sidebar's `LanguageToggle` saves the choice
+and reloads the page — that is why no component needs to re-render on a language change.
+`startLanguage()` in `main.tsx` sets `<html lang>`. Adding a language means a dictionary,
+an `ADMIN_LANGUAGE` entry, its `LANGUAGE_CONVENTIONS`, a toggle option, and a font that
+covers its script (`$font-sans` and the Google Fonts link in `index.html`; DM Sans has no
+Armenian, so Noto Sans Armenian is loaded after it).
 
 **No literal number.** Anything other than `0`, `1`, or an array index is a named export in
 the `constants.ts` of the directory that owns it:
@@ -440,9 +468,9 @@ trigger when it closes.
 
 ```
 src/
-  main.tsx                 root render, startTheme, startup getProfile, the main stylesheet import
+  main.tsx                 root render, startTheme, startLanguage, startup getProfile, the main stylesheet import
   App.tsx                  router: every route and its gate, the ToastContainer
-  i18n/  en.json index.ts  every user-facing string; `text` + `format`
+  i18n/  en.json hy.json index.ts  every user-facing string, per language; `text` + `format`
   api/
     client.ts              the only fetch(); token, ApiError, 401 → endsSession
     types.ts               hand-mirrored DTOs and enums
@@ -463,9 +491,9 @@ src/
     Table Pagination PageActions                            list screens
     Dropdown MultiDropdown DatePicker                       pickers (portaled, keyboard-complete)
     Modal SidePanel PopUp RowMenu modal-layers              overlays
-    TruncatedText PageViewToggle ThemeToggle CustomSkeleton icons Logo ScrollToTop
+    TruncatedText PageViewToggle ThemeToggle LanguageToggle CustomSkeleton icons Logo ScrollToTop
   hooks/                   URL-param state, anchored panels, dismiss layers, debounce, theme
-  lib/                     date, format, password, toast, motion, theme, anchor, options, pagination
+  lib/                     date, format, password, toast, motion, theme, language, anchor, options, pagination
   pages/                   one file per screen + constants.ts
   presentation-data/       the component showcase; deleted when a project starts (see below)
   styles/                  main.scss + one partial per component
@@ -552,8 +580,10 @@ after touching the hook-ins check that `grep -c showcase dist/assets/*` is 0 aft
 
 The folder is self-contained so it can be cut in one go, which makes it the one
 exception to rules 6 and 7: it keeps its own copy (`text.json`, read as
-`presentationText`), its own `constants.ts`, and its own `_presentation.scss`. Within
-the folder every other rule still applies. It is wired in at exactly two places:
+`presentationText`), its own `constants.ts`, and its own `_presentation.scss`. Its own
+copy is English only — switching to Armenian translates the kit's components inside the
+showcase, not the showcase's descriptions. Within the folder every other rule still
+applies. It is wired in at exactly two places:
 
 - `App.tsx`: `ShowcaseRoutes` (lazy, `null` outside development) and the layout route
   holding `PresentationLanding` as the index — declared before the `RequireAuth` block so
@@ -592,6 +622,8 @@ an `eslint-disable` directive, the `/// <reference types="vite/client" />` in
 - [ ] List state (page, search, filters, sort) lives in the URL
 - [ ] `formState` destructured at the top of the component
 - [ ] No user-facing string in a component; interpolation through `format()`; sentence case
+- [ ] Every new or changed key is in both `en.json` and `hy.json`, translated, with the
+      same placeholders; dates formatted through `lib/format.ts`, never `Intl`
 - [ ] No literal number outside a `constants.ts`; closed string sets are typed unions
 - [ ] No stylesheet outside `src/styles/`; colour only via `m.token()`, in both theme maps
 - [ ] Breakpoints via `respond-below`, layers via `m.z()`, no raw `@media`
@@ -600,5 +632,5 @@ an `eslint-disable` directive, the `/// <reference types="vite/client" />` in
 - [ ] Wide content (tables, code) scrolls inside its own container; the page body never
       scrolls horizontally
 - [ ] No new dependency or `eslint-disable` without a reason in the PR
-- [ ] No comments; no dead code, dead partials, or unused `en.json` keys left behind
+- [ ] No comments; no dead code, dead partials, or unused dictionary keys left behind
 - [ ] `npm run build` and `npm run lint` pass

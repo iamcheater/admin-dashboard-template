@@ -5,6 +5,7 @@ import { formatAdminRole } from "../lib/format";
 import { presentationNavSections } from "../presentation-data/nav";
 import { useAppSelector } from "../redux/store";
 import { EditIcon } from "./icons";
+import { LanguageToggle } from "./LanguageToggle";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { canAccessNavItem, NAV_SECTIONS } from "./nav";
@@ -60,8 +61,9 @@ export function Sidebar({
         )}
       </nav>
 
-      <div className="sidebar__theme">
+      <div className="sidebar__preferences">
         <ThemeToggle />
+        <LanguageToggle />
       </div>
 
       {claims && (

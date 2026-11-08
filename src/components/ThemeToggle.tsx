@@ -12,12 +12,12 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="theme-toggle" role="group" aria-label={text.theme.label}>
+    <div className="sidebar-toggle" role="group" aria-label={text.theme.label}>
       {THEME_OPTIONS.map(({ value, label, Icon }) => (
         <button
           key={value}
           type="button"
-          className={`theme-toggle__option${value === theme ? " is-active" : ""}`}
+          className={`sidebar-toggle__option${value === theme ? " is-active" : ""}`}
           aria-pressed={value === theme}
           onClick={() => setTheme(value)}
         >

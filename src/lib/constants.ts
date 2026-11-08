@@ -17,6 +17,7 @@ export const MILLISECONDS_PER_MINUTE =
   MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE;
 export const MINUTES_PER_HOUR = 60;
 export const HOURS_PER_HALF_DAY = 12;
+export const HOURS_PER_DAY = 24;
 
 export const TOAST_AUTO_CLOSE_MS = {
   success: 3 * MILLISECONDS_PER_SECOND,
@@ -34,6 +35,37 @@ export const THEME = {
 } as const;
 
 export type Theme = (typeof THEME)[keyof typeof THEME];
+
+export const ADMIN_LANGUAGE_STORAGE_KEY = "admin-dashboard.language";
+
+export const ADMIN_LANGUAGE = {
+  EN: "en",
+  HY: "hy",
+} as const;
+
+export type AdminLanguage = (typeof ADMIN_LANGUAGE)[keyof typeof ADMIN_LANGUAGE];
+
+export const WEEKDAY = {
+  SUNDAY: 0,
+  MONDAY: 1,
+} as const;
+
+export interface LanguageConventions {
+  weekStartsOn: number;
+  uses24HourClock: boolean;
+}
+
+export const LANGUAGE_CONVENTIONS: Record<AdminLanguage, LanguageConventions> =
+  {
+    [ADMIN_LANGUAGE.EN]: {
+      weekStartsOn: WEEKDAY.SUNDAY,
+      uses24HourClock: false,
+    },
+    [ADMIN_LANGUAGE.HY]: {
+      weekStartsOn: WEEKDAY.MONDAY,
+      uses24HourClock: true,
+    },
+  };
 
 export const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -76,3 +108,4 @@ export const PAGINATION_EDGE_PAGE_COUNT = 3;
 export const PAGINATION_BOUNDARY_PAGE_COUNT = 2;
 
 export const DATE_KEY_LENGTH = 10;
+export const YEAR_SHORT_DIGITS = 2;

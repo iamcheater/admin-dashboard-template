@@ -91,10 +91,14 @@
             "Logo, light and dark",
             "public/images/logo-light.svg, logo-dark.svg"
           ],
-          ["Logo alt text", "src/i18n/en.json → common.logoAlt"],
+          ["Logo alt text", "src/i18n/en.json and hy.json → common.logoAlt"],
           ["Favicons", "public/icons/ (then bump ?v= in index.html)"],
           ["Sign-in background", "public/videos/auth-background.mp4"],
-          ["Storage keys", "TOKEN_STORAGE_KEY, THEME_STORAGE_KEY"],
+          [
+            "Storage keys",
+            "TOKEN_STORAGE_KEY, THEME_STORAGE_KEY, ADMIN_LANGUAGE_STORAGE_KEY"
+          ],
+          ["Default UI language", "VITE_DEFAULT_ADMIN_LANGUAGE (en or hy)"],
           [
             "Brand colours",
             "src/styles/_variables.scss (try them in the brand playground first)"
@@ -127,7 +131,7 @@
       "steps": [
         "API — src/api/<module>.ts with one function per endpoint; mirror DTOs and enums in src/api/types.ts.",
         "State — thunks in src/redux/actions/, a slice in src/redux/features/, registered in store.ts.",
-        "Page — copy src/pages/AdminsPage.tsx; text goes in src/i18n/en.json, numbers in src/pages/constants.ts.",
+        "Page — copy src/pages/AdminsPage.tsx; text goes in both src/i18n/en.json and hy.json, numbers in src/pages/constants.ts.",
         "Route and nav — App.tsx and components/nav.ts, with the same permission gate the backend uses.",
         "Check — npm run build && npm run lint, then try it against the backend."
       ],

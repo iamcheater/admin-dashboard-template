@@ -127,8 +127,11 @@ export const daysInMonth = (year: number, month: number): number =>
 export const buildMonthGrid = (
   year: number,
   month: number,
+  weekStartsOn: number,
 ): (Date | null)[] => {
-  const leading = new Date(year, month, 1).getDay();
+  const leading =
+    (new Date(year, month, 1).getDay() - weekStartsOn + DAYS_PER_WEEK) %
+    DAYS_PER_WEEK;
   const cells: (Date | null)[] = Array.from({ length: leading }, () => null);
 
   for (let day = 1; day <= daysInMonth(year, month); day += 1) {
@@ -238,6 +241,20 @@ export const to12Hour = (
 
   return { hour, minute, period };
 };
+
+export const to24Hour = (
+  timeKey: string,
+): { hour: number; minute: number } => {
+  const [parsedHour, parsedMinute] = timeKey.split(":").map(Number);
+
+  return {
+    hour: Number.isInteger(parsedHour) ? parsedHour : HOURS_PER_HALF_DAY,
+    minute: Number.isInteger(parsedMinute) ? parsedMinute : 0,
+  };
+};
+
+export const from24Hour = (hour: number, minute: number): string =>
+  `${pad(hour)}:${pad(minute)}`;
 
 export const from12Hour = (
   hour: number,

@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { getToken } from "./auth/session";
+import { startLanguage } from "./lib/language";
 import { startTheme } from "./lib/theme";
 import { getProfile } from "./redux/actions/auth";
 import { Providers } from "./redux/provider";
@@ -9,6 +10,7 @@ import "./styles/main.scss";
 import App from "./App.tsx";
 
 startTheme();
+startLanguage();
 
 if (getToken()) void store.dispatch(getProfile());
 

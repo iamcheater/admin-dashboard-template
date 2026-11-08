@@ -54,7 +54,43 @@
     }
   },
   "format": {
-    "dateRange": "{from} – {to}"
+    "dateRange": "{from} – {to}",
+    "dateTime": "{date}, {time}",
+    "time": "{hour}:{minute} {period}",
+    "dayMonth": "{monthShort} {day}",
+    "dayMonthYear": "{monthShort} {day}, {year}",
+    "longDate": "{month} {day}, {year}",
+    "monthYear": "{month} {year}",
+    "shortDate": "{monthNumber}/{day}/{yearShort}",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthsShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "weekdaysShort": ["S", "M", "T", "W", "T", "F", "S"]
   },
   "validation": {
     "required": "This field is required.",
@@ -86,6 +122,13 @@
     "label": "Theme",
     "light": "Light",
     "dark": "Dark"
+  },
+  "language": {
+    "label": "Language",
+    "options": {
+      "en": "English",
+      "hy": "Հայերեն"
+    }
   },
   "guards": {
     "notAvailableTitle": "Not available",
@@ -192,15 +235,6 @@
     }
   },
   "datePicker": {
-    "weekdays": [
-      "S",
-      "M",
-      "T",
-      "W",
-      "T",
-      "F",
-      "S"
-    ],
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
     "previousYear": "Previous year",

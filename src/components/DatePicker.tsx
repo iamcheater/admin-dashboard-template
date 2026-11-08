@@ -6,6 +6,7 @@ import { useAnchoredPanel } from "../hooks/useAnchoredPanel";
 import {
   buildMonthGrid,
   from12Hour,
+  from24Hour,
   fromDateKey,
   isAfterMonthOfKey,
   isBeforeMonthOfKey,
@@ -17,6 +18,7 @@ import {
   pad2,
   shiftMonth,
   to12Hour,
+  to24Hour,
   toDateKey,
   toIsoDateTime,
   todayKey,
@@ -24,6 +26,7 @@ import {
 } from "../lib/date";
 import {
   DEFAULT_TIME_KEY,
+  HOURS_PER_DAY,
   HOURS_PER_HALF_DAY,
   LAST_MONTH_INDEX,
   MIDNIGHT_TIME_KEY,
@@ -34,7 +37,9 @@ import {
   formatMonthName,
   formatMonthYear,
   formatShortDateTime,
+  formatWeekdayNames,
 } from "../lib/format";
+import { ACTIVE_CONVENTIONS } from "../lib/language";
 import {
   DATE_PICKER_GAP,
   KEYBOARD_KEY,
@@ -49,6 +54,19 @@ import {
 } from "./icons";
 
 const PERIOD_OPTIONS: MeridiemPeriod[] = ["AM", "PM"];
+
+const { uses24HourClock, weekStartsOn } = ACTIVE_CONVENTIONS;
+const HOUR_MIN = uses24HourClock ? 0 : 1;
+const HOUR_MAX = uses24HourClock ? HOURS_PER_DAY - 1 : HOURS_PER_HALF_DAY;
+
+const formatHour = (hour: number) =>
+  uses24HourClock ? pad2(hour) : String(hour);
+
+const toClockTimeKey = (
+  hour: number,
+  minute: number,
+  period: MeridiemPeriod,
+) => (uses24HourClock ? from24Hour(hour, minute) : from12Hour(hour, minute, period));
 
 const digitsOnly = (raw: string) => raw.replace(/\D/g, "");
 
@@ -71,8 +89,9 @@ function TimeFields({
   onChange: (next: string) => void;
 }) {
   const initial = to12Hour(timeKey);
+  const initialHour = uses24HourClock ? to24Hour(timeKey).hour : initial.hour;
 
-  const [hourText, setHourText] = useState(String(initial.hour));
+  const [hourText, setHourText] = useState(formatHour(initialHour));
   const [minuteText, setMinuteText] = useState(pad2(initial.minute));
   const [period, setPeriod] = useState<MeridiemPeriod>(initial.period);
 
@@ -83,9 +102,9 @@ function TimeFields({
   ) => {
     if (!nextHourText || !nextMinuteText) return;
 
-    const hour = clamp(Number(nextHourText), 1, HOURS_PER_HALF_DAY);
+    const hour = clamp(Number(nextHourText), HOUR_MIN, HOUR_MAX);
     const minute = clamp(Number(nextMinuteText), 0, MINUTES_PER_HOUR - 1);
-    onChange(from12Hour(hour, minute, nextPeriod));
+    onChange(toClockTimeKey(hour, minute, nextPeriod));
   };
 
   const onPeriodChange = (nextPeriod: MeridiemPeriod) => {
@@ -109,11 +128,11 @@ function TimeFields({
         }}
         onBlur={() => {
           const hour = clamp(
-            Number(hourText) || initial.hour,
-            1,
-            HOURS_PER_HALF_DAY,
+            hourText ? Number(hourText) : initialHour,
+            HOUR_MIN,
+            HOUR_MAX,
           );
-          setHourText(String(hour));
+          setHourText(formatHour(hour));
           commit(String(hour), minuteText, period);
         }}
       />
@@ -145,23 +164,25 @@ function TimeFields({
         }}
       />
 
-      <div
-        className="date-picker__time-period"
-        role="group"
-        aria-label={text.datePicker.period}
-      >
-        {PERIOD_OPTIONS.map((option) => (
-          <button
-            key={option}
-            type="button"
-            className={`date-picker__time-period-option${option === period ? " is-active" : ""}`}
-            aria-pressed={option === period}
-            onClick={() => onPeriodChange(option)}
-          >
-            {option === "AM" ? text.datePicker.am : text.datePicker.pm}
-          </button>
-        ))}
-      </div>
+      {!uses24HourClock && (
+        <div
+          className="date-picker__time-period"
+          role="group"
+          aria-label={text.datePicker.period}
+        >
+          {PERIOD_OPTIONS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={`date-picker__time-period-option${option === period ? " is-active" : ""}`}
+              aria-pressed={option === period}
+              onClick={() => onPeriodChange(option)}
+            >
+              {option === "AM" ? text.datePicker.am : text.datePicker.pm}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -393,7 +414,7 @@ export function DatePicker({
       : formatShortDateTime(value ?? "", selectTime);
 
   const hasValue = isRange ? Boolean(from || to) : Boolean(value);
-  const cells = buildMonthGrid(view.year, view.month);
+  const cells = buildMonthGrid(view.year, view.month, weekStartsOn);
 
   const isDayBlocked = (key: string) =>
     (disableFuture && key > today) ||
@@ -508,7 +529,7 @@ export function DatePicker({
                   setIsChoosingMonth(false);
                 }}
               >
-                {formatMonthName(view.year, month)}
+                {formatMonthName(month)}
               </button>
             ))}
           </div>
@@ -516,7 +537,7 @@ export function DatePicker({
       ) : (
         <>
           <div className="date-picker__weekdays">
-            {text.datePicker.weekdays.map((weekday, index) => (
+            {formatWeekdayNames().map((weekday, index) => (
               <span key={index} className="date-picker__weekday">
                 {weekday}
               </span>

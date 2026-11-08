@@ -113,7 +113,10 @@
     }
   }
 
-  &__theme {
+  &__preferences {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-xs;
     flex-shrink: 0;
     padding: 12px;
     border-top: 1px solid m.token("sidebar-divider");

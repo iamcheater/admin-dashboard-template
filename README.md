@@ -11,8 +11,8 @@ react-hook-form · SCSS with light and dark themes.
 
 - **Sign-in flow:** sign in, forgot password, and reset password from an emailed link.
 - **App shell:** a responsive sidebar that only shows what the admin's role allows, a
-  light/dark switch that starts from the OS setting, and route guards that explain
-  instead of showing a blank 403.
+  light/dark switch that starts from the OS setting, an English/Armenian switch (dates
+  included), and route guards that explain instead of showing a blank 403.
 - **A reference feature:** `/admins` (search, sort, pagination, row menu, create and
   delete modals) and `/account` (edit name, change password, sign out). Copy these
   when you build a new screen.
@@ -52,10 +52,11 @@ Then make these changes. Each one takes a minute.
 | Project name | `name` in `package.json` |
 | Browser tab title | `<title>` in `index.html` |
 | Logo (light and dark) | `public/images/logo-light.svg`, `public/images/logo-dark.svg` |
-| Logo alt text | `common.logoAlt` in `src/i18n/en.json` |
+| Logo alt text | `common.logoAlt` in `src/i18n/en.json` and `src/i18n/hy.json` |
 | Favicons | `public/icons/` (`favicon.svg`, `favicon.ico`, the two PNGs, `apple-touch-icon.png`); bump `?v=` in `index.html` so browsers fetch the new ones |
 | Sign-in background video | `public/videos/auth-background.mp4` |
-| Storage keys (so two dashboards on one domain do not share a session) | `TOKEN_STORAGE_KEY` in `src/auth/constants.ts`, `THEME_STORAGE_KEY` in `src/lib/constants.ts` |
+| Storage keys (so two dashboards on one domain do not share a session) | `TOKEN_STORAGE_KEY` in `src/auth/constants.ts`, `THEME_STORAGE_KEY` and `ADMIN_LANGUAGE_STORAGE_KEY` in `src/lib/constants.ts` |
+| Default UI language (`en` or `hy`) | `VITE_DEFAULT_ADMIN_LANGUAGE` in the env files |
 | Brand colours | `$theme-light` and `$theme-dark` in `src/styles/_variables.scss` (change both) |
 
 ### Connect your backend
@@ -106,8 +107,9 @@ under **Adding a screen**. In short, for a new backend module:
    DTOs and enums in `src/api/types.ts`.
 2. **State:** add thunks in `src/redux/actions/<module>.ts` and a slice in
    `src/redux/features/<module>.ts`, then register the slice in `src/redux/store.ts`.
-3. **Page:** copy `src/pages/AdminsPage.tsx` as a starting point. Put text in
-   `src/i18n/en.json` and numbers in `src/pages/constants.ts`.
+3. **Page:** copy `src/pages/AdminsPage.tsx` as a starting point. Put text in both
+   `src/i18n/en.json` and `src/i18n/hy.json` (the build fails if one is missing a key),
+   and numbers in `src/pages/constants.ts`.
 4. **Route and nav:** add the route in `src/App.tsx` and the sidebar entry in
    `src/components/nav.ts`, with the same permission gate the backend uses.
 5. **Check:** run `npm run build && npm run lint`, then try the screen against the
@@ -155,7 +157,7 @@ src/
   pages/               one file per screen
   hooks/               URL state, positioning, theme
   lib/                 formatting, dates, toasts, theme, and other helpers
-  i18n/en.json         every user-facing string
+  i18n/                every user-facing string, in English and Armenian
   styles/              design tokens, mixins, one partial per component
   presentation-data/   the showcase (development only)
 ```
