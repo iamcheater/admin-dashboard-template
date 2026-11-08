@@ -501,19 +501,6 @@ $showcase-scales: (
     justify-content: space-between;
     gap: v.$space-sm;
   }
-
-  &__code {
-    @include m.scroll-x;
-    margin: 0;
-    padding: v.$space-md;
-    border: 1px solid m.token("border");
-    border-radius: v.$radius;
-    background: m.token("bg");
-    font-family: m.token("mono");
-    font-size: v.$font-size-xs;
-    line-height: 1.7;
-    color: m.token("text");
-  }
 }
 
 .showcase-brand-preview {
@@ -527,5 +514,112 @@ $showcase-scales: (
 
   .field {
     margin-bottom: 0;
+  }
+}
+
+.showcase-code {
+  @include m.scroll-x;
+  margin: 0;
+  padding: v.$space-md;
+  border: 1px solid m.token("border");
+  border-radius: v.$radius;
+  background: m.token("bg");
+  font-family: m.token("mono");
+  font-size: v.$font-size-xs;
+  line-height: 1.7;
+  color: m.token("text");
+}
+
+.showcase-matrix__table--wrap {
+  th,
+  td {
+    white-space: normal;
+  }
+
+  tbody th {
+    font-weight: 500;
+  }
+}
+
+.showcase-welcome {
+  &__stack {
+    align-self: flex-start;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-xs;
+    margin: 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: m.token("text");
+  }
+
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, $showcase-sample-min-width), 1fr)
+    );
+    gap: v.$space-lg;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-xs;
+    padding: 18px;
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    background: m.token("bg");
+    color: m.token("text");
+    transition: border-color v.$duration-fast ease;
+
+    &:hover {
+      border-color: m.token("accent");
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: m.token("accent");
+      box-shadow: 0 0 0 3px m.token("accent-soft");
+    }
+
+    @include m.reduced-motion {
+      transition: none;
+    }
+  }
+
+  &__card-title {
+    font-weight: 600;
+  }
+
+  &__card-body {
+    flex: 1;
+    font-size: v.$font-size-sm;
+    color: m.token("text-muted");
+  }
+
+  &__card-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: v.$font-size-sm;
+    font-weight: 500;
+    color: m.token("accent");
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 }

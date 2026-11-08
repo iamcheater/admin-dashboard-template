@@ -8,5 +8,5 @@ export function PresentationLanding() {
 
   if (claims) return <LandingRedirect />;
 
-  return <Navigate to={PRESENTATION_PATHNAMES.LOGIN} replace />;
+  return <Navigate to={PRESENTATION_PATHNAMES.WELCOME} replace />;
 }

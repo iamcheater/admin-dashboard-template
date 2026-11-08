@@ -10,6 +10,7 @@ import { IconsPage } from "./IconsPage";
 import { InputsPage } from "./InputsPage";
 import { LoginPreviewPage } from "./LoginPreviewPage";
 import { ModalsPage } from "./ModalsPage";
+import { WelcomePage } from "./WelcomePage";
 import { ResetPasswordPreviewPage } from "./ResetPasswordPreviewPage";
 import { TablesPage } from "./TablesPage";
 import { TokensPage } from "./TokensPage";
@@ -18,6 +19,7 @@ import "./_presentation.scss";
 applyBrand(loadBrand());
 
 const SHOWCASE_PAGES = [
+  { path: PRESENTATION_PATHNAMES.WELCOME, Page: WelcomePage },
   { path: PRESENTATION_PATHNAMES.LOGIN, Page: LoginPreviewPage },
   {
     path: PRESENTATION_PATHNAMES.FORGOT_PASSWORD,
@@ -50,7 +52,7 @@ export default function ShowcaseRoutes() {
       ))}
       <Route
         path="*"
-        element={<Navigate to={PRESENTATION_PATHNAMES.LOGIN} replace />}
+        element={<Navigate to={PRESENTATION_PATHNAMES.WELCOME} replace />}
       />
     </Routes>
   );

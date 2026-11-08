@@ -504,7 +504,7 @@ Using a hypothetical `drivers` backend module with `GET /drivers` behind
 
 ## The showcase (`src/presentation-data/`)
 
-In development the sidebar gains **Auth screens**, **Components**, and **Foundations**
+In development the sidebar gains **Start here**, **Auth screens**, **Components**, and **Foundations**
 sections: a living catalogue of the kit, rendered inside the shell next to the sidebar.
 
 - **Auth screens** are preview copies of `LoginPage`, `ForgotPasswordPage`, and
@@ -524,8 +524,10 @@ sections: a living catalogue of the kit, rendered inside the shell next to the s
   paste into `_variables.scss`.
 
 Nothing in the showcase calls the API, and its routes sit outside `RequireAuth`, so it
-works with no backend. While it exists, `/` lands a signed-out visitor on the sign-in
-preview (`PresentationLanding`); a signed-in admin still goes through `LandingRedirect`.
+works with no backend. While it exists, `/` lands a signed-out visitor on the **Welcome**
+page (`PresentationLanding` → `WelcomePage`), a condensed version of `README.md` with links
+into each section; a signed-in admin still goes through `LandingRedirect`. When the README
+changes, update `welcome` in `text.json` to match.
 
 **It exists only in development.** Both hook-ins check `import.meta.env.DEV`, and the pages
 load through one lazy `ShowcaseRoutes` chunk that also imports `_presentation.scss`, so a

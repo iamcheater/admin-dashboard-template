@@ -8,7 +8,7 @@ export function ShowcaseSection({
 }: {
   title: string;
   code?: string;
-  description: string;
+  description?: string;
   children: ReactNode;
 }) {
   return (
@@ -18,7 +18,9 @@ export function ShowcaseSection({
           {title}
           {code && <code>{code}</code>}
         </h2>
-        <p className="showcase-section__description">{description}</p>
+        {description && (
+          <p className="showcase-section__description">{description}</p>
+        )}
       </header>
       <div className="showcase-section__body">{children}</div>
     </section>

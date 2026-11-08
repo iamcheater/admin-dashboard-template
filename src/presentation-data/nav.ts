@@ -11,6 +11,7 @@ import {
   SettingsIcon,
   SunIcon,
   UserIcon,
+  WarningIcon,
 } from "../components/icons";
 import type { NavSection } from "../components/nav";
 import { PRESENTATION_PATHNAMES } from "./constants";
@@ -20,6 +21,16 @@ export const presentationNavSections = (): NavSection[] => {
   const copy = presentationText.nav;
 
   return [
+    {
+      heading: copy.sections.startHere,
+      items: [
+        {
+          to: PRESENTATION_PATHNAMES.WELCOME,
+          label: copy.items.welcome,
+          Icon: InfoIcon,
+        },
+      ],
+    },
     {
       heading: copy.sections.authScreens,
       items: [
@@ -71,7 +82,7 @@ export const presentationNavSections = (): NavSection[] => {
         {
           to: PRESENTATION_PATHNAMES.FEEDBACK,
           label: copy.items.feedback,
-          Icon: InfoIcon,
+          Icon: WarningIcon,
         },
       ],
     },

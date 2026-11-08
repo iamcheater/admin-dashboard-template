@@ -9,6 +9,7 @@ export const SHOWCASE_ROOT = "/showcase";
 export const SHOWCASE_ROUTE = "/showcase/*";
 
 export const PRESENTATION_PATHNAMES = {
+  WELCOME: "/showcase/welcome",
   LOGIN: "/showcase/sign-in",
   FORGOT_PASSWORD: "/showcase/forgot-password",
   RESET_PASSWORD: "/showcase/reset-password",
@@ -176,3 +177,10 @@ export const BRAND_MIX = {
 
 export const LUMINANCE_WEIGHTS = [0.2126, 0.7152, 0.0722] as const;
 export const PREVIEW_TOTAL_PAGES = 5;
+
+export const EXPLORE_TARGETS = {
+  authScreens: "LOGIN",
+  components: "BUTTONS",
+  brand: "BRAND",
+  foundations: "TOKENS",
+} as const;

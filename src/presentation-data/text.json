@@ -1,6 +1,7 @@
 {
   "nav": {
     "sections": {
+      "startHere": "Start here",
       "authScreens": "Auth screens",
       "components": "Components",
       "foundations": "Foundations"
@@ -17,7 +18,8 @@
       "filters": "Filter bar",
       "feedback": "Feedback",
       "tokens": "Design tokens",
-      "brand": "Brand playground"
+      "brand": "Brand playground",
+      "welcome": "Welcome"
     }
   },
   "code": {
@@ -28,6 +30,125 @@
     "className": "className=\"{value}\"",
     "tag": "<{name} />",
     "call": "{name}()"
+  },
+  "welcome": {
+    "title": "Welcome",
+    "description": "This is the admin dashboard template: a starting point for internal admin dashboards. The shell, design system, data layer, and sign-in flow are done; copy it, point it at your backend, and start building screens.",
+    "stack": "React 19 · TypeScript · Vite · React Router 7 · Redux Toolkit · react-hook-form · SCSS",
+    "devOnly": "You are looking at the showcase. It appears only while the dev server runs and never ships in a production build.",
+    "includes": {
+      "title": "What you get",
+      "items": [
+        "Sign in, forgot password, and reset password from an emailed link.",
+        "A responsive shell: a sidebar that shows only what the admin's role allows, a light and dark switch, and route guards that explain instead of showing a blank 403.",
+        "A reference feature to copy: /admins (search, sort, pagination, row menu, modals) and /account (name, password, sign out).",
+        "A component kit — buttons, fields, dropdowns, a date picker, tables, modals, side panels, toasts — keyboard-complete and themed."
+      ]
+    },
+    "explore": {
+      "title": "Explore the kit",
+      "description": "Every section works without a backend.",
+      "open": "Open",
+      "cards": {
+        "authScreens": {
+          "title": "Auth screens",
+          "body": "The sign-in, forgot password, and reset password screens, with real validation and no API calls."
+        },
+        "components": {
+          "title": "Components",
+          "body": "Buttons, inputs, tables, the filter bar, modals, and feedback, each with every variant side by side."
+        },
+        "brand": {
+          "title": "Brand playground",
+          "body": "Pick your brand colours and see the whole dashboard use them, then copy the result into the SCSS."
+        },
+        "foundations": {
+          "title": "Design tokens and icons",
+          "body": "Every colour in both themes, the spacing and type scales, and every icon you can import."
+        }
+      }
+    },
+    "newProject": {
+      "title": "Start a new project",
+      "copy": {
+        "title": "1. Copy the code",
+        "commands": [
+          "git clone --depth 1 <this-repo-url> my-admin",
+          "cd my-admin",
+          "rm -rf .git && git init",
+          "npm install"
+        ]
+      },
+      "rename": {
+        "title": "2. Make it yours",
+        "description": "Each of these takes a minute.",
+        "what": "What",
+        "where": "Where",
+        "rows": [
+          ["Project name", "package.json → name"],
+          ["Browser tab title", "index.html → <title>"],
+          [
+            "Logo, light and dark",
+            "public/images/logo-light.svg, logo-dark.svg"
+          ],
+          ["Logo alt text", "src/i18n/en.json → common.logoAlt"],
+          ["Favicons", "public/icons/ (then bump ?v= in index.html)"],
+          ["Sign-in background", "public/videos/auth-background.mp4"],
+          ["Storage keys", "TOKEN_STORAGE_KEY, THEME_STORAGE_KEY"],
+          [
+            "Brand colours",
+            "src/styles/_variables.scss (try them in the brand playground first)"
+          ],
+          [
+            "Docker image and server paths",
+            "docker-compose.yml, .gitlab-ci.yml"
+          ]
+        ]
+      },
+      "backend": {
+        "title": "3. Connect your backend",
+        "description": "Copy the env file and set VITE_API_BASE_URL to your API.",
+        "commands": ["cp .env.example .env.local"],
+        "needs": [
+          "The auth and admin endpoints listed in src/api/iam.ts.",
+          "A JWT whose payload has sub, isSuperAdmin, permissions, and exp.",
+          "This app's origin in the backend's CORS allow-list — otherwise the app says \"Cannot reach the API\".",
+          "Password-reset emails that link to /reset-password?token=…"
+        ]
+      },
+      "showcase": {
+        "title": "4. Keep or remove the showcase",
+        "description": "Keeping it costs nothing, because production builds leave it out. To remove it, delete src/presentation-data/ and its two hook-ins in App.tsx and Sidebar.tsx — both are marked by import.meta.env.DEV."
+      }
+    },
+    "firstScreen": {
+      "title": "Build your first screen",
+      "description": "For a new backend module, in this order:",
+      "steps": [
+        "API — src/api/<module>.ts with one function per endpoint; mirror DTOs and enums in src/api/types.ts.",
+        "State — thunks in src/redux/actions/, a slice in src/redux/features/, registered in store.ts.",
+        "Page — copy src/pages/AdminsPage.tsx; text goes in src/i18n/en.json, numbers in src/pages/constants.ts.",
+        "Route and nav — App.tsx and components/nav.ts, with the same permission gate the backend uses.",
+        "Check — npm run build && npm run lint, then try it against the backend."
+      ],
+      "tip": "Before writing a new component, look through the showcase — the kit probably has it."
+    },
+    "commands": {
+      "title": "Commands",
+      "rows": [
+        ["npm run dev", "Dev server on localhost:5173, with this showcase"],
+        ["npm run build", "Type-check and production build"],
+        ["npm run lint", "ESLint"],
+        ["npm run preview", "Serve the production build"]
+      ],
+      "command": "Command",
+      "does": "Does"
+    },
+    "more": {
+      "title": "Read more",
+      "readme": "README.md — the full version of this page.",
+      "claude": "CLAUDE.md — the rules this codebase follows, how the session and API calls work, and step-by-step guides."
+    }
   },
   "authScreens": {
     "previewNote": "Preview only. Nothing was sent to the API.",

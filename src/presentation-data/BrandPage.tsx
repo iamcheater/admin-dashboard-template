@@ -225,7 +225,7 @@ export function BrandPage() {
                     {copy.export.copy}
                   </Button>
                 </div>
-                <pre className="showcase-brand__code">{lines}</pre>
+                <pre className="showcase-code">{lines}</pre>
               </div>
             );
           })}

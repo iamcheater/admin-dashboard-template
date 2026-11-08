@@ -28,10 +28,11 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. With no backend running, you land on the showcase. The
-sidebar's **Auth screens**, **Components**, and **Foundations** sections show what the kit
-looks like and how it behaves. Use the switch at the bottom of the sidebar to see both
-themes.
+Open http://localhost:5173. With no backend running, you land on the showcase's
+**Welcome** page, a short version of this file with links into every section. The
+sidebar's **Auth screens**, **Components**, and **Foundations** sections show what the
+kit looks like and how it behaves. Use the switch at the bottom of the sidebar to see
+both themes, and the **Brand playground** to try your own colours.
 
 ## 2. Start a new project from it
 
