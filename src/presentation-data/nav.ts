@@ -5,6 +5,7 @@ import {
   EditIcon,
   InfoIcon,
   LockIcon,
+  PlusIcon,
   RefreshIcon,
   SearchIcon,
   SettingsIcon,
@@ -77,6 +78,11 @@ export const presentationNavSections = (): NavSection[] => {
     {
       heading: copy.sections.foundations,
       items: [
+        {
+          to: PRESENTATION_PATHNAMES.BRAND,
+          label: copy.items.brand,
+          Icon: PlusIcon,
+        },
         {
           to: PRESENTATION_PATHNAMES.TOKENS,
           label: copy.items.tokens,

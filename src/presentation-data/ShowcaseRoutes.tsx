@@ -1,4 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { applyBrand, loadBrand } from "./brand";
+import { BrandPage } from "./BrandPage";
 import { ButtonsPage } from "./ButtonsPage";
 import { PRESENTATION_PATHNAMES, SHOWCASE_ROOT } from "./constants";
 import { FeedbackPage } from "./FeedbackPage";
@@ -12,6 +14,8 @@ import { ResetPasswordPreviewPage } from "./ResetPasswordPreviewPage";
 import { TablesPage } from "./TablesPage";
 import { TokensPage } from "./TokensPage";
 import "./_presentation.scss";
+
+applyBrand(loadBrand());
 
 const SHOWCASE_PAGES = [
   { path: PRESENTATION_PATHNAMES.LOGIN, Page: LoginPreviewPage },
@@ -29,6 +33,7 @@ const SHOWCASE_PAGES = [
   { path: PRESENTATION_PATHNAMES.FILTERS, Page: FilterBarPage },
   { path: PRESENTATION_PATHNAMES.MODALS, Page: ModalsPage },
   { path: PRESENTATION_PATHNAMES.FEEDBACK, Page: FeedbackPage },
+  { path: PRESENTATION_PATHNAMES.BRAND, Page: BrandPage },
   { path: PRESENTATION_PATHNAMES.TOKENS, Page: TokensPage },
   { path: PRESENTATION_PATHNAMES.ICONS, Page: IconsPage },
 ];

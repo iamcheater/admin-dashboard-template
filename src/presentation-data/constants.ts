@@ -20,6 +20,7 @@ export const PRESENTATION_PATHNAMES = {
   FEEDBACK: "/showcase/feedback",
   ICONS: "/showcase/icons",
   TOKENS: "/showcase/design-tokens",
+  BRAND: "/showcase/brand",
 } as const;
 
 export const BUTTON_VARIANTS: ButtonVariant[] = [
@@ -147,3 +148,31 @@ export const SKELETON_VARIANTS = [
 ] as const;
 
 export const SKELETON_ANIMATIONS = ["wave", "pulse", false] as const;
+
+export const BRAND_KEYS = ["accent", "success", "warning", "danger"] as const;
+
+export type BrandKey = (typeof BRAND_KEYS)[number];
+
+export const BRAND_STORAGE_KEY = "admin-dashboard.showcase-brand";
+export const BRAND_STYLE_ELEMENT_ID = "showcase-brand";
+export const LIGHT_THEME_PROBE_CLASS = "showcase-themes__column--light";
+
+export const RGB_MAX = 255;
+export const HEX_RADIX = 16;
+export const HEX_CHANNEL_LENGTH = 2;
+export const BLACK_RGB = [0, 0, 0] as const;
+export const WHITE_RGB = [RGB_MAX, RGB_MAX, RGB_MAX] as const;
+
+export const BRAND_MIX = {
+  LIGHT_HOVER_TOWARD_BLACK: 0.18,
+  DARK_BASE_TOWARD_WHITE: 0.22,
+  DARK_HOVER_TOWARD_WHITE: 0.42,
+  LIGHT_SOFT_ALPHA: 0.1,
+  LIGHT_SOFT_HOVER_ALPHA: 0.3,
+  DARK_SOFT_ALPHA: 0.18,
+  DARK_SOFT_HOVER_ALPHA: 0.3,
+  READABLE_LUMINANCE: 0.6,
+} as const;
+
+export const LUMINANCE_WEIGHTS = [0.2126, 0.7152, 0.0722] as const;
+export const PREVIEW_TOTAL_PAGES = 5;

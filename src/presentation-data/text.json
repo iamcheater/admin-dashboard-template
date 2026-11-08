@@ -16,7 +16,8 @@
       "modals": "Modals",
       "filters": "Filter bar",
       "feedback": "Feedback",
-      "tokens": "Design tokens"
+      "tokens": "Design tokens",
+      "brand": "Brand playground"
     }
   },
   "code": {
@@ -564,5 +565,60 @@
     "active": "Active",
     "invited": "Invited",
     "disabled": "Disabled"
+  },
+  "brand": {
+    "title": "Brand playground",
+    "description": "Try a brand on the whole dashboard. Pick a colour and every screen, the sidebar included, uses it right away. Nothing is saved to the code until you copy the result into _variables.scss.",
+    "colors": {
+      "title": "Brand colours",
+      "description": "Primary is the brand: buttons, links, focus rings, and the active sidebar item. The others are status colours. Hover and soft shades are worked out for you, and the dark theme gets a lighter version of each.",
+      "accent": "Primary",
+      "accentHint": "Main buttons, links, selection, focus.",
+      "success": "Success",
+      "successHint": "Confirmations and success toasts.",
+      "warning": "Warning",
+      "warningHint": "Disruptive actions and warnings.",
+      "danger": "Danger",
+      "dangerHint": "Destructive actions and errors.",
+      "reset": "Reset to template colours",
+      "resetDone": "Back to the template colours.",
+      "saved": "Your picks are kept in this browser until you reset them."
+    },
+    "export": {
+      "title": "Use it for real",
+      "description": "Replace these keys in the matching maps in src/styles/_variables.scss, then reset this page.",
+      "light": "In $theme-light",
+      "dark": "In $theme-dark",
+      "copy": "Copy",
+      "copied": "Copied the {theme} values.",
+      "copyFailed": "Could not copy to the clipboard."
+    },
+    "preview": {
+      "title": "Preview",
+      "description": "A sample of components that use the brand colours. Switch the theme in the sidebar to check dark mode too.",
+      "save": "Save changes",
+      "export": "Export",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "disable": "Disable",
+      "remove": "Remove",
+      "success": "Your changes were saved.",
+      "warning": "This admin has not signed in for 90 days.",
+      "error": "Could not load the admins.",
+      "emailLabel": "Email",
+      "emailValue": "not-an-email",
+      "emailError": "Enter a valid email address.",
+      "nameLabel": "Full name",
+      "remember": "Remember this device",
+      "roleLabel": "Role",
+      "viewLabel": "Layout",
+      "toastSuccess": "Success toast",
+      "toastWarning": "Warning toast",
+      "toastError": "Error toast",
+      "toastSuccessMessage": "Admin created.",
+      "toastWarningMessage": "The export may take a few minutes.",
+      "toastErrorMessage": "Could not delete the admin.",
+      "link": "A link in body text"
+    }
   }
 }

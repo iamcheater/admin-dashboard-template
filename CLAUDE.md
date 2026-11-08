@@ -517,6 +517,11 @@ sections: a living catalogue of the kit, rendered inside the shell next to the s
   read from the module, so new ones appear on their own. Token values and swatches are
   generated from the SCSS maps, but which tokens appear is the hand-kept
   `COLOR_TOKEN_GROUPS` / `SCALE_TOKENS` list, so a new token needs adding there.
+  **Brand playground** lets you try brand colours on the whole dashboard: `brand.ts`
+  derives the accent and status tokens for both themes from four picks and injects them
+  as one `<style>` element (the only place colour is set at runtime, and only here). The
+  picks persist in `localStorage` until reset, and the page prints the matching lines to
+  paste into `_variables.scss`.
 
 Nothing in the showcase calls the API, and its routes sit outside `RequireAuth`, so it
 works with no backend. While it exists, `/` lands a signed-out visitor on the sign-in
