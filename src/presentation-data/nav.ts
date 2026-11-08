@@ -1,4 +1,5 @@
 import {
+  CheckCircleIcon,
   EditIcon,
   LockIcon,
   RefreshIcon,
@@ -44,6 +45,11 @@ export const PRESENTATION_NAV_SECTIONS: NavSection[] = [
         to: PRESENTATION_PATHNAMES.INPUTS,
         label: copy.items.inputs,
         Icon: EditIcon,
+      },
+      {
+        to: PRESENTATION_PATHNAMES.ICONS,
+        label: copy.items.icons,
+        Icon: CheckCircleIcon,
       },
     ],
   },

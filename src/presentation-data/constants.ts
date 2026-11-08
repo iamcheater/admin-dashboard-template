@@ -11,6 +11,7 @@ export const PRESENTATION_PATHNAMES = {
   RESET_PASSWORD: "/showcase/reset-password",
   BUTTONS: "/showcase/buttons",
   INPUTS: "/showcase/inputs",
+  ICONS: "/showcase/icons",
 } as const;
 
 export const BUTTON_VARIANTS: ButtonVariant[] = [

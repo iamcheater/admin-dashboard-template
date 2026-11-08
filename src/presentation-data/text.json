@@ -9,7 +9,8 @@
       "forgotPassword": "Forgot password",
       "resetPassword": "Reset password",
       "buttons": "Buttons",
-      "inputs": "Inputs"
+      "inputs": "Inputs",
+      "icons": "Icons"
     }
   },
   "code": {
@@ -17,7 +18,8 @@
     "flag": "{name}",
     "flags": "{first} {second}",
     "component": "<{name}>",
-    "className": "className=\"{value}\""
+    "className": "className=\"{value}\"",
+    "tag": "<{name} />"
   },
   "authScreens": {
     "previewNote": "Preview only. Nothing was sent to the API.",
@@ -186,6 +188,16 @@
       "criteria": "Name, email",
       "default": "The info icon lists the fields the backend searches."
     }
+  },
+  "icons": {
+    "title": "Icons",
+    "description": "Every icon the kit ships. They are inline SVG components, so they inherit the text colour and take their size from CSS.",
+    "count": "All icons ({count})",
+    "source": "components/icons.tsx",
+    "usage": "Import an icon by name and render it as a tag. It draws with currentColor, so it matches whatever holds it. Click an icon to copy its tag.",
+    "copyLabel": "Copy {tag}",
+    "copied": "Copied {tag}",
+    "copyFailed": "Could not copy to the clipboard."
   },
   "sampleOptions": {
     "admin": "Admin",

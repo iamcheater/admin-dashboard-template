@@ -4,6 +4,7 @@
 $showcase-sample-min-width: 240px;
 $showcase-sample-wide-min-width: 360px;
 $showcase-auth-min-height: 680px;
+$showcase-icon-tile-min-width: 148px;
 
 .showcase-section {
   @include m.surface(v.$radius-md);
@@ -130,5 +131,64 @@ $showcase-auth-min-height: 680px;
 
   .auth-screen {
     min-height: $showcase-auth-min-height;
+  }
+}
+
+.showcase-icons {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, $showcase-icon-tile-min-width), 1fr)
+  );
+  gap: v.$space-sm;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__tile {
+    @include m.unstyled-button;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-sm;
+    width: 100%;
+    padding: v.$space-lg v.$space-xs;
+    border: 1px solid m.token("border");
+    border-radius: v.$radius;
+    background: m.token("bg");
+    color: m.token("text");
+    transition:
+      border-color v.$duration-fast ease,
+      color v.$duration-fast ease;
+
+    &:hover {
+      border-color: m.token("accent");
+      color: m.token("accent");
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: m.token("accent");
+      box-shadow: 0 0 0 3px m.token("accent-soft");
+    }
+
+    @include m.reduced-motion {
+      transition: none;
+    }
+  }
+
+  &__glyph {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__name {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: m.token("mono");
+    font-size: v.$font-size-xs;
+    color: m.token("text-muted");
   }
 }
