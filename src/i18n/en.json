@@ -131,6 +131,23 @@
     "tooLarge": "The file is too large. The limit is {size}.",
     "failed": "The upload failed. Try again."
   },
+  "richText": {
+    "toolbar": "Formatting",
+    "heading": "Heading",
+    "subheading": "Subheading",
+    "bold": "Bold",
+    "italic": "Italic",
+    "bulletList": "Bulleted list",
+    "numberedList": "Numbered list",
+    "link": "Link",
+    "undo": "Undo",
+    "redo": "Redo",
+    "linkAddress": "Link address",
+    "linkApply": "Apply",
+    "linkRemove": "Remove link",
+    "linkInvalid": "Enter a full address, such as https://example.com, or a path that starts with /.",
+    "loading": "Loading the editor…"
+  },
   "password": {
     "tooShort": "Use at least {count} characters.",
     "tooLong": "Use at most {count} characters.",

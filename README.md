@@ -5,7 +5,8 @@ your backend, and start building screens. The shell, design system, data layer, 
 sign-in flow are already done.
 
 **Stack:** React 19 · TypeScript · Vite · React Router 7 · Redux Toolkit ·
-react-hook-form · SCSS with light and dark themes.
+react-hook-form · Tiptap (rich text, loaded only where used) · SCSS with light and dark
+themes.
 
 ## What you get
 
@@ -17,8 +18,9 @@ react-hook-form · SCSS with light and dark themes.
   delete modals) and `/account` (edit name, change password, sign out). Copy these
   when you build a new screen.
 - **A component kit:** buttons, fields, dropdowns, a date picker, tables, modals, side
-  panels, toasts, a field for text in several content languages, an image upload that
-  sends files straight to storage, and more, all with keyboard support and both themes.
+  panels, toasts, a field for text in several content languages (plain or rich text),
+  an image upload that sends files straight to storage, and more, all with keyboard
+  support and both themes.
 - **A showcase:** every kit component and the design tokens, browsable without a
   backend. It shows up only in development and never ships in a production build.
 

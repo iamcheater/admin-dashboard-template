@@ -84,3 +84,8 @@ export type ImageUploadAspect =
   (typeof IMAGE_UPLOAD_ASPECT)[keyof typeof IMAGE_UPLOAD_ASPECT];
 
 export const DRAG_DATA_FILES = "Files";
+
+export const RICH_TEXT_HEADING = {
+  SECTION: 2,
+  SUBSECTION: 3,
+} as const;

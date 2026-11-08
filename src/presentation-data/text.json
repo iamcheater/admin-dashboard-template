@@ -347,6 +347,14 @@
       },
       "sampleMissing": {
         "en": "Welcome"
+      },
+      "richLabel": "Privacy policy",
+      "rich": "A Tiptap editor per language, loaded only when a page renders one. The stored value is HTML; the website must sanitize it before rendering.",
+      "stored": "Stored value",
+      "sampleRich": {
+        "hy": "<h2>Գաղտնիության քաղաքականություն</h2><p>Մենք պահում ենք միայն <strong>անհրաժեշտ</strong> տվյալները։</p><ul><li><p>Անուն</p></li><li><p>Էլ. հասցե</p></li></ul><p>Հարցերի դեպքում՝ <a href=\"mailto:hello@example.com\">գրեք մեզ</a>։</p>",
+        "en": "<h2>Privacy policy</h2><p>We keep only the data we <strong>need</strong>.</p><ul><li><p>Name</p></li><li><p>Email address</p></li></ul><p>Questions? <a href=\"mailto:hello@example.com\">Write to us</a>.</p>",
+        "ru": "<h2>Политика конфиденциальности</h2><p>Мы храним только <strong>необходимые</strong> данные.</p><ul><li><p>Имя</p></li><li><p>Электронная почта</p></li></ul><p>Есть вопросы? <a href=\"mailto:hello@example.com\">Напишите нам</a>.</p>"
       }
     },
     "imageUpload": {

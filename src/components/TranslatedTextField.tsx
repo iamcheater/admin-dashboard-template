@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from "react";
+import { lazy, Suspense, useRef, useState, type KeyboardEvent } from "react";
 import type { TranslatedText } from "../api/types";
 import { format, text } from "../i18n";
 import {
@@ -11,7 +11,15 @@ import {
   isTranslationFilled,
 } from "../lib/translated-text";
 import { KEYBOARD_KEY } from "./constants";
-import { Field } from "./ui";
+import { Field, Loading } from "./ui";
+
+const RichTextEditor = lazy(() => import("./RichTextEditor"));
+
+const richTextFallback = (
+  <div className="rich-text rich-text--loading">
+    <Loading label={text.richText.loading} />
+  </div>
+);
 
 const descriptionIdOf = (controlId: string) => `${controlId}-description`;
 
@@ -29,6 +37,7 @@ export function TranslatedTextField({
   required = false,
   maxLength,
   multiline = false,
+  rich = false,
   disabled = false,
   showErrors = false,
   hint,
@@ -43,6 +52,7 @@ export function TranslatedTextField({
   required?: boolean;
   maxLength?: number;
   multiline?: boolean;
+  rich?: boolean;
   disabled?: boolean;
   showErrors?: boolean;
   hint?: string;
@@ -124,6 +134,25 @@ export function TranslatedTextField({
     };
     const onValueChange = (next: string) =>
       onChange({ ...value, [language]: next });
+
+    if (rich) {
+      return (
+        <Suspense fallback={richTextFallback}>
+          <RichTextEditor
+            id={controlId}
+            lang={language}
+            value={shared.value}
+            onChange={onValueChange}
+            onBlur={onBlur}
+            ariaLabel={shared["aria-label"] ?? label}
+            describedBy={shared["aria-describedby"]}
+            required={Boolean(shared["aria-required"])}
+            invalid={shared["aria-invalid"]}
+            disabled={disabled}
+          />
+        </Suspense>
+      );
+    }
 
     return multiline ? (
       <textarea

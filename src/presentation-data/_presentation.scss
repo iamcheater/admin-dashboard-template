@@ -91,6 +91,10 @@ $showcase-scales: (
   margin: 0;
   min-width: 0;
 
+  &:has(.rich-text) {
+    grid-column: 1 / -1;
+  }
+
   &__preview {
     display: flex;
     flex-direction: column;

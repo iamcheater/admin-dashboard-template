@@ -37,7 +37,17 @@ every link already in an inbox.
 ## Stack
 
 React 19 · TypeScript · Vite · `react-router-dom` 7 · `react-hook-form` · `react-toastify` ·
-Redux Toolkit (`@reduxjs/toolkit`, `react-redux`) · SCSS (`sass`).
+Redux Toolkit (`@reduxjs/toolkit`, `react-redux`) · SCSS (`sass`) · Tiptap
+(`@tiptap/react`, `@tiptap/starter-kit`).
+
+**Why Tiptap:** legal pages (privacy policy, terms) and long descriptions need headings,
+lists, bold, italic, and links, and a textarea cannot produce them. Tiptap is headless:
+it ships no theme, so the editor is styled entirely by `_rich-text.scss` from the tokens.
+`injectCSS: false` also turns off its small runtime stylesheet, and the structural
+ProseMirror rules live in our partial instead. It is used only by
+`components/RichTextEditor.tsx`, which `TranslatedTextField` loads with `React.lazy`, so a
+page without a `rich` field never downloads it. Keep it that way: nothing else imports
+`@tiptap/*`, and no Tiptap extension or vendor CSS is added without the same justification.
 
 No RTK Query, no `createEntityAdapter`, no `createSelector`, no selectors file — selectors
 are inline arrows (`state => state.authReducer.user`). Do not add Zustand, TanStack Query,
@@ -494,6 +504,26 @@ and `lib/` (`REGEX_PATTERN`, `describeNewPasswordProblem`, `FIELD_LIMITS`). Two 
   string. On save, send `buildTranslatedTextPatch(saved, edited)`: only the changed
   languages, trimmed, with `""` meaning "remove this translation". `undefined` means
   nothing changed, so leave the key out of the request body.
+- Three variants: single-line (default), `multiline` (a plain textarea), and `rich` (a
+  Tiptap editor per language tab, for formatted content).
+
+**Rich text** (`rich`) is stored and sent as an HTML string per language.
+- The toolbar offers exactly H2, H3, bold, italic, bulleted and numbered lists, links,
+  and undo/redo. The editor's schema allows only those (`EXTENSIONS` in
+  `RichTextEditor.tsx`), so pasted `h1`, quotes, code, strikethrough, or underline become
+  plain paragraphs or text. Keep the toolbar and the schema in step.
+- A rich field always takes a full row. `.field:has(.rich-text)` spans every grid column
+  and fills flex rows, so it never shares a row in `.form-row` or any other layout.
+- An empty editor reports `""`, never `<p></p>`, so `required`, the filled markers, and
+  the patch work as for plain text.
+- `maxLength` counts HTML characters, because that is what the backend stores and
+  validates.
+- Links take a full `http(s)://`, `mailto:`, or `tel:` address, a site path starting with
+  `/` or `#`, or a bare domain that gets `https://` added (`normalizeLinkHref` in
+  `lib/rich-text.ts`). Tiptap also refuses `javascript:` links.
+- **The website must sanitize this HTML before rendering it** (allow only `h2`, `h3`, `p`,
+  `strong`, `em`, `ul`, `ol`, `li`, `a[href]`, `br`). The editor's schema limits what an
+  admin can produce here, but it is not a security control: the API accepts any string.
 
 **Images.** A record's image is stored as a storage **key** (a string). The form holds
 the key, never the file. `ImageUpload` uploads the file itself and calls `onChange(key)`
@@ -574,6 +604,7 @@ src/
     AuthScreen                                              card shell for signed-out screens
     ui.tsx                 Button, Field, TextField, PasswordField, Alert, Loading, EmptyState, Tooltip
     TranslatedTextField                                     one input per content language, with tabs
+    RichTextEditor                                          Tiptap, lazy-loaded by TranslatedTextField's `rich`
     ImageUpload                                             image to storage; the form gets the key
     Table Pagination PageActions                            list screens
     Dropdown MultiDropdown DatePicker                       pickers (portaled, keyboard-complete)
@@ -582,7 +613,7 @@ src/
   hooks/                   URL-param state, anchored panels, dismiss layers, debounce, theme,
                            useMediaUpload (the one hook that dispatches a thunk)
   lib/                     date, format, password, toast, motion, theme, language, content-languages,
-                           translated-text, media, anchor, options, pagination
+                           translated-text, media, rich-text, anchor, options, pagination
   pages/                   one file per screen + constants.ts
   presentation-data/       the component showcase; deleted when a project starts (see below)
   styles/                  main.scss + one partial per component

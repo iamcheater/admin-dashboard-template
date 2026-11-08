@@ -78,7 +78,13 @@ export const REGEX_PATTERN = {
   PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/,
   HTTPS_URL: /^https:\/\/[^\s]+$/i,
   PHONE: /^\+[1-9]\d{7,14}$/,
+  LINK_WITH_SCHEME: /^(https?:\/\/|mailto:|tel:)\S+$/i,
+  SITE_RELATIVE_LINK: /^[/#]\S*$/,
+  BARE_DOMAIN_LINK: /^[^\s/:@]+\.[^\s.]{2,}\S*$/,
 } as const;
+
+export const DEFAULT_LINK_PROTOCOL = "https";
+export const DEFAULT_LINK_SCHEME = `${DEFAULT_LINK_PROTOCOL}://`;
 
 export const SCROLL_TOP = 0;
 

@@ -131,6 +131,23 @@
     "tooLarge": "Ֆայլը շատ մեծ է։ Սահմանը՝ {size}։",
     "failed": "Վերբեռնումը ձախողվեց։ Փորձեք կրկին։"
   },
+  "richText": {
+    "toolbar": "Ձևավորում",
+    "heading": "Վերնագիր",
+    "subheading": "Ենթավերնագիր",
+    "bold": "Թավ",
+    "italic": "Շեղ",
+    "bulletList": "Կետերով ցանկ",
+    "numberedList": "Համարակալված ցանկ",
+    "link": "Հղում",
+    "undo": "Հետարկել",
+    "redo": "Վերադարձնել",
+    "linkAddress": "Հղման հասցե",
+    "linkApply": "Կիրառել",
+    "linkRemove": "Հեռացնել հղումը",
+    "linkInvalid": "Մուտքագրեք ամբողջական հասցե, օրինակ՝ https://example.com, կամ / նշանով սկսվող ուղի։",
+    "loading": "Խմբագրիչը բեռնվում է…"
+  },
   "password": {
     "tooShort": "Առնվազն {count} նիշ։",
     "tooLong": "Առավելագույնը {count} նիշ։",

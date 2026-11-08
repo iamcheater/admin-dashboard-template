@@ -115,6 +115,7 @@ function TranslatedTextFormDemo() {
 export function InputsPage() {
   const [title, setTitle] = useState<TranslatedText>(translated.sample);
   const [body, setBody] = useState<TranslatedText>(translated.sampleBody);
+  const [policy, setPolicy] = useState<TranslatedText>(translated.sampleRich);
   const [touchedTitle, setTouchedTitle] = useState<TranslatedText>(
     translated.sampleMissing,
   );
@@ -272,6 +273,23 @@ export function InputsPage() {
               onChange={setBody}
               multiline
             />
+          </ShowcaseSample>
+          <ShowcaseSample code={flag("rich")} note={translated.rich}>
+            <TranslatedTextField
+              id="translated-rich"
+              label={translated.richLabel}
+              value={policy}
+              onChange={setPolicy}
+              maxLength={FIELD_LIMITS.contentTextMax}
+              required
+              showErrors
+              rich
+            />
+            <Field label={translated.stored}>
+              <pre className="showcase-code">
+                {JSON.stringify(policy, null, SHOWCASE_JSON_INDENT)}
+              </pre>
+            </Field>
           </ShowcaseSample>
           <ShowcaseSample
             code={format(code.flags, {

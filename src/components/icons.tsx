@@ -487,3 +487,73 @@ export const UploadIcon = ({ className }: IconProps) => (
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
   </svg>
 );
+
+export const BoldIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M7 5h6a3.5 3.5 0 0 1 0 7H7z" />
+    <path d="M7 12h7a3.5 3.5 0 0 1 0 7H7z" />
+  </svg>
+);
+
+export const ItalicIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M19 4h-9" />
+    <path d="M14 20H5" />
+    <path d="M15 4 9 20" />
+  </svg>
+);
+
+export const HeadingTwoIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M4 6v12" />
+    <path d="M12 6v12" />
+    <path d="M4 12h8" />
+    <path d="M16 10.5a2.25 2.25 0 1 1 3.9 1.5L16 18h5" />
+  </svg>
+);
+
+export const HeadingThreeIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M4 6v12" />
+    <path d="M12 6v12" />
+    <path d="M4 12h8" />
+    <path d="M16.2 9.2A2.2 2.2 0 1 1 18.4 12" />
+    <path d="M18.4 12a2.3 2.3 0 1 1-2.3 3.6" />
+  </svg>
+);
+
+export const BulletListIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M9 6h11" />
+    <path d="M9 12h11" />
+    <path d="M9 18h11" />
+    <path d="M4.5 6h.01" />
+    <path d="M4.5 12h.01" />
+    <path d="M4.5 18h.01" />
+  </svg>
+);
+
+export const NumberedListIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M10 6h10" />
+    <path d="M10 12h10" />
+    <path d="M10 18h10" />
+    <path d="M4 5h1v4" />
+    <path d="M4 9h2" />
+    <path d="M6.5 19H4c0-1.2 2.5-1.8 2.5-3.1a1.2 1.2 0 0 0-2.3-.4" />
+  </svg>
+);
+
+export const UndoIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M9 14 4 9l5-5" />
+    <path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11" />
+  </svg>
+);
+
+export const RedoIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="m15 14 5-5-5-5" />
+    <path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13" />
+  </svg>
+);
