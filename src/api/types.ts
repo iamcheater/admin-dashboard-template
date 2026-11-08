@@ -60,3 +60,9 @@ export interface PaginatedDto<T> {
   data: T[];
   meta: PaginationMetaDto;
 }
+
+export type ContentLanguage = string;
+
+export type TranslatedText = Partial<Record<ContentLanguage, string>>;
+
+export type TranslatedTextPatch = Partial<Record<ContentLanguage, string>>;

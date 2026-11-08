@@ -94,7 +94,22 @@
   },
   "validation": {
     "required": "This field is required.",
-    "email": "Enter a valid email address."
+    "email": "Enter a valid email address.",
+    "tooLong": "Use at most {count} characters."
+  },
+  "contentLanguages": {
+    "hy": "Armenian",
+    "en": "English",
+    "ru": "Russian"
+  },
+  "translatedText": {
+    "tabsLabel": "{field}: languages",
+    "tabName": "{language} ({status})",
+    "controlLabel": "{field} ({language})",
+    "filled": "filled",
+    "empty": "empty",
+    "invalid": "has an error",
+    "otherLanguagesInvalid": "Fix the languages marked in red."
   },
   "password": {
     "tooShort": "Use at least {count} characters.",

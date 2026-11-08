@@ -76,6 +76,8 @@ files in the same change.
 | ----------------------------- | --------------------------------------------------------- |
 | `VITE_API_BASE_URL`           | REST base                                                 |
 | `VITE_DEFAULT_ADMIN_LANGUAGE` | UI language (`en` or `hy`) until the admin picks one; `en` if unset or unknown |
+| `VITE_CONTENT_LANGUAGES`      | the website's content languages, comma-separated (`hy,en,ru`); one tab each in `TranslatedTextField`; `hy,en,ru` if unset |
+| `VITE_DEFAULT_CONTENT_LANGUAGE` | the content language that can be required and opens first; the first listed if unset or not listed |
 
 It falls back to `http://localhost:3000` (`api/constants.ts`), so a missing `.env.local`
 fails silently against the default rather than loudly. Anything `VITE_`-prefixed is
@@ -141,17 +143,27 @@ Query objects are typed interfaces (`AdminsQuery`) built with `toQueryString`, w
 drops `undefined` and `""`. Request bodies are named interfaces (`InviteAdminBody`) that
 the thunk reuses as its argument type.
 
-### 3. `src/api/types.ts` and `src/api/constants.ts` mirror the backend by hand
+### 3. `src/api/types.ts` and `src/api/constants.ts` are the contract, written by hand
 
-The repos deploy independently, so there is no shared package and no generated client.
-**When a backend DTO, enum, or validator changes, change its mirror here in the same PR.**
-What is mirrored:
+This repo is a template and a component kit, not one product's frontend. It has no
+backend of its own, so a shape in `src/api/` is one of two kinds:
 
-- DTOs (`AdminUserDto`, `PaginatedDto<T>`, …) in `types.ts`
+- **Mirrored:** the reference feature's IAM shapes (`AdminUserDto`, `PERMISSIONS`, the
+  first four `FIELD_LIMITS`, …) follow the backend this template was built against.
+- **Reference:** a shape a kit component is built for (`TranslatedText`,
+  `TranslatedTextPatch`, `contentTitleMax`, `contentTextMax`, …) is the template's own
+  proposal. Add one freely when a component needs it. Do not wait for a backend contract.
+
+**A project that adopts the template turns both kinds into mirrors of its own backend.**
+When it adopts a component, it checks that the component's shapes and limits match its
+backend's DTO, enum, or validator, and fixes whichever side is wrong. From then on, a
+backend change and its mirror change in the same PR. The repos deploy independently, so
+there is no shared package and no generated client. What lives here:
+
+- DTOs and payloads (`AdminUserDto`, `PaginatedDto<T>`, `TranslatedText`, …) in `types.ts`
 - enums as `as const` arrays or objects plus a derived type: `PERMISSIONS`/`Permission`,
   `ADMIN_ROLES`/`AdminRole`, `ADMINS_SORT_BY`/`AdminsSortBy`
-- validator limits in `FIELD_LIMITS` (`fullNameMax`, `searchMax`, `passwordMin`,
-  `passwordMax`) — use them for `maxLength` and client-side checks
+- validator limits in `FIELD_LIMITS` — use them for `maxLength` and client-side checks
 
 All of them shape the UI only. The backend stays the authority. Enum labels are views onto
 `text.domain` (`ADMIN_ROLE_LABELS`, `PERMISSION_LABELS`), so the copy stays in the dictionaries.
@@ -454,6 +466,22 @@ and `lib/` (`REGEX_PATTERN`, `describeNewPasswordProblem`, `FIELD_LIMITS`). Two 
   and disable submit on `!isValid` (plus `!isDirty` for edit forms) and while the thunk's
   loading flag is set.
 
+**Translated content.** A field stored as one string per content language
+(`title: { hy, en, ru }`) uses `TranslatedTextField` through `Controller`. The showcase's
+`TranslatedTextFormDemo` is the pattern to copy:
+
+- Content languages are `CONTENT_LANGUAGES` and `DEFAULT_CONTENT_LANGUAGE` from
+  `lib/content-languages.ts` (`VITE_CONTENT_LANGUAGES`, `VITE_DEFAULT_CONTENT_LANGUAGE`).
+  They are the website's languages and have nothing to do with the admin UI language.
+- `required` makes only the default content language required; the others are always
+  optional. Pass the same `required` and `maxLength` to the field and to
+  `validateTranslatedText(...)` in the `Controller` rules, and set
+  `showErrors={fieldState.isTouched || isSubmitted}`.
+- Seed the form with `toTranslatedTextFormValue(record.title)`, so every language has a
+  string. On save, send `buildTranslatedTextPatch(saved, edited)`: only the changed
+  languages, trimmed, with `""` meaning "remove this translation". `undefined` means
+  nothing changed, so leave the key out of the request body.
+
 ### Layers, focus, and Escape
 
 `Modal` and `SidePanel` register in `components/modal-layers.ts`: only the top layer reacts
@@ -488,12 +516,14 @@ src/
     AppLayout Sidebar PageHeader guards nav nav-context     the shell
     AuthScreen                                              card shell for signed-out screens
     ui.tsx                 Button, Field, TextField, PasswordField, Alert, Loading, EmptyState, Tooltip
+    TranslatedTextField                                     one input per content language, with tabs
     Table Pagination PageActions                            list screens
     Dropdown MultiDropdown DatePicker                       pickers (portaled, keyboard-complete)
     Modal SidePanel PopUp RowMenu modal-layers              overlays
     TruncatedText PageViewToggle ThemeToggle LanguageToggle CustomSkeleton icons Logo ScrollToTop
   hooks/                   URL-param state, anchored panels, dismiss layers, debounce, theme
-  lib/                     date, format, password, toast, motion, theme, language, anchor, options, pagination
+  lib/                     date, format, password, toast, motion, theme, language, content-languages,
+                           translated-text, anchor, options, pagination
   pages/                   one file per screen + constants.ts
   presentation-data/       the component showcase; deleted when a project starts (see below)
   styles/                  main.scss + one partial per component
@@ -506,8 +536,8 @@ the store.)
 
 The kit includes pieces the reference feature does not use yet — `MultiDropdown`,
 `DatePicker` (date range filter via `PageActions.dateFilter`), `SidePanel`, `PopUp`,
-`RowMenu` (via `Table.menu`), `TruncatedText`, `PageViewToggle`. Reach for them before
-writing a new one.
+`RowMenu` (via `Table.menu`), `TruncatedText`, `PageViewToggle`, `TranslatedTextField`.
+Reach for them before writing a new one.
 
 ## Adding a screen
 
@@ -613,7 +643,8 @@ an `eslint-disable` directive, the `/// <reference types="vite/client" />` in
 
 - [ ] No `fetch` outside `api/client.ts`; no URL, method, or query string outside `src/api/`
 - [ ] A new endpoint that answers a wrong password with 401 passes `verifiesPassword`
-- [ ] Backend DTO / enum / validator changes mirrored in `src/api/` in the same PR
+- [ ] Backend DTO / enum / validator changes mirrored in `src/api/` in the same PR; a
+      component's reference shapes checked against the project's backend when adopted
 - [ ] Route gate and nav gate both match the backend controller's guard
 - [ ] No permission check relied on for anything but a clearer message
 - [ ] Pages import no request function; logic sits in `api/`, `lib/`, `auth/`, or `redux/`

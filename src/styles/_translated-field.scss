@@ -1,0 +1,69 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.translated-field {
+  &__tabs {
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    background: m.token("surface-2");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-sm;
+  }
+
+  &__tab {
+    @include m.unstyled-button;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: v.$radius-sm;
+    color: m.token("text-muted");
+    font-size: v.$font-size-label;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition:
+      background v.$duration-fast ease,
+      color v.$duration-fast ease;
+
+    &:hover:not(.is-active) {
+      color: m.token("text");
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px m.token("accent-soft");
+    }
+
+    &.is-active {
+      background: m.token("surface");
+      color: m.token("text");
+      box-shadow: m.token("shadow-sm");
+    }
+
+    &.is-invalid {
+      color: m.token("danger");
+    }
+
+    @include m.reduced-motion {
+      transition: none;
+    }
+  }
+
+  &__marker {
+    width: 6px;
+    height: 6px;
+    border: 1px solid m.token("border-strong");
+    border-radius: 50%;
+
+    .is-filled > & {
+      background: m.token("success");
+      border-color: m.token("success");
+    }
+
+    .is-invalid > & {
+      background: m.token("danger");
+      border-color: m.token("danger");
+    }
+  }
+}

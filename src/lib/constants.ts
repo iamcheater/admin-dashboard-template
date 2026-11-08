@@ -43,7 +43,11 @@ export const ADMIN_LANGUAGE = {
   HY: "hy",
 } as const;
 
-export type AdminLanguage = (typeof ADMIN_LANGUAGE)[keyof typeof ADMIN_LANGUAGE];
+export type AdminLanguage =
+  (typeof ADMIN_LANGUAGE)[keyof typeof ADMIN_LANGUAGE];
+
+export const CONTENT_LANGUAGE_SEPARATOR = ",";
+export const FALLBACK_CONTENT_LANGUAGES: readonly string[] = ["hy", "en", "ru"];
 
 export const WEEKDAY = {
   SUNDAY: 0,

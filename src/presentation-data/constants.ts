@@ -184,3 +184,5 @@ export const EXPLORE_TARGETS = {
   brand: "BRAND",
   foundations: "TOKENS",
 } as const;
+
+export const SHOWCASE_JSON_INDENT = 2;

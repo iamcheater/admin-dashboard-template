@@ -17,7 +17,8 @@ react-hook-form · SCSS with light and dark themes.
   delete modals) and `/account` (edit name, change password, sign out). Copy these
   when you build a new screen.
 - **A component kit:** buttons, fields, dropdowns, a date picker, tables, modals, side
-  panels, toasts, and more, all with keyboard support and both themes.
+  panels, toasts, a field for text in several content languages, and more, all with
+  keyboard support and both themes.
 - **A showcase:** every kit component and the design tokens, browsable without a
   backend. It shows up only in development and never ships in a production build.
 
@@ -57,6 +58,7 @@ Then make these changes. Each one takes a minute.
 | Sign-in background video | `public/videos/auth-background.mp4` |
 | Storage keys (so two dashboards on one domain do not share a session) | `TOKEN_STORAGE_KEY` in `src/auth/constants.ts`, `THEME_STORAGE_KEY` and `ADMIN_LANGUAGE_STORAGE_KEY` in `src/lib/constants.ts` |
 | Default UI language (`en` or `hy`) | `VITE_DEFAULT_ADMIN_LANGUAGE` in the env files |
+| Website content languages | `VITE_CONTENT_LANGUAGES` and `VITE_DEFAULT_CONTENT_LANGUAGE` in the env files |
 | Brand colours | `$theme-light` and `$theme-dark` in `src/styles/_variables.scss` (change both) |
 
 ### Connect your backend

@@ -100,6 +100,10 @@
           ],
           ["Default UI language", "VITE_DEFAULT_ADMIN_LANGUAGE (en or hy)"],
           [
+            "Website content languages",
+            "VITE_CONTENT_LANGUAGES, VITE_DEFAULT_CONTENT_LANGUAGE"
+          ],
+          [
             "Brand colours",
             "src/styles/_variables.scss (try them in the brand playground first)"
           ]
@@ -307,13 +311,42 @@
       "single": "Date",
       "singleNote": "One day.",
       "withTime": "Date and time",
-      "withTimeNote": "Adds hour, minute, and AM or PM.",
+      "withTimeNote": "Adds hour and minute; AM or PM in English, a 24-hour clock in Armenian.",
       "range": "Created",
       "rangeNote": "Two days, stored in the URL, as a list filter.",
       "noFuture": "Date of birth",
       "noFutureNote": "Future days cannot be picked.",
       "disabled": "Unavailable",
       "disabledNote": "Cannot be opened."
+    },
+    "translatedText": {
+      "title": "Translated text",
+      "description": "One input per content language, switched with tabs. The languages come from VITE_CONTENT_LANGUAGES, and only the default one (VITE_DEFAULT_CONTENT_LANGUAGE) can be required. Connect it to react-hook-form through Controller.",
+      "label": "Title",
+      "bodyLabel": "Description",
+      "default": "One tab per language. A green dot means filled, a hollow one means empty.",
+      "multiline": "A textarea per language.",
+      "errors": "Errors show once touched. A tab with a problem turns red, even when another tab is open.",
+      "single": "With one content language there are no tabs.",
+      "disabled": "Tabs still switch, so every translation can be read.",
+      "formTitle": "Title on the website",
+      "form": "With react-hook-form. Save shows the patch: only changed languages, and an empty string for a cleared one.",
+      "save": "Save",
+      "patch": "Patch to send",
+      "noChanges": "Nothing changed after trimming spaces, so there is nothing to send.",
+      "sample": {
+        "hy": "Բարի գալուստ",
+        "en": "Welcome",
+        "ru": "Добро пожаловать"
+      },
+      "sampleBody": {
+        "hy": "Մենք օգնում ենք ձեզ գտնել ճիշտ լուծումը։",
+        "en": "We help you find the right solution.",
+        "ru": "Мы поможем найти правильное решение."
+      },
+      "sampleMissing": {
+        "en": "Welcome"
+      }
     },
     "search": {
       "title": "Search",

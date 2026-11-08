@@ -94,7 +94,22 @@
   },
   "validation": {
     "required": "Պարտադիր դաշտ։",
-    "email": "Մուտքագրեք ճիշտ էլ. հասցե։"
+    "email": "Մուտքագրեք ճիշտ էլ. հասցե։",
+    "tooLong": "Առավելագույնը {count} նիշ։"
+  },
+  "contentLanguages": {
+    "hy": "Հայերեն",
+    "en": "Անգլերեն",
+    "ru": "Ռուսերեն"
+  },
+  "translatedText": {
+    "tabsLabel": "{field}՝ լեզուներ",
+    "tabName": "{language} ({status})",
+    "controlLabel": "{field} ({language})",
+    "filled": "լրացված",
+    "empty": "դատարկ",
+    "invalid": "սխալ կա",
+    "otherLanguagesInvalid": "Ուղղեք կարմիրով նշված լեզուները։"
   },
   "password": {
     "tooShort": "Առնվազն {count} նիշ։",

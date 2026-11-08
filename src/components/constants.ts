@@ -49,6 +49,8 @@ export const KEYBOARD_KEY = {
   SPACE: " ",
   ARROW_DOWN: "ArrowDown",
   ARROW_UP: "ArrowUp",
+  ARROW_LEFT: "ArrowLeft",
+  ARROW_RIGHT: "ArrowRight",
   HOME: "Home",
   END: "End",
 } as const;

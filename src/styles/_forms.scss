@@ -16,6 +16,14 @@
     font-weight: 500;
   }
 
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px v.$space-xs;
+  }
+
   &__required {
     margin-left: 2px;
   }

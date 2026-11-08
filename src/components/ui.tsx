@@ -54,6 +54,7 @@ export function Field({
   hint,
   error,
   htmlFor,
+  aside,
   children,
 }: {
   label: string;
@@ -61,18 +62,30 @@ export function Field({
   hint?: ReactNode;
   error?: string;
   htmlFor?: string;
+  aside?: ReactNode;
   children: ReactNode;
 }) {
+  const labelElement = (
+    <label className="field__label" htmlFor={htmlFor}>
+      {label}
+      {required && (
+        <span className="field__required" aria-hidden>
+          {text.common.requiredMark}
+        </span>
+      )}
+    </label>
+  );
+
   return (
     <div className="field">
-      <label className="field__label" htmlFor={htmlFor}>
-        {label}
-        {required && (
-          <span className="field__required" aria-hidden>
-            {text.common.requiredMark}
-          </span>
-        )}
-      </label>
+      {aside ? (
+        <div className="field__header">
+          {labelElement}
+          {aside}
+        </div>
+      ) : (
+        labelElement
+      )}
       {children}
       {hint ? (
         <span

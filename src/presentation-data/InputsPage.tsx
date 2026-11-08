@@ -1,13 +1,27 @@
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { FIELD_LIMITS } from "../api/constants";
+import type { TranslatedText, TranslatedTextPatch } from "../api/types";
 import { DatePicker } from "../components/DatePicker";
 import { Dropdown } from "../components/Dropdown";
 import { MultiDropdown } from "../components/MultiDropdown";
 import { PageActions } from "../components/PageActions";
 import { PageHeader } from "../components/PageHeader";
-import { Field, PasswordField, TextField } from "../components/ui";
+import { TranslatedTextField } from "../components/TranslatedTextField";
+import { Button, Field, PasswordField, TextField } from "../components/ui";
 import { format, text } from "../i18n";
+import { DEFAULT_CONTENT_LANGUAGE } from "../lib/content-languages";
 import { passwordComplexityHint } from "../lib/password";
-import { SAMPLE_OPTION_VALUES, SAMPLE_RANGE_PARAMS } from "./constants";
+import {
+  buildTranslatedTextPatch,
+  toTranslatedTextFormValue,
+  validateTranslatedText,
+} from "../lib/translated-text";
+import {
+  SAMPLE_OPTION_VALUES,
+  SAMPLE_RANGE_PARAMS,
+  SHOWCASE_JSON_INDENT,
+} from "./constants";
 import { SAMPLE_OPTIONS } from "./sample-data";
 import { ShowcaseGrid, ShowcaseSample, ShowcaseSection } from "./Showcase";
 import { presentationText } from "./text";
@@ -21,7 +35,83 @@ const prop = (name: string, value: string) =>
   format(code.prop, { name, value });
 const className = (value: string) => format(code.className, { value });
 
+const translated = copy.translatedText;
+const TRANSLATED_RULES = {
+  required: true,
+  maxLength: FIELD_LIMITS.contentTitleMax,
+};
+
+interface TranslatedTextDemoForm {
+  title: TranslatedText;
+}
+
+function TranslatedTextFormDemo() {
+  const [saved, setSaved] = useState(() =>
+    toTranslatedTextFormValue(translated.sample),
+  );
+  const [patch, setPatch] = useState<TranslatedTextPatch | null>(null);
+  const [hasSaved, setHasSaved] = useState(false);
+
+  const form = useForm<TranslatedTextDemoForm>({
+    mode: "onTouched",
+    defaultValues: { title: saved },
+  });
+  const { isValid, isDirty, isSubmitted } = form.formState;
+
+  const onSubmit = form.handleSubmit(({ title }) => {
+    setPatch(buildTranslatedTextPatch(saved, title) ?? null);
+    setHasSaved(true);
+    setSaved(title);
+    form.reset({ title });
+  });
+
+  return (
+    <form className="stack showcase-form" onSubmit={onSubmit} noValidate>
+      <Controller
+        name="title"
+        control={form.control}
+        rules={{ validate: validateTranslatedText(TRANSLATED_RULES) }}
+        render={({ field, fieldState }) => (
+          <TranslatedTextField
+            id="translated-form"
+            label={translated.formTitle}
+            required={TRANSLATED_RULES.required}
+            maxLength={TRANSLATED_RULES.maxLength}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            showErrors={fieldState.isTouched || isSubmitted}
+          />
+        )}
+      />
+      <div className="row">
+        <Button type="submit" variant="primary" disabled={!isValid || !isDirty}>
+          {translated.save}
+        </Button>
+      </div>
+      {hasSaved &&
+        (patch ? (
+          <Field label={translated.patch}>
+            <pre className="showcase-code">
+              {JSON.stringify(patch, null, SHOWCASE_JSON_INDENT)}
+            </pre>
+          </Field>
+        ) : (
+          <p className="muted text-sm">{translated.noChanges}</p>
+        ))}
+    </form>
+  );
+}
+
 export function InputsPage() {
+  const [title, setTitle] = useState<TranslatedText>(translated.sample);
+  const [body, setBody] = useState<TranslatedText>(translated.sampleBody);
+  const [touchedTitle, setTouchedTitle] = useState<TranslatedText>(
+    translated.sampleMissing,
+  );
+  const [singleTitle, setSingleTitle] = useState<TranslatedText>(
+    translated.sample,
+  );
   const [role, setRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
   const [chipRole, setChipRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
   const [fieldRole, setFieldRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
@@ -142,6 +232,72 @@ export function InputsPage() {
                 placeholder={copy.textarea.placeholder}
               />
             </Field>
+          </ShowcaseSample>
+        </ShowcaseGrid>
+      </ShowcaseSection>
+
+      <ShowcaseSection
+        title={translated.title}
+        code={component("TranslatedTextField")}
+        description={translated.description}
+      >
+        <ShowcaseGrid isWide>
+          <ShowcaseSample note={translated.default}>
+            <TranslatedTextField
+              id="translated-default"
+              label={translated.label}
+              value={title}
+              onChange={setTitle}
+            />
+          </ShowcaseSample>
+          <ShowcaseSample code={flag("multiline")} note={translated.multiline}>
+            <TranslatedTextField
+              id="translated-multiline"
+              label={translated.bodyLabel}
+              value={body}
+              onChange={setBody}
+              multiline
+            />
+          </ShowcaseSample>
+          <ShowcaseSample
+            code={format(code.flags, {
+              first: "required",
+              second: "showErrors",
+            })}
+            note={translated.errors}
+          >
+            <TranslatedTextField
+              id="translated-errors"
+              label={translated.label}
+              value={touchedTitle}
+              onChange={setTouchedTitle}
+              required
+              showErrors
+            />
+          </ShowcaseSample>
+          <ShowcaseSample
+            code={prop("languages", "[…]")}
+            note={translated.single}
+          >
+            <TranslatedTextField
+              id="translated-single"
+              label={translated.label}
+              value={singleTitle}
+              onChange={setSingleTitle}
+              languages={[DEFAULT_CONTENT_LANGUAGE]}
+            />
+          </ShowcaseSample>
+          <ShowcaseSample code={flag("disabled")} note={translated.disabled}>
+            <TranslatedTextField
+              id="translated-disabled"
+              label={translated.label}
+              value={translated.sample}
+              onChange={() => {}}
+              disabled
+            />
+          </ShowcaseSample>
+          <ShowcaseSample code={component("Controller")} note={translated.form}>
+            <TranslatedTextFormDemo />
           </ShowcaseSample>
         </ShowcaseGrid>
       </ShowcaseSection>

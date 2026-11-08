@@ -12,6 +12,8 @@ export const FIELD_LIMITS = {
   searchMax: 100,
   passwordMin: 8,
   passwordMax: 128,
+  contentTitleMax: 200,
+  contentTextMax: 5000,
 } as const;
 
 export const DEFAULT_API_BASE_URL = "http://localhost:3000";
