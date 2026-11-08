@@ -33,7 +33,7 @@
   }
 }
 
-@mixin dark-theme {
+@mixin prefers-dark {
   @media (prefers-color-scheme: dark) {
     @content;
   }

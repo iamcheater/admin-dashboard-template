@@ -6,6 +6,7 @@ import { PRESENTATION_NAV_SECTIONS } from "../presentation-data/nav";
 import { useAppSelector } from "../redux/store";
 import { EditIconSmall } from "./icons";
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 import { canAccessNavItem, NAV_SECTIONS } from "./nav";
 
 export function Sidebar({
@@ -58,6 +59,10 @@ export function Sidebar({
           <p className="sidebar__section">{text.nav.empty}</p>
         )}
       </nav>
+
+      <div className="sidebar__theme">
+        <ThemeToggle />
+      </div>
 
       {claims && (
         <div className="sidebar__footer">

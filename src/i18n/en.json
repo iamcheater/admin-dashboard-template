@@ -82,6 +82,11 @@
       "admins": "Admins"
     }
   },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
   "guards": {
     "notAvailableTitle": "Not available",
     "missingPermissionLead": "Your role does not include",

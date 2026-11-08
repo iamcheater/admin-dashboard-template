@@ -25,6 +25,16 @@ export const TOAST_AUTO_CLOSE_MS = {
   error: 6 * MILLISECONDS_PER_SECOND,
 } as const;
 
+export const DARK_THEME_QUERY = "(prefers-color-scheme: dark)";
+export const THEME_STORAGE_KEY = "admin-dashboard.theme";
+
+export const THEME = {
+  LIGHT: "light",
+  DARK: "dark",
+} as const;
+
+export type Theme = (typeof THEME)[keyof typeof THEME];
+
 export const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 export const REGEX_PATTERN = {

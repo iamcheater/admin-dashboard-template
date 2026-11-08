@@ -17,13 +17,22 @@
   line-height: 1.5;
   color: m.token("text");
   background: m.token("bg");
-  color-scheme: light dark;
+  color-scheme: light;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@include m.dark-theme {
-  :root {
-    @include m.emit-theme(v.$theme-dark);
+@mixin dark-root {
+  @include m.emit-theme(v.$theme-dark);
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] {
+  @include dark-root;
+}
+
+@include m.prefers-dark {
+  :root:not([data-theme]) {
+    @include dark-root;
   }
 }

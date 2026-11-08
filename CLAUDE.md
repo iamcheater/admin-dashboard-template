@@ -90,7 +90,8 @@ in. The `Dockerfile` builds with Node and serves `dist/` from nginx using
 routes survive a reload.
 
 When starting a new project from this template, work through **Before your first commit**
-in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `<title>`, image names in CI).
+in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`, `<title>`,
+image names in CI).
 
 ---
 
@@ -247,12 +248,19 @@ a partial whose selectors no component renders is deleted, not kept "in case".
   silently inherits the light value.
 - **Breakpoints:** `@include m.respond-below("desktop" | "laptop" | "tablet" | "mobile")`
   (1200 / 1024 / 768 / 576). Never a raw `@media`; add a mixin for a new media feature
-  (`m.hover-capable`, `m.reduced-motion`, `m.dark-theme`).
+  (`m.hover-capable`, `m.reduced-motion`, `m.prefers-dark`).
 - **Layers:** `z-index: m.z("raised" | "backdrop" | "drawer" | "modal" | "popup" |
   "tooltip")`. Anything portaled to `body` that must appear over a modal (dropdown menus,
   date picker, row menu) uses `"popup"` or above.
 - SCSS variables for compile-time values; CSS custom properties for anything that changes
-  between light and dark, because the theme follows the OS at runtime.
+  between light and dark, because the theme switches at runtime.
+- **Theme:** `lib/theme.ts` owns it, outside React like the token: it starts from the OS
+  (`prefers-color-scheme`) and follows it until the admin picks one in the sidebar's
+  `ThemeToggle`; that choice is saved under `THEME_STORAGE_KEY` and wins from then on.
+  The theme is the `data-theme` attribute on `<html>`, set by `startTheme()` in
+  `main.tsx`; `_tokens.scss` emits the dark map for `[data-theme="dark"]`, plus an
+  `m.prefers-dark` fallback for the moment before the script runs. Components read it
+  through `useTheme()` (the `Logo` picks its image this way), never through `matchMedia`.
 - Inline `style` is only for a measurement computed at runtime (anchored panel
   coordinates, a column width from `pages/constants.ts`) — never colour, never a shortcut
   around a class.
@@ -417,7 +425,7 @@ trigger when it closes.
 
 ```
 src/
-  main.tsx                 root render, startup getProfile, the one stylesheet import
+  main.tsx                 root render, startTheme, startup getProfile, the one stylesheet import
   App.tsx                  router: every route and its gate, the ToastContainer
   i18n/  en.json index.ts  every user-facing string; `text` + `format`
   api/
@@ -440,9 +448,9 @@ src/
     Table Pagination PageActions                            list screens
     Dropdown MultiDropdown DatePicker                       pickers (portaled, keyboard-complete)
     Modal SidePanel PopUp RowMenu modal-layers              overlays
-    TruncatedText PageViewToggle CustomSkeleton icons Logo ScrollToTop
-  hooks/                   URL-param state, anchored panels, dismiss layers, debounce
-  lib/                     date, format, password, toast, motion, anchor, options, pagination
+    TruncatedText PageViewToggle ThemeToggle CustomSkeleton icons Logo ScrollToTop
+  hooks/                   URL-param state, anchored panels, dismiss layers, debounce, theme
+  lib/                     date, format, password, toast, motion, theme, anchor, options, pagination
   pages/                   one file per screen + constants.ts
   presentation-data/       the component showcase; deleted when a project starts (see below)
   styles/                  main.scss + one partial per component

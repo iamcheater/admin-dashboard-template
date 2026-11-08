@@ -33,7 +33,6 @@ export const SMALL_OUTLINE_ICON_STROKE_WIDTH = 1.4;
 
 export const LOGO_SRC_LIGHT = "/images/logo-light.png";
 export const LOGO_SRC_DARK = "/images/logo-dark.png";
-export const DARK_THEME_QUERY = "(prefers-color-scheme: dark)";
 
 export const MODAL_FOCUSABLE_SELECTOR = [
   "a[href]",
