@@ -57,13 +57,18 @@ Then make these changes. Each one takes a minute.
 | Sign-in background video | `public/videos/auth-background.mp4` |
 | Storage keys (so two dashboards on one domain do not share a session) | `TOKEN_STORAGE_KEY` in `src/auth/constants.ts`, `THEME_STORAGE_KEY` in `src/lib/constants.ts` |
 | Brand colours | `$theme-light` and `$theme-dark` in `src/styles/_variables.scss` (change both) |
-| Docker image name and server paths | `docker-compose.yml`, `.gitlab-ci.yml` |
 
 ### Connect your backend
 
 ```bash
 cp .env.example .env.local
+cp .env.example .env.develop
+cp .env.example .env.prod
 ```
+
+All three files are gitignored; `.env.example` is the committed list of keys. Vite only
+reads `.env.local`. The other two hold the develop and production values you enter into
+Vercel (see **Deploying**).
 
 Set `VITE_API_BASE_URL` in `.env.local` to your API, for example
 `http://localhost:3000`. The backend needs:
@@ -123,11 +128,19 @@ There is no test suite. `build` and `lint` are the automated checks, and both mu
 
 ## Deploying
 
-GitLab CI builds a Docker image on pushes to `develop` (deployed automatically) and
-`master` (deployed by a manual job). It copies the `ENV_DEV` or `ENV_PROD` CI variable
-to `.env` before building, because `VITE_API_BASE_URL` is baked in at build time.
-Changing it means rebuilding, not restarting. nginx serves the build and sends every path
-to `index.html` so client routes survive a reload.
+The app deploys on Vercel. Import the repository as a Vercel project (it detects Vite),
+then enter the env values:
+
+- **Production** (the `main` branch): the values from `.env.prod`.
+- **Preview**, scoped to the `develop` branch: the values from `.env.develop`.
+
+Every push to `main` deploys production; pushes to `develop` and other branches get
+preview URLs. `VITE_` values are baked in at build time, so after changing one in
+Vercel, redeploy. `vercel.json` sends every path to `index.html` so client routes
+survive a reload.
+
+GitHub Actions runs `npm run lint` and `npm run build` on every pull request and on
+pushes to `main` and `develop`.
 
 Anything starting with `VITE_` ends up in the public bundle. Never put a secret there.
 

@@ -98,17 +98,17 @@
           [
             "Brand colours",
             "src/styles/_variables.scss (try them in the brand playground first)"
-          ],
-          [
-            "Docker image and server paths",
-            "docker-compose.yml, .gitlab-ci.yml"
           ]
         ]
       },
       "backend": {
         "title": "3. Connect your backend",
-        "description": "Copy the env file and set VITE_API_BASE_URL to your API.",
-        "commands": ["cp .env.example .env.local"],
+        "description": "Create the three env files and set VITE_API_BASE_URL in .env.local to your API. .env.develop and .env.prod hold the values you enter into Vercel.",
+        "commands": [
+          "cp .env.example .env.local",
+          "cp .env.example .env.develop",
+          "cp .env.example .env.prod"
+        ],
         "needs": [
           "The auth and admin endpoints listed in src/api/iam.ts.",
           "A JWT whose payload has sub, isSuperAdmin, permissions, and exp.",

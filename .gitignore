@@ -12,9 +12,7 @@ dist
 dist-ssr
 *.local
 
-# `*.local` already covers .env.local; this catches a plain .env too.
-.env
-.env.*
+.env*
 !.env.example
 
 # Editor directories and files
@@ -28,4 +26,4 @@ dist-ssr
 *.sln
 *.sw?
 
-settings.json
+.claude/settings.local.json

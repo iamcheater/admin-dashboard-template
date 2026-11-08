@@ -65,7 +65,12 @@ The app expects the IAM endpoints in `src/api/iam.ts` (`/auth/login`, `/auth/me`
 `/auth/change-password`, `/admins`) and a JWT whose payload carries `sub`,
 `isSuperAdmin`, `permissions`, and `exp`.
 
-Configuration is one variable, copied from `.env.example` into `.env.local`:
+Configuration follows the shared env convention. `.env.example` is committed and lists
+every key; `.env.local`, `.env.develop`, and `.env.prod` always exist, are copied from
+it, and are gitignored (`.gitignore` ignores `.env*` except `.env.example`). Vite loads
+only `.env.local` automatically. `.env.develop` and `.env.prod` are reference files: their
+values are what gets entered into Vercel. A new key goes into `.env.example` and all three
+files in the same change.
 
 | Variable            | Used for  |
 | ------------------- | --------- |
@@ -82,16 +87,24 @@ message as a backend that is down. Check the console for the CORS error first.
 
 ## Deploy
 
-GitLab CI (`.gitlab-ci.yml`) builds a Docker image on `develop` (tag `dev`, deployed
-automatically) and `master` (tag `prod`, deployed by a manual job). CI copies `$ENV_FILE`
-to `.env` **before** `docker build`, because that is when `VITE_API_BASE_URL` is baked
-in. The `Dockerfile` builds with Node and serves `dist/` from nginx using
-`docker-compose/nginx/web.conf`, whose `try_files … /index.html` is what makes client
-routes survive a reload.
+Vercel builds and hosts the app from the Git repository: `main` is production, `develop`
+and every other branch get preview deployments. Vercel runs `npm run build` and serves
+`dist/`. Env values live in the Vercel project, not in the repo: `.env.prod` values go
+into the Production environment and `.env.develop` values into Preview (scoped to the
+`develop` branch). They are read at **build** time, so changing one in Vercel means
+redeploying.
+
+`vercel.json` rewrites every path to `/index.html`, which is what makes client routes
+survive a reload. Vercel serves real files from `dist/` before applying the rewrite, so
+assets are unaffected.
+
+GitHub Actions (`.github/workflows/ci.yml`) runs `npm ci`, `npm run lint`, and
+`npm run build` on every pull request and on pushes to `main` and `develop`. It checks;
+Vercel deploys.
 
 When starting a new project from this template, work through **Start a new project from
 it** in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`, `<title>`,
-image names in CI).
+the env files).
 
 ---
 
