@@ -37,7 +37,9 @@
     "unreachable": "Cannot reach the API. Is the backend running?",
     "sessionEnded": "Your session ended. Please sign in again.",
     "requestFailedWithStatus": "Request failed ({status})",
-    "requestFailed": "Request failed."
+    "requestFailed": "Request failed.",
+    "storageFailed": "The file storage rejected the upload.",
+    "storageUnreachable": "Cannot reach the file storage. Check its CORS settings."
   },
   "auth": {
     "unreadableToken": "The API returned a token this app cannot read."
@@ -90,7 +92,9 @@
       "Nov",
       "Dec"
     ],
-    "weekdaysShort": ["S", "M", "T", "W", "T", "F", "S"]
+    "weekdaysShort": ["S", "M", "T", "W", "T", "F", "S"],
+    "kilobytes": "{value} KB",
+    "megabytes": "{value} MB"
   },
   "validation": {
     "required": "This field is required.",
@@ -110,6 +114,22 @@
     "empty": "empty",
     "invalid": "has an error",
     "otherLanguagesInvalid": "Fix the languages marked in red."
+  },
+  "imageUpload": {
+    "choose": "Choose an image",
+    "dropHint": "or drag it here",
+    "dropNow": "Drop to upload",
+    "limits": "{types} up to {size}",
+    "uploading": "Uploading… {percent}%",
+    "progressLabel": "Upload progress",
+    "cancel": "Cancel upload",
+    "replace": "Replace",
+    "remove": "Remove",
+    "previewAlt": "{label}: preview",
+    "noPreview": "An image is saved, but there is no preview for it.",
+    "wrongType": "Use one of these formats: {types}.",
+    "tooLarge": "The file is too large. The limit is {size}.",
+    "failed": "The upload failed. Try again."
   },
   "password": {
     "tooShort": "Use at least {count} characters.",

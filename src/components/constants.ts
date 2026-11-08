@@ -75,3 +75,12 @@ export const AUTH_BACKGROUND_TYPE = {
 export type AuthBackground =
   (typeof AUTH_BACKGROUND_TYPE)[keyof typeof AUTH_BACKGROUND_TYPE];
 
+export const IMAGE_UPLOAD_ASPECT = {
+  LANDSCAPE: "landscape",
+  SQUARE: "square",
+} as const;
+
+export type ImageUploadAspect =
+  (typeof IMAGE_UPLOAD_ASPECT)[keyof typeof IMAGE_UPLOAD_ASPECT];
+
+export const DRAG_DATA_FILES = "Files";

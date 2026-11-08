@@ -307,7 +307,11 @@ export const KebabIcon = ({ className }: IconProps) => (
 
 export const CheckCircleIcon = ({ className, isCropped }: IconProps) => (
   <svg
-    viewBox={isCropped ? CHECK_CIRCLE_ICON_CROPPED_VIEW_BOX : ICON_VIEW_BOX_SMALL_SQUARE}
+    viewBox={
+      isCropped
+        ? CHECK_CIRCLE_ICON_CROPPED_VIEW_BOX
+        : ICON_VIEW_BOX_SMALL_SQUARE
+    }
     fill="none"
     aria-hidden
     focusable={false}
@@ -330,7 +334,9 @@ export const CheckCircleIcon = ({ className, isCropped }: IconProps) => (
 
 export const LinkIcon = ({ className, isCropped }: IconProps) => (
   <svg
-    viewBox={isCropped ? LINK_ICON_CROPPED_VIEW_BOX : ICON_VIEW_BOX_SMALL_SQUARE}
+    viewBox={
+      isCropped ? LINK_ICON_CROPPED_VIEW_BOX : ICON_VIEW_BOX_SMALL_SQUARE
+    }
     fill="none"
     aria-hidden
     focusable={false}
@@ -466,3 +472,18 @@ export const CalendarIcon = ({ className }: IconProps) => (
   </svg>
 );
 
+export const ImageIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+    <path d="M8.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 1 0 0-3z" />
+    <path d="m21 15-5-5L5 21" />
+  </svg>
+);
+
+export const UploadIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 15V3" />
+    <path d="m7 8 5-5 5 5" />
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  </svg>
+);

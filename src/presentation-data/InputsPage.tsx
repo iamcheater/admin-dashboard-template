@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { FIELD_LIMITS } from "../api/constants";
+import { FIELD_LIMITS, MEDIA_LIMITS, UPLOAD_PURPOSE } from "../api/constants";
 import type { TranslatedText, TranslatedTextPatch } from "../api/types";
 import { DatePicker } from "../components/DatePicker";
+import { IMAGE_UPLOAD_ASPECT } from "../components/constants";
 import { Dropdown } from "../components/Dropdown";
+import { ImageUpload } from "../components/ImageUpload";
 import { MultiDropdown } from "../components/MultiDropdown";
 import { PageActions } from "../components/PageActions";
 import { PageHeader } from "../components/PageHeader";
@@ -19,9 +21,12 @@ import {
 } from "../lib/translated-text";
 import {
   SAMPLE_OPTION_VALUES,
+  SAMPLE_IMAGE_KEY,
   SAMPLE_RANGE_PARAMS,
   SHOWCASE_JSON_INDENT,
 } from "./constants";
+import { createFakeUpload } from "./fake-upload";
+import sampleImage from "./sample-image.svg";
 import { SAMPLE_OPTIONS } from "./sample-data";
 import { ShowcaseGrid, ShowcaseSample, ShowcaseSection } from "./Showcase";
 import { presentationText } from "./text";
@@ -36,6 +41,10 @@ const prop = (name: string, value: string) =>
 const className = (value: string) => format(code.className, { value });
 
 const translated = copy.translatedText;
+const imageCopy = copy.imageUpload;
+const fakeUpload = createFakeUpload();
+const failingUpload = createFakeUpload({ fails: true });
+const coverLimits = MEDIA_LIMITS[UPLOAD_PURPOSE.COVER];
 const TRANSLATED_RULES = {
   required: true,
   maxLength: FIELD_LIMITS.contentTitleMax,
@@ -112,6 +121,11 @@ export function InputsPage() {
   const [singleTitle, setSingleTitle] = useState<TranslatedText>(
     translated.sample,
   );
+  const [coverKey, setCoverKey] = useState<string | null>(null);
+  const [savedKey, setSavedKey] = useState<string | null>(SAMPLE_IMAGE_KEY);
+  const [avatarKey, setAvatarKey] = useState<string | null>(null);
+  const [failingKey, setFailingKey] = useState<string | null>(SAMPLE_IMAGE_KEY);
+  const [requiredKey, setRequiredKey] = useState<string | null>(null);
   const [role, setRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
   const [chipRole, setChipRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
   const [fieldRole, setFieldRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
@@ -298,6 +312,93 @@ export function InputsPage() {
           </ShowcaseSample>
           <ShowcaseSample code={component("Controller")} note={translated.form}>
             <TranslatedTextFormDemo />
+          </ShowcaseSample>
+        </ShowcaseGrid>
+      </ShowcaseSection>
+
+      <ShowcaseSection
+        title={imageCopy.title}
+        code={component("ImageUpload")}
+        description={imageCopy.description}
+      >
+        <ShowcaseGrid isWide>
+          <ShowcaseSample note={imageCopy.default}>
+            <ImageUpload
+              id="image-default"
+              label={imageCopy.label}
+              value={coverKey}
+              onChange={setCoverKey}
+              upload={fakeUpload}
+              limits={coverLimits}
+            />
+            <span className="mono muted">
+              {coverKey
+                ? format(imageCopy.value, { key: coverKey })
+                : imageCopy.noValue}
+            </span>
+          </ShowcaseSample>
+          <ShowcaseSample code={flag("previewSrc")} note={imageCopy.saved}>
+            <ImageUpload
+              id="image-saved"
+              label={imageCopy.label}
+              value={savedKey}
+              onChange={setSavedKey}
+              upload={fakeUpload}
+              limits={coverLimits}
+              previewSrc={sampleImage}
+            />
+          </ShowcaseSample>
+          <ShowcaseSample
+            code={prop("aspect", IMAGE_UPLOAD_ASPECT.SQUARE)}
+            note={imageCopy.square}
+          >
+            <ImageUpload
+              id="image-square"
+              label={imageCopy.avatarLabel}
+              value={avatarKey}
+              onChange={setAvatarKey}
+              upload={fakeUpload}
+              limits={MEDIA_LIMITS[UPLOAD_PURPOSE.AVATAR]}
+              aspect={IMAGE_UPLOAD_ASPECT.SQUARE}
+            />
+          </ShowcaseSample>
+          <ShowcaseSample note={imageCopy.failing}>
+            <ImageUpload
+              id="image-failing"
+              label={imageCopy.label}
+              value={failingKey}
+              onChange={setFailingKey}
+              upload={failingUpload}
+              limits={coverLimits}
+              previewSrc={sampleImage}
+            />
+          </ShowcaseSample>
+          <ShowcaseSample
+            code={format(code.flags, { first: "required", second: "error" })}
+            note={imageCopy.required}
+          >
+            <ImageUpload
+              id="image-required"
+              label={imageCopy.label}
+              value={requiredKey}
+              onChange={setRequiredKey}
+              upload={fakeUpload}
+              limits={coverLimits}
+              required
+              error={requiredKey ? undefined : imageCopy.requiredError}
+            />
+          </ShowcaseSample>
+          <ShowcaseSample code={flag("disabled")} note={imageCopy.disabled}>
+            <ImageUpload
+              id="image-disabled"
+              label={imageCopy.label}
+              value={SAMPLE_IMAGE_KEY}
+              onChange={() => {}}
+              upload={fakeUpload}
+              limits={coverLimits}
+              previewSrc={sampleImage}
+              disabled
+            />
           </ShowcaseSample>
         </ShowcaseGrid>
       </ShowcaseSection>

@@ -66,3 +66,13 @@ export type ContentLanguage = string;
 export type TranslatedText = Partial<Record<ContentLanguage, string>>;
 
 export type TranslatedTextPatch = Partial<Record<ContentLanguage, string>>;
+
+export interface PresignedUploadDto {
+  key: string;
+  uploadUrl: string;
+  expiresAt: string;
+}
+
+export interface UploadedMedia {
+  key: string;
+}

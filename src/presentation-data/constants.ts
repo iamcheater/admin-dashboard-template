@@ -186,3 +186,9 @@ export const EXPLORE_TARGETS = {
 } as const;
 
 export const SHOWCASE_JSON_INDENT = 2;
+
+export const FAKE_UPLOAD_STEP = 0.04;
+export const FAKE_UPLOAD_STEP_MS = 120;
+export const FAKE_UPLOAD_FAIL_AT = 0.6;
+export const FAKE_UPLOAD_KEY_PREFIX = "showcase/";
+export const SAMPLE_IMAGE_KEY = "showcase/cover.svg";

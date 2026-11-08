@@ -37,7 +37,9 @@
     "unreachable": "API-ն անհասանելի է։ Սերվերն աշխատո՞ւմ է։",
     "sessionEnded": "Սեսիան ավարտվել է։ Կրկին մուտք գործեք։",
     "requestFailedWithStatus": "Հարցումը ձախողվեց ({status})",
-    "requestFailed": "Հարցումը ձախողվեց։"
+    "requestFailed": "Հարցումը ձախողվեց։",
+    "storageFailed": "Ֆայլերի պահոցը մերժեց վերբեռնումը։",
+    "storageUnreachable": "Ֆայլերի պահոցն անհասանելի է։ Ստուգեք CORS կարգավորումները։"
   },
   "auth": {
     "unreadableToken": "API-ն վերադարձրեց անընթեռնելի թոքեն։"
@@ -90,7 +92,9 @@
       "նոյ",
       "դեկ"
     ],
-    "weekdaysShort": ["Կիր", "Երկ", "Երք", "Չրք", "Հնգ", "Ուր", "Շբթ"]
+    "weekdaysShort": ["Կիր", "Երկ", "Երք", "Չրք", "Հնգ", "Ուր", "Շբթ"],
+    "kilobytes": "{value} ԿԲ",
+    "megabytes": "{value} ՄԲ"
   },
   "validation": {
     "required": "Պարտադիր դաշտ։",
@@ -110,6 +114,22 @@
     "empty": "դատարկ",
     "invalid": "սխալ կա",
     "otherLanguagesInvalid": "Ուղղեք կարմիրով նշված լեզուները։"
+  },
+  "imageUpload": {
+    "choose": "Ընտրել նկար",
+    "dropHint": "կամ քաշեք այստեղ",
+    "dropNow": "Բաց թողեք՝ վերբեռնելու համար",
+    "limits": "{types}, մինչև {size}",
+    "uploading": "Վերբեռնվում է… {percent}%",
+    "progressLabel": "Վերբեռնման ընթացք",
+    "cancel": "Չեղարկել վերբեռնումը",
+    "replace": "Փոխարինել",
+    "remove": "Հեռացնել",
+    "previewAlt": "{label}՝ նախադիտում",
+    "noPreview": "Նկարը պահված է, բայց նախադիտում չկա։",
+    "wrongType": "Թույլատրելի ձևաչափեր՝ {types}։",
+    "tooLarge": "Ֆայլը շատ մեծ է։ Սահմանը՝ {size}։",
+    "failed": "Վերբեռնումը ձախողվեց։ Փորձեք կրկին։"
   },
   "password": {
     "tooShort": "Առնվազն {count} նիշ։",

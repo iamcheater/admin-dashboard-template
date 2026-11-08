@@ -17,8 +17,8 @@ react-hook-form · SCSS with light and dark themes.
   delete modals) and `/account` (edit name, change password, sign out). Copy these
   when you build a new screen.
 - **A component kit:** buttons, fields, dropdowns, a date picker, tables, modals, side
-  panels, toasts, a field for text in several content languages, and more, all with
-  keyboard support and both themes.
+  panels, toasts, a field for text in several content languages, an image upload that
+  sends files straight to storage, and more, all with keyboard support and both themes.
 - **A showcase:** every kit component and the design tokens, browsable without a
   backend. It shows up only in development and never ships in a production build.
 
@@ -84,6 +84,9 @@ Set `VITE_API_BASE_URL` in `.env.local` to your API, for example
   "Cannot reach the API", the same as when the backend is down. Check the browser
   console for a CORS error first.
 - Password-reset emails that link to `<your-app-url>/reset-password?token=…`.
+- For image uploads: `POST /media/presign` (see `src/api/media.ts`), and a storage
+  bucket whose CORS rules allow `PUT` from this app's origin. Without that rule the
+  upload fails with "Cannot reach the file storage".
 
 Sign in at http://localhost:5173/login. Signed-in admins land on their first screen as
 usual. In development, the showcase sections stay at the bottom of the sidebar.

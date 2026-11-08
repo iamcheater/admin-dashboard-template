@@ -88,6 +88,11 @@ This origin must be in the backend's CORS allow-list. When it is not, the browse
 the request before it is sent and the app reports "Cannot reach the API" — the same
 message as a backend that is down. Check the console for the CORS error first.
 
+Image uploads need a second CORS rule: the storage bucket must allow `PUT` (with a
+`Content-Type` header) from this origin. Without it, `POST /media/presign` succeeds and
+the upload itself fails with "Cannot reach the file storage", again with the real cause
+only in the console.
+
 ## Deploy
 
 Vercel builds and hosts the app from the Git repository: `main` is production, `develop`
@@ -117,6 +122,14 @@ it** in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`,
 
 `request()` is the only place `fetch` is called. It owns the bearer token, the error
 shape, and 401 handling. Anything that calls `fetch` itself bypasses all three.
+
+**The one exception is `uploadToStorage` in `api/media.ts`.** It `PUT`s a file to the
+presigned storage URL (S3) that `presignUpload` got from the backend. It uses
+`XMLHttpRequest` because `fetch` cannot report upload progress. It sends no token, since
+the URL carries its own signature and a bearer token would leak to the storage host.
+It rejects with an `ApiError` or an abort error, so `toRejectValue` handles it like any
+other call. It talks to storage, not to the backend, so it is not `request()`'s business.
+Nothing else may call `fetch` or `XMLHttpRequest`.
 
 `request()` options:
 
@@ -482,6 +495,50 @@ and `lib/` (`REGEX_PATTERN`, `describeNewPasswordProblem`, `FIELD_LIMITS`). Two 
   languages, trimmed, with `""` meaning "remove this translation". `undefined` means
   nothing changed, so leave the key out of the request body.
 
+**Images.** A record's image is stored as a storage **key** (a string). The form holds
+the key, never the file. `ImageUpload` uploads the file itself and calls `onChange(key)`
+when storage accepts it, or `onChange(null)` on Remove:
+
+```tsx
+const uploadCover = useMediaUpload(UPLOAD_PURPOSE.COVER);
+const isUploading = useAppSelector((state) => state.mediaReducer.uploadsInProgress > 0);
+
+<Controller
+  name="coverKey"
+  control={form.control}
+  rules={{ required: text.validation.required }}
+  render={({ field, fieldState }) => (
+    <ImageUpload
+      id="cover"
+      label={text.hero.cover}
+      value={field.value}
+      onChange={field.onChange}
+      onBlur={field.onBlur}
+      upload={uploadCover}
+      limits={MEDIA_LIMITS[UPLOAD_PURPOSE.COVER]}
+      previewSrc={record.coverUrl ?? undefined}
+      error={fieldState.isTouched ? fieldState.error?.message : undefined}
+    />
+  )}
+/>
+```
+
+- `ImageUpload` is presentational: it takes an `upload(file, onProgress, signal)` function
+  and never touches Redux. A page gets that function from `useMediaUpload(purpose)`, which
+  dispatches the `uploadMedia` thunk (presign, then `uploadToStorage`), so the page still
+  makes no API call. The showcase passes a fake one (`presentation-data/fake-upload.ts`).
+- Progress stays inside the component, because it changes many times a second and
+  nothing else needs it. Redux holds only `mediaReducer.uploadsInProgress`, a counter, so
+  a page can disable Save while any upload runs. The store tells the serializability check
+  to ignore `uploadMedia` actions, because their argument carries the `File` and the
+  progress callback.
+- `previewSrc` is the saved image's URL, which the page builds from the record. Right
+  after an upload, the component shows the local file instead.
+- The type and size check before upload uses `MEDIA_LIMITS[purpose]`, which must match
+  the backend's limits for that purpose. The backend validates again when presigning.
+- Cancelling, or unmounting mid-upload, aborts the request. A failed replacement keeps
+  the previous key and image and shows the error under the field.
+
 ### Layers, focus, and Escape
 
 `Modal` and `SidePanel` register in `components/modal-layers.ts`: only the top layer reacts
@@ -502,8 +559,8 @@ src/
   api/
     client.ts              the only fetch(); token, ApiError, 401 → endsSession
     types.ts               hand-mirrored DTOs and enums
-    constants.ts           HTTP_STATUS, FIELD_LIMITS, default base URL
-    iam.ts                 one file per backend module
+    constants.ts           HTTP_STATUS, FIELD_LIMITS, UPLOAD_PURPOSE, MEDIA_LIMITS, default base URL
+    iam.ts media.ts        one file per backend module; media.ts also holds uploadToStorage
   redux/
     store.ts               configureStore, RootState, useAppDispatch/useAppSelector
     provider.tsx           <Providers>
@@ -517,13 +574,15 @@ src/
     AuthScreen                                              card shell for signed-out screens
     ui.tsx                 Button, Field, TextField, PasswordField, Alert, Loading, EmptyState, Tooltip
     TranslatedTextField                                     one input per content language, with tabs
+    ImageUpload                                             image to storage; the form gets the key
     Table Pagination PageActions                            list screens
     Dropdown MultiDropdown DatePicker                       pickers (portaled, keyboard-complete)
     Modal SidePanel PopUp RowMenu modal-layers              overlays
     TruncatedText PageViewToggle ThemeToggle LanguageToggle CustomSkeleton icons Logo ScrollToTop
-  hooks/                   URL-param state, anchored panels, dismiss layers, debounce, theme
+  hooks/                   URL-param state, anchored panels, dismiss layers, debounce, theme,
+                           useMediaUpload (the one hook that dispatches a thunk)
   lib/                     date, format, password, toast, motion, theme, language, content-languages,
-                           translated-text, anchor, options, pagination
+                           translated-text, media, anchor, options, pagination
   pages/                   one file per screen + constants.ts
   presentation-data/       the component showcase; deleted when a project starts (see below)
   styles/                  main.scss + one partial per component
@@ -536,8 +595,8 @@ the store.)
 
 The kit includes pieces the reference feature does not use yet — `MultiDropdown`,
 `DatePicker` (date range filter via `PageActions.dateFilter`), `SidePanel`, `PopUp`,
-`RowMenu` (via `Table.menu`), `TruncatedText`, `PageViewToggle`, `TranslatedTextField`.
-Reach for them before writing a new one.
+`RowMenu` (via `Table.menu`), `TruncatedText`, `PageViewToggle`, `TranslatedTextField`,
+`ImageUpload`. Reach for them before writing a new one.
 
 ## Adding a screen
 
@@ -641,7 +700,8 @@ an `eslint-disable` directive, the `/// <reference types="vite/client" />` in
 
 ## Review checklist
 
-- [ ] No `fetch` outside `api/client.ts`; no URL, method, or query string outside `src/api/`
+- [ ] No `fetch` outside `api/client.ts` (and no `XMLHttpRequest` outside
+      `uploadToStorage`); no URL, method, or query string outside `src/api/`
 - [ ] A new endpoint that answers a wrong password with 401 passes `verifiesPassword`
 - [ ] Backend DTO / enum / validator changes mirrored in `src/api/` in the same PR; a
       component's reference shapes checked against the project's backend when adopted

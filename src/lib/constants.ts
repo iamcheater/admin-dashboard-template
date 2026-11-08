@@ -111,5 +111,9 @@ export const PAGINATION_ALL_PAGES_THRESHOLD = 7;
 export const PAGINATION_EDGE_PAGE_COUNT = 3;
 export const PAGINATION_BOUNDARY_PAGE_COUNT = 2;
 
+export const PERCENT = 100;
+export const FILE_SIZE_DECIMALS = 1;
+export const CONTENT_TYPE_SEPARATOR = ", ";
+
 export const DATE_KEY_LENGTH = 10;
 export const YEAR_SHORT_DIGITS = 2;

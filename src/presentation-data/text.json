@@ -121,6 +121,7 @@
           "The auth and admin endpoints listed in src/api/iam.ts.",
           "A JWT whose payload has sub, isSuperAdmin, permissions, and exp.",
           "This app's origin in the backend's CORS allow-list — otherwise the app says \"Cannot reach the API\".",
+          "For image uploads, POST /media/presign and a storage bucket whose CORS rules allow PUT from this origin.",
           "Password-reset emails that link to /reset-password?token=…"
         ]
       },
@@ -347,6 +348,22 @@
       "sampleMissing": {
         "en": "Welcome"
       }
+    },
+    "imageUpload": {
+      "title": "Image upload",
+      "description": "Uploads straight to storage through a presigned URL and hands the form the stored key, never the file. Pages get the upload function from useMediaUpload(purpose); these samples use a fake one that needs no backend. Drag a file over any sample to see the drop state.",
+      "label": "Cover image",
+      "avatarLabel": "Avatar",
+      "default": "Click or drop an image. The fake upload takes a few seconds, so you can watch the progress and cancel.",
+      "value": "Form value: {key}",
+      "noValue": "Form value: null",
+      "saved": "Editing a saved record: the key comes from the record and previewSrc shows its image.",
+      "square": "Square, for avatars and logos, with the avatar limits.",
+      "failing": "This fake upload always fails at 60%. A failed replacement keeps the previous image.",
+      "required": "A form error, such as required, shows the same way as an upload error.",
+      "requiredError": "Add a cover image.",
+      "disabled": "Replace and Remove are off; the image stays visible.",
+      "failure": "Storage rejected the file (fake error)."
     },
     "search": {
       "title": "Search",
