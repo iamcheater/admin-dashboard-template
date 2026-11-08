@@ -10,6 +10,8 @@ It ships with:
 - A placeholder `/dashboard` screen
 - `/admins`: a full reference screen (search, sort, pagination, row menu, modals)
 - `/account`: profile name and password change
+- A showcase (auth screen previews, buttons, inputs) that `/` opens when signed out —
+  no backend needed
 
 ## Setup
 
@@ -30,6 +32,7 @@ app's origin must be in the backend's CORS allow-list.
 - Rename `TOKEN_STORAGE_KEY` in `src/auth/constants.ts` to something unique to the project.
 - Set `common.logoAlt` in `src/i18n/en.json` and the `<title>` in `index.html`.
 - Set the image name and paths in `docker-compose.yml` and `.gitlab-ci.yml`.
+- Remove the component showcase: delete `src/presentation-data/` and its three hook-ins in `App.tsx`, `components/Sidebar.tsx`, and `styles/main.scss`.
 
 ## Conventions
 

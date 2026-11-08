@@ -14,6 +14,8 @@ import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { PATHNAMES, TOAST_AUTO_CLOSE_MS } from "./lib/constants";
+import { PresentationLanding } from "./presentation-data/PresentationLanding";
+import { PRESENTATION_ROUTES } from "./presentation-data/routes";
 
 export default function App() {
   return (
@@ -30,6 +32,13 @@ export default function App() {
             path={PATHNAMES.RESET_PASSWORD}
             element={<ResetPasswordPage />}
           />
+
+          <Route element={<AppLayout />}>
+            <Route index element={<PresentationLanding />} />
+            {PRESENTATION_ROUTES.map(({ path, Page }) => (
+              <Route key={path} path={path} element={<Page />} />
+            ))}
+          </Route>
 
           <Route element={<RequireAuth />}>
             <Route element={<AppLayout />}>

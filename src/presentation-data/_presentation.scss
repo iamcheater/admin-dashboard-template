@@ -1,0 +1,134 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+$showcase-sample-min-width: 240px;
+$showcase-sample-wide-min-width: 360px;
+$showcase-auth-min-height: 680px;
+
+.showcase-section {
+  @include m.surface(v.$radius-md);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 20px;
+    border-bottom: 1px solid m.token("border");
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: v.$space-xs;
+  }
+
+  &__description {
+    font-size: v.$font-size-sm;
+    color: m.token("text-muted");
+  }
+
+  &__body {
+    padding: 20px;
+    min-width: 0;
+  }
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, $showcase-sample-min-width), 1fr)
+  );
+  gap: v.$space-lg;
+
+  &--wide {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, $showcase-sample-wide-min-width), 1fr)
+    );
+  }
+}
+
+.showcase-sample {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-sm;
+  margin: 0;
+  min-width: 0;
+
+  &__preview {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 88px;
+    padding: v.$space-lg;
+    border: 1px dashed m.token("border-strong");
+    border-radius: v.$radius;
+    background: m.token("bg");
+
+    > .field,
+    > .button--full-width,
+    > .checkbox,
+    > .checkbox-grid,
+    > .page-actions {
+      align-self: stretch;
+      margin-bottom: 0;
+    }
+  }
+
+  &__caption {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: v.$font-size-xs;
+    color: m.token("text-muted");
+  }
+}
+
+.showcase-matrix {
+  @include m.scroll-x;
+
+  &__table {
+    border-collapse: collapse;
+    width: 100%;
+
+    th,
+    td {
+      padding: v.$space-sm v.$space-md;
+      border-bottom: 1px solid m.token("border");
+      text-align: left;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    thead th {
+      @include m.label-caps;
+
+      code {
+        text-transform: none;
+        letter-spacing: normal;
+      }
+    }
+
+    tbody tr:last-child th,
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+}
+
+.showcase-auth {
+  overflow: hidden;
+  border: 1px solid m.token("border");
+  border-radius: v.$radius-md;
+
+  .auth-screen {
+    min-height: $showcase-auth-min-height;
+  }
+}

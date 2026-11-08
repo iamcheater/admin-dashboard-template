@@ -444,6 +444,7 @@ src/
   hooks/                   URL-param state, anchored panels, dismiss layers, debounce
   lib/                     date, format, password, toast, motion, anchor, options, pagination
   pages/                   one file per screen + constants.ts
+  presentation-data/       the component showcase; deleted when a project starts (see below)
   styles/                  main.scss + one partial per component
 ```
 
@@ -487,6 +488,32 @@ Using a hypothetical `drivers` backend module with `GET /drivers` behind
 7. **Styles** — a `_drivers.scss` partial only if the kit's classes are not enough, `@use`d
    from `main.scss`.
 8. `npm run build && npm run lint`, then exercise the screen against the backend.
+
+## The showcase (`src/presentation-data/`)
+
+The sidebar's **Auth screens** and **Components** sections are a living catalogue of the
+kit, rendered inside the shell next to the sidebar. The auth screens are preview copies
+of `LoginPage`, `ForgotPasswordPage`, and `ResetPasswordPage`: the same `AuthScreen`,
+fields, copy, and validation, but submitting only shows a toast. The component pages
+render every variant of a primitive with fake local data. Nothing in the showcase calls
+the API, and its routes sit outside `RequireAuth`, so it works with no backend. While it
+exists, `/` lands a signed-out visitor on the sign-in preview (`PresentationLanding`);
+a signed-in admin still goes through `LandingRedirect`. The real auth screens stay at
+`/login`, `/forgot-password`, and `/reset-password`.
+
+The folder is self-contained so it can be cut in one go, which makes it the one
+exception to rules 6 and 7: it keeps its own copy (`text.json`, read as
+`presentationText`), its own `constants.ts`, and its own `_presentation.scss`. Within
+the folder every other rule still applies. It is wired in at exactly three places:
+
+- `App.tsx`: the layout route holding `PresentationLanding` (as the index, declared
+  before the `RequireAuth` block so it wins) and `PRESENTATION_ROUTES`
+- `components/Sidebar.tsx`: `...PRESENTATION_NAV_SECTIONS` appended to the sections
+- `styles/main.scss`: `@use "../presentation-data/presentation"`
+
+To remove it, delete those three hook-ins and the folder. Apart from those three, nothing
+outside the folder may import from it. When a primitive gains a variant or prop, or an auth page changes its
+fields or validation, update the showcase in the same change.
 
 ## Comments
 

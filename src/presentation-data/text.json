@@ -1,0 +1,196 @@
+{
+  "nav": {
+    "sections": {
+      "authScreens": "Auth screens",
+      "components": "Components"
+    },
+    "items": {
+      "login": "Sign in",
+      "forgotPassword": "Forgot password",
+      "resetPassword": "Reset password",
+      "buttons": "Buttons",
+      "inputs": "Inputs"
+    }
+  },
+  "code": {
+    "prop": "{name}=\"{value}\"",
+    "flag": "{name}",
+    "flags": "{first} {second}",
+    "component": "<{name}>",
+    "className": "className=\"{value}\""
+  },
+  "authScreens": {
+    "previewNote": "Preview only. Nothing was sent to the API.",
+    "login": {
+      "title": "Sign in screen",
+      "description": "What a signed-out admin sees first. The form validates like the real one, but submitting it signs no one in."
+    },
+    "forgotPassword": {
+      "title": "Forgot password screen",
+      "description": "Requests a reset email. Submitting shows the same confirmation toast the real screen shows."
+    },
+    "resetPassword": {
+      "title": "Reset password screen",
+      "description": "Opened from the emailed link. It shows the form for a valid link and a message for a missing or expired one.",
+      "showInvalid": "Show expired link",
+      "showForm": "Show form"
+    }
+  },
+  "buttons": {
+    "title": "Buttons",
+    "description": "Every button the kit ships. Pick a variant by what the action means, not by how it looks.",
+    "variants": {
+      "title": "Variants",
+      "description": "One Button component, one variant per intent. secondary is the default when no variant is passed.",
+      "items": {
+        "primary": {
+          "label": "Save",
+          "note": "The one main action of a screen or dialog: submit, create, confirm."
+        },
+        "secondary": {
+          "label": "Export",
+          "note": "The default. A neutral action that sits next to a primary one."
+        },
+        "outline": {
+          "label": "Cancel",
+          "note": "Backing out of a dialog, or a secondary action on a card. Rounder and lighter than secondary."
+        },
+        "ghost": {
+          "label": "Show more",
+          "note": "Lowest emphasis: no border, no fill. For toolbars and inline actions."
+        },
+        "danger": {
+          "label": "Remove",
+          "note": "A destructive action that is not final yet, usually one that opens a confirmation."
+        },
+        "danger-outline": {
+          "label": "Sign out",
+          "note": "A destructive or session-ending action placed among neutral ones."
+        },
+        "danger-soft": {
+          "label": "Delete",
+          "note": "A compact destructive action inside dense UI such as a card. Keeps its own padding at every size."
+        },
+        "danger-solid": {
+          "label": "Delete",
+          "note": "The confirm button of a destructive dialog, once the user has seen what will be lost."
+        },
+        "warning-solid": {
+          "label": "Disable",
+          "note": "The confirm button of a reversible but disruptive dialog, such as disable or suspend."
+        }
+      }
+    },
+    "states": {
+      "title": "Sizes and states",
+      "description": "Every variant at its default size, small, disabled, and busy. Busy is disabled with a label that says what is happening.",
+      "variant": "Variant",
+      "default": "Default",
+      "small": "Small",
+      "disabled": "Disabled",
+      "busy": "Busy",
+      "busyLabel": "Saving…"
+    },
+    "composition": {
+      "title": "Icons and width",
+      "description": "Icons are passed as children and sized by the button. fullWidth stretches the button to its container, as on the sign-in screens.",
+      "leadingIcon": "New admin",
+      "leadingIconNote": "Icon before the label for create actions.",
+      "trailingIcon": "Next",
+      "trailingIconNote": "Icon after the label for forward steps.",
+      "fullWidth": "Sign in",
+      "fullWidthNote": "Fills its container. Used for the submit button of auth screens."
+    },
+    "iconButtons": {
+      "title": "Icon buttons",
+      "description": "A square button with an icon and no visible label. It is a class, not a component, and always needs an aria-label.",
+      "close": "Close",
+      "closeNote": "Top corner of a dismissible modal or a side panel.",
+      "edit": "Edit",
+      "editNote": "An inline edit control, as in the sidebar footer."
+    }
+  },
+  "inputs": {
+    "title": "Inputs",
+    "description": "Every field the kit ships. Labels, hints, and errors come from Field, so every input lines up the same way.",
+    "textField": {
+      "title": "Text field",
+      "description": "A labelled input. Pass hint for guidance and error once the field is touched.",
+      "label": "Full name",
+      "placeholder": "Jane Doe",
+      "hint": "Shown on the account page.",
+      "error": "This field is required.",
+      "default": "Label and input, nothing else.",
+      "withPlaceholder": "A placeholder is an example, never a replacement for the label.",
+      "required": "Adds the required mark and aria-required.",
+      "withHint": "Guidance under the field, with an info icon.",
+      "withError": "Red border, error text, and aria-invalid.",
+      "disabled": "Dimmed and not focusable."
+    },
+    "passwordField": {
+      "title": "Password field",
+      "description": "A text field with a reveal toggle. Use autoComplete so password managers fill it correctly.",
+      "label": "Password",
+      "error": "Use an uppercase letter, a lowercase letter, a number, and a symbol.",
+      "default": "The eye button shows and hides the value.",
+      "withHint": "New passwords show the complexity rule up front.",
+      "hintAndError": "With both a hint and an error, the hint turns red and the error text is not shown."
+    },
+    "textarea": {
+      "title": "Text area",
+      "description": "Multi-line text. Wrap a textarea with the textarea class in Field.",
+      "label": "Notes",
+      "placeholder": "Anything the next admin should know",
+      "default": "Resizes vertically only."
+    },
+    "checkbox": {
+      "title": "Checkbox",
+      "description": "A bordered checkbox row. Put several in a checkbox-grid to lay them out in columns.",
+      "single": "Send a welcome email",
+      "singleNote": "A single option.",
+      "gridNote": "Options laid out in responsive columns."
+    },
+    "dropdown": {
+      "title": "Dropdown",
+      "description": "Single choice from a list. Type to filter; arrow keys, Enter, and Escape work as expected.",
+      "label": "Role",
+      "hint": "Pick the access level this admin starts with.",
+      "default": "Filters the options locally as you type.",
+      "chip": "A compact pill for filter bars.",
+      "inField": "Wrapped in Field for a label and a hint, as in a form.",
+      "disabled": "Shows the value and cannot be opened."
+    },
+    "multiDropdown": {
+      "title": "Multi dropdown",
+      "description": "Several choices from a list. The trigger shows how many are selected.",
+      "label": "Roles",
+      "default": "Selections are applied as they are checked."
+    },
+    "datePicker": {
+      "title": "Date picker",
+      "description": "A calendar in a popover. Single values go through value and onChange; a range is written to the URL.",
+      "single": "Date",
+      "singleNote": "One day.",
+      "withTime": "Date and time",
+      "withTimeNote": "Adds hour, minute, and AM or PM.",
+      "range": "Created",
+      "rangeNote": "Two days, stored in the URL, as a list filter.",
+      "noFuture": "Date of birth",
+      "noFutureNote": "Future days cannot be picked.",
+      "disabled": "Unavailable",
+      "disabledNote": "Cannot be opened."
+    },
+    "search": {
+      "title": "Search",
+      "description": "The search box of a list screen. It writes search to the URL after a short pause and resets the page.",
+      "criteria": "Name, email",
+      "default": "The info icon lists the fields the backend searches."
+    }
+  },
+  "sampleOptions": {
+    "admin": "Admin",
+    "manager": "Manager",
+    "viewer": "Viewer",
+    "auditor": "Auditor"
+  }
+}
