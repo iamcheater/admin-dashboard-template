@@ -2,7 +2,8 @@
   "nav": {
     "sections": {
       "authScreens": "Auth screens",
-      "components": "Components"
+      "components": "Components",
+      "foundations": "Foundations"
     },
     "items": {
       "login": "Sign in",
@@ -12,7 +13,10 @@
       "inputs": "Inputs",
       "icons": "Icons",
       "tables": "Tables",
-      "modals": "Modals"
+      "modals": "Modals",
+      "filters": "Filter bar",
+      "feedback": "Feedback",
+      "tokens": "Design tokens"
     }
   },
   "code": {
@@ -21,7 +25,8 @@
     "flags": "{first} {second}",
     "component": "<{name}>",
     "className": "className=\"{value}\"",
-    "tag": "<{name} />"
+    "tag": "<{name} />",
+    "call": "{name}()"
   },
   "authScreens": {
     "previewNote": "Preview only. Nothing was sent to the API.",
@@ -320,6 +325,137 @@
       "done": "Note saved."
     }
   },
+  "filters": {
+    "title": "Filter bar",
+    "description": "PageActions is the bar above a list. Pass it what the backend can filter by and it renders the controls and keeps every value in the URL.",
+    "bar": {
+      "title": "Everything at once",
+      "description": "Search, a single-choice filter, a multi-choice filter, a date range, and toggles. Every change resets the page to 1.",
+      "searchCriteria": "Name, email",
+      "role": "Role",
+      "allRoles": "All roles",
+      "statuses": "Status",
+      "created": "Created",
+      "archived": "Show archived",
+      "mine": "Only mine"
+    },
+    "url": {
+      "title": "What the page reads",
+      "description": "The list page reads these from the URL with usePageActionParams and passes them to the thunk. Reload or share the link and the filters come back.",
+      "param": "Parameter",
+      "value": "Value",
+      "empty": "No filters set. Change a control above."
+    },
+    "view": {
+      "title": "View toggle",
+      "description": "PageViewToggle switches between layouts of the same data and stores the choice in the view parameter. The first option is the default and is left out of the URL.",
+      "label": "Layout",
+      "current": "Showing the {view} view.",
+      "options": {
+        "table": "Table",
+        "cards": "Cards",
+        "timeline": "Timeline"
+      }
+    }
+  },
+  "feedback": {
+    "title": "Feedback",
+    "description": "How the app tells the admin what happened, what is loading, and what is missing.",
+    "alerts": {
+      "title": "Alerts",
+      "description": "An inline message that stays on the page. Error is announced to screen readers immediately; the others politely.",
+      "error": "Could not load the admins. Try again in a moment.",
+      "success": "Your changes were saved.",
+      "warning": "Your role does not include this permission. Ask the super admin to change it.",
+      "errorNote": "Something failed. Announced to screen readers right away.",
+      "successNote": "Confirms a change on the page that made it.",
+      "warningNote": "Explains why something is unavailable."
+    },
+    "toasts": {
+      "title": "Toasts",
+      "description": "A short message in the corner after an action. Each tone stays a little longer than the last, so errors are hardest to miss.",
+      "success": "Success",
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error",
+      "successMessage": "Admin created.",
+      "infoMessage": "A new version is available.",
+      "warningMessage": "The export may take a few minutes.",
+      "errorMessage": "Could not delete the admin.",
+      "failure": "From an API error",
+      "failureNote": "notifyFailure shows the server's message, or this fallback when there is none.",
+      "failureFallback": "Could not save the changes.",
+      "source": "lib/toast.ts"
+    },
+    "loading": {
+      "title": "Loading and empty",
+      "description": "What a screen shows before it has data, and when there is none.",
+      "spinner": "Spinner with a label, for a section that is loading.",
+      "customLabel": "Checking your link…",
+      "customNote": "Pass a label that says what is happening.",
+      "empty": "Nothing here yet. Create the first record to see it listed.",
+      "emptyNote": "A quiet message where content would be."
+    },
+    "skeletons": {
+      "title": "Skeletons",
+      "description": "Placeholders shaped like the content that is on its way. Tables use them for the first load.",
+      "animations": "Left to right: wave (the default), pulse, and no animation."
+    },
+    "hints": {
+      "title": "Tooltips and truncation",
+      "description": "Extra detail on demand. Both work with a mouse, the keyboard, and touch.",
+      "tooltipLabel": "What does this mean?",
+      "tooltipContent": "Managers can approve refunds and invite viewers, but cannot change roles.",
+      "tooltipNote": "An info icon that explains a field or a column.",
+      "truncated": "This note is far too long to fit in the narrow column it lives in, so it is cut short and the full text is one hover away.",
+      "truncatedNote": "Long text in a narrow space. An info icon appears only when the text is cut."
+    }
+  },
+  "tokens": {
+    "title": "Design tokens",
+    "description": "The values every stylesheet is built from. Colours change with the theme; everything else is fixed. Add new ones to _variables.scss, never as a literal in a component.",
+    "colors": {
+      "title": "Colours",
+      "description": "Read with m.token(\"name\") in SCSS. Both themes are shown side by side whichever one is active.",
+      "light": "Light",
+      "dark": "Dark",
+      "groups": {
+        "surfaces": "Surfaces",
+        "sidebar": "Sidebar",
+        "text": "Text and borders",
+        "accent": "Accent",
+        "status": "Status",
+        "overlays": "Overlays"
+      }
+    },
+    "scales": {
+      "spacing": {
+        "title": "Spacing",
+        "description": "Gaps and padding, as v.$space-* in SCSS."
+      },
+      "radii": {
+        "title": "Corner radii",
+        "description": "As v.$radius-* in SCSS."
+      },
+      "fontSizes": {
+        "title": "Font sizes",
+        "description": "As v.$font-size-* in SCSS. Headings set their own sizes in _base.scss.",
+        "sample": "Sign in to continue"
+      },
+      "shadows": {
+        "title": "Shadows",
+        "description": "Theme tokens, so they get darker in dark mode."
+      },
+      "breakpoints": {
+        "title": "Breakpoints",
+        "description": "Use @include m.respond-below(\"name\"), never a raw media query."
+      },
+      "layers": {
+        "title": "Layers",
+        "description": "Use z-index: m.z(\"name\"). Anything that must appear over a modal uses popup or above."
+      }
+    }
+  },
   "sampleOptions": {
     "admin": "Admin",
     "manager": "Manager",
@@ -423,5 +559,10 @@
       "note": "Handles escalations from the support queue",
       "createdAt": "2026-08-05T17:05:00Z"
     }
-  ]
+  ],
+  "sampleStatuses": {
+    "active": "Active",
+    "invited": "Invited",
+    "disabled": "Disabled"
+  }
 }

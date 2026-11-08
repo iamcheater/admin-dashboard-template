@@ -15,10 +15,7 @@ export const SAMPLE_RECORDS: SampleRecord[] = presentationText.sampleRecords;
 
 export const SAMPLE_OPTIONS = SAMPLE_OPTION_VALUES.map((value) => ({
   value,
-  label:
-    presentationText.sampleOptions[
-      value as keyof typeof presentationText.sampleOptions
-    ],
+  label: presentationText.sampleOptions[value],
 }));
 
 export function querySampleRecords({

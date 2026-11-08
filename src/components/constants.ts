@@ -2,9 +2,8 @@ export const ICON_VIEW_BOX = "0 0 24 24";
 export const ICON_VIEW_BOX_SMALL = "0 0 14 14";
 export const ICON_VIEW_BOX_SMALL_SQUARE = "0 0 20 20";
 export const CHECK_CIRCLE_ICON_CROPPED_VIEW_BOX = "1 1 14 14";
-export const EDIT_ICON_SMALL_CROPPED_VIEW_BOX = "2.043 2 12 12";
+export const FULL_FRAME_ICON_CROPPED_VIEW_BOX = "2.5 2 19 20";
 export const LINK_ICON_CROPPED_VIEW_BOX = "0.863 0.864 14.273 14.273";
-export const TRASH_ICON_CROPPED_VIEW_BOX = "1.875 1.875 11.25 11.25";
 export const LOCK_ICON_STROKE_WIDTH = 1.33266;
 export const ADMINS_ICON_STROKE_WIDTH = 1.19939;
 export const ARROW_ICON_STROKE_WIDTH = 1.6;
@@ -31,8 +30,8 @@ export const LOGOUT_ICON_STROKE_WIDTH = 2.27;
 export const ICON_STROKE_WIDTH = 1.8;
 export const SMALL_OUTLINE_ICON_STROKE_WIDTH = 1.4;
 
-export const LOGO_SRC_LIGHT = "/images/logo-light.png";
-export const LOGO_SRC_DARK = "/images/logo-dark.png";
+export const LOGO_SRC_LIGHT = "/images/logo-light.svg";
+export const LOGO_SRC_DARK = "/images/logo-dark.svg";
 
 export const MODAL_FOCUSABLE_SELECTOR = [
   "a[href]",

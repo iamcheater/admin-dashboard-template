@@ -5,15 +5,21 @@ export type ButtonVariant = NonNullable<
   ComponentProps<typeof Button>["variant"]
 >;
 
+export const SHOWCASE_ROOT = "/showcase";
+export const SHOWCASE_ROUTE = "/showcase/*";
+
 export const PRESENTATION_PATHNAMES = {
   LOGIN: "/showcase/sign-in",
   FORGOT_PASSWORD: "/showcase/forgot-password",
   RESET_PASSWORD: "/showcase/reset-password",
   BUTTONS: "/showcase/buttons",
   INPUTS: "/showcase/inputs",
-  MODALS: "/showcase/modals",
-  ICONS: "/showcase/icons",
   TABLES: "/showcase/tables",
+  FILTERS: "/showcase/filter-bar",
+  MODALS: "/showcase/modals",
+  FEEDBACK: "/showcase/feedback",
+  ICONS: "/showcase/icons",
+  TOKENS: "/showcase/design-tokens",
 } as const;
 
 export const BUTTON_VARIANTS: ButtonVariant[] = [
@@ -28,7 +34,12 @@ export const BUTTON_VARIANTS: ButtonVariant[] = [
   "warning-solid",
 ];
 
-export const SAMPLE_OPTION_VALUES = ["admin", "manager", "viewer", "auditor"];
+export const SAMPLE_OPTION_VALUES = [
+  "admin",
+  "manager",
+  "viewer",
+  "auditor",
+] as const;
 
 export const SAMPLE_RANGE_PARAMS = {
   FROM: "createdFrom",
@@ -64,3 +75,75 @@ export const MODAL_DEMO = {
 } as const;
 
 export type ModalDemo = (typeof MODAL_DEMO)[keyof typeof MODAL_DEMO];
+
+export const FILTER_PARAMS = {
+  ROLE: "role",
+  STATUSES: "status",
+  ARCHIVED: "archived",
+  MINE: "mine",
+} as const;
+
+export const SAMPLE_STATUS_VALUES = ["active", "invited", "disabled"] as const;
+
+export const VIEW_OPTION_VALUES = ["table", "cards", "timeline"] as const;
+
+export const COLOR_TOKEN_GROUPS = {
+  surfaces: [
+    "bg",
+    "surface",
+    "surface-2",
+    "surface-3",
+    "chip-bg",
+    "chip-bg-hover",
+    "icon-button-bg",
+    "table-header-bg",
+  ],
+  sidebar: [
+    "sidebar-bg",
+    "sidebar-fg",
+    "sidebar-fg-strong",
+    "sidebar-muted",
+    "sidebar-active-bg",
+    "sidebar-divider",
+    "sidebar-heading",
+  ],
+  text: ["text", "text-secondary", "text-muted", "border", "border-strong"],
+  accent: ["accent", "accent-hover", "accent-fg", "accent-soft"],
+  status: [
+    "success",
+    "success-soft",
+    "warning",
+    "warning-hover",
+    "warning-soft",
+    "danger",
+    "danger-hover",
+    "danger-soft",
+    "danger-soft-hover",
+    "info",
+    "info-soft",
+  ],
+  overlays: ["overlay", "modal-backdrop"],
+} as const;
+
+export const SCALE_TOKENS = {
+  spacing: ["space-xs", "space-sm", "space-md", "space-lg"],
+  radii: ["radius-sm", "radius", "radius-md", "radius-pill"],
+  fontSizes: [
+    "font-size-label",
+    "font-size-xs",
+    "font-size-sm",
+    "font-size-base",
+  ],
+  shadows: ["shadow-sm", "shadow-md", "shadow-popover"],
+  breakpoints: ["desktop", "laptop", "tablet", "mobile"],
+  layers: ["raised", "backdrop", "drawer", "modal", "popup", "tooltip"],
+} as const;
+
+export const SKELETON_VARIANTS = [
+  "text",
+  "rectangular",
+  "rounded",
+  "circular",
+] as const;
+
+export const SKELETON_ANIMATIONS = ["wave", "pulse", false] as const;

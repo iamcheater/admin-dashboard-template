@@ -22,9 +22,9 @@ const prop = (name: string, value: string) =>
 const className = (value: string) => format(code.className, { value });
 
 export function InputsPage() {
-  const [role, setRole] = useState(SAMPLE_OPTION_VALUES[0]);
-  const [chipRole, setChipRole] = useState(SAMPLE_OPTION_VALUES[0]);
-  const [fieldRole, setFieldRole] = useState(SAMPLE_OPTION_VALUES[0]);
+  const [role, setRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
+  const [chipRole, setChipRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
+  const [fieldRole, setFieldRole] = useState<string>(SAMPLE_OPTION_VALUES[0]);
   const [roles, setRoles] = useState<string[]>([]);
   const [date, setDate] = useState("");
   const [dateTime, setDateTime] = useState("");

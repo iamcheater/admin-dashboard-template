@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 import { text } from "../i18n";
 import { PATHNAMES } from "../lib/constants";
 import { formatAdminRole } from "../lib/format";
-import { PRESENTATION_NAV_SECTIONS } from "../presentation-data/nav";
+import { presentationNavSections } from "../presentation-data/nav";
 import { useAppSelector } from "../redux/store";
-import { EditIconSmall } from "./icons";
+import { EditIcon } from "./icons";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { canAccessNavItem, NAV_SECTIONS } from "./nav";
@@ -24,7 +24,7 @@ export function Sidebar({
       ...section,
       items: section.items.filter((item) => canAccessNavItem(claims, item)),
     })).filter((section) => section.items.length > 0),
-    ...PRESENTATION_NAV_SECTIONS,
+    ...(import.meta.env.DEV ? presentationNavSections() : []),
   ];
 
   return (
@@ -87,7 +87,7 @@ export function Sidebar({
             tabIndex={-1}
             aria-hidden
           >
-            <EditIconSmall />
+            <EditIcon />
           </NavLink>
         </div>
       )}

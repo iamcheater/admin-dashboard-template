@@ -4,7 +4,6 @@ import {
   CheckCircleIcon,
   CopyIcon,
   EditIcon,
-  EditIconSmall,
   TrashIcon,
 } from "../components/icons";
 import { PageActions } from "../components/PageActions";
@@ -150,7 +149,7 @@ export function TablesPage() {
               label: copy.list.menuLabel,
               items: (record) => [
                 {
-                  icon: <EditIconSmall />,
+                  icon: <EditIcon />,
                   label: copy.menu.edit,
                   onSelect: () => announce(copy.menu.edit, record),
                 },

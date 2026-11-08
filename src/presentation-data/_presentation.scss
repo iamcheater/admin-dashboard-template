@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:meta";
+@use "sass:string";
 @use "../styles/variables" as v;
 @use "../styles/mixins" as m;
 
@@ -5,6 +8,50 @@ $showcase-sample-min-width: 240px;
 $showcase-sample-wide-min-width: 360px;
 $showcase-auth-min-height: 680px;
 $showcase-icon-tile-min-width: 148px;
+$showcase-narrow-width: 220px;
+$showcase-swatch-size: 28px;
+$showcase-scale-sample-size: 56px;
+$showcase-themes-min-width: 300px;
+$showcase-skeleton-sizes: (
+  "text": (
+    120px,
+    auto,
+  ),
+  "rectangular": (
+    72px,
+    40px,
+  ),
+  "rounded": (
+    72px,
+    40px,
+  ),
+  "circular": (
+    40px,
+    40px,
+  ),
+);
+$showcase-scales: (
+  "spacing": (
+    "space-xs": v.$space-xs,
+    "space-sm": v.$space-sm,
+    "space-md": v.$space-md,
+    "space-lg": v.$space-lg,
+  ),
+  "radii": (
+    "radius-sm": v.$radius-sm,
+    "radius": v.$radius,
+    "radius-md": v.$radius-md,
+    "radius-pill": v.$radius-pill,
+  ),
+  "fontSizes": (
+    "font-size-label": v.$font-size-label,
+    "font-size-xs": v.$font-size-xs,
+    "font-size-sm": v.$font-size-sm,
+    "font-size-base": v.$font-size-base,
+  ),
+  "breakpoints": v.$breakpoints,
+  "layers": v.$z-index,
+);
 
 .showcase-section {
   @include m.surface(v.$radius-md);
@@ -208,5 +255,205 @@ $showcase-icon-tile-min-width: 148px;
   dd {
     margin: 0;
     color: m.token("text");
+  }
+}
+
+.showcase-narrow {
+  width: $showcase-narrow-width;
+  max-width: 100%;
+}
+
+.showcase-skeletons {
+  display: flex;
+  align-items: center;
+  gap: v.$space-lg;
+
+  @each $variant, $size in $showcase-skeleton-sizes {
+    &__item--#{$variant} {
+      width: list.nth($size, 1);
+      @if list.nth($size, 2) != auto {
+        height: list.nth($size, 2);
+      }
+    }
+  }
+}
+
+.showcase-themes {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, $showcase-themes-min-width), 1fr)
+  );
+  gap: v.$space-lg;
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-lg;
+    padding: 20px;
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    background: m.token("bg");
+    color: m.token("text");
+
+    &--light {
+      @include m.emit-theme(v.$theme-light);
+    }
+
+    &--dark {
+      @include m.emit-theme(v.$theme-dark);
+    }
+  }
+
+  &__title {
+    color: m.token("text");
+  }
+
+  &__group-title {
+    @include m.label-caps;
+    margin-bottom: v.$space-xs;
+  }
+}
+
+.showcase-swatches {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: grid;
+    grid-template-columns: $showcase-swatch-size 1fr auto;
+    align-items: center;
+    gap: v.$space-sm;
+    font-size: v.$font-size-xs;
+  }
+
+  &__chip {
+    width: $showcase-swatch-size;
+    height: $showcase-swatch-size;
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-sm;
+  }
+
+  &__name {
+    font-family: m.token("mono");
+  }
+
+  &__value {
+    font-family: m.token("mono");
+    color: m.token("text-muted");
+  }
+}
+
+@each $name, $value in v.$theme-light {
+  @if not string.index($name, "shadow") {
+    .showcase-swatches__chip.showcase-color--#{$name} {
+      background: m.token($name);
+    }
+  }
+}
+
+@each $theme, $map in ("light": v.$theme-light, "dark": v.$theme-dark) {
+  @each $name, $value in $map {
+    @if not string.index($name, "shadow") {
+      .showcase-themes__column--#{$theme}
+        .showcase-swatches__value.showcase-color--#{$name}::after {
+        content: "#{meta.inspect($value)}";
+      }
+    }
+  }
+}
+
+.showcase-scale {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: v.$font-size-xs;
+  }
+
+  &__value {
+    font-family: m.token("mono");
+    color: m.token("text-muted");
+  }
+
+  &--spacing &__sample {
+    height: $showcase-scale-sample-size;
+    background: m.token("accent-soft");
+    border-left: 2px solid m.token("accent");
+  }
+
+  &--radii &__sample,
+  &--shadows &__sample {
+    width: $showcase-scale-sample-size;
+    height: $showcase-scale-sample-size;
+    background: m.token("surface");
+    border: 1px solid m.token("border-strong");
+  }
+
+  &--shadows &__sample {
+    border-color: m.token("border");
+    border-radius: v.$radius;
+  }
+
+  &--fontSizes &__sample {
+    color: m.token("text");
+  }
+
+  &--breakpoints &__sample,
+  &--layers &__sample {
+    display: none;
+  }
+}
+
+@each $scale, $tokens in $showcase-scales {
+  @each $name, $value in $tokens {
+    .showcase-scale--#{$scale}
+      .showcase-scale__value.showcase-token--#{$name}::after {
+      content: "#{meta.inspect($value)}";
+    }
+
+    .showcase-scale--#{$scale}
+      .showcase-scale__sample.showcase-token--#{$name} {
+      @if $scale == "spacing" {
+        width: $value;
+      } @else if $scale == "radii" {
+        border-radius: $value;
+      } @else if $scale == "fontSizes" {
+        font-size: $value;
+      }
+    }
+  }
+}
+
+@each $name in ("shadow-sm", "shadow-md", "shadow-popover") {
+  .showcase-scale--shadows .showcase-scale__sample.showcase-token--#{$name} {
+    box-shadow: m.token($name);
+  }
+}
+
+.showcase-tooltip {
+  color: m.token("text-muted");
+
+  &:hover,
+  &:focus-within {
+    color: m.token("text");
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
 }

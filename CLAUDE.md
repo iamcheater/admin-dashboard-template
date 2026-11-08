@@ -89,8 +89,8 @@ in. The `Dockerfile` builds with Node and serves `dist/` from nginx using
 `docker-compose/nginx/web.conf`, whose `try_files … /index.html` is what makes client
 routes survive a reload.
 
-When starting a new project from this template, work through **Before your first commit**
-in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`, `<title>`,
+When starting a new project from this template, work through **Start a new project from
+it** in `README.md` (logos, favicons, `TOKEN_STORAGE_KEY`, `THEME_STORAGE_KEY`, `<title>`,
 image names in CI).
 
 ---
@@ -233,7 +233,9 @@ Design-system numbers are not exceptions to rule 7: a spacing value goes in
 Every stylesheet lives in `src/styles/`; there are no CSS files elsewhere, no CSS modules,
 no styled-components. `main.scss` is the only entry, imported once by `main.tsx`; vendor
 CSS (`react-toastify`) is pulled in there too. Every partial is `@use`d by `main.scss`, and
-a partial whose selectors no component renders is deleted, not kept "in case".
+a partial whose selectors no component renders is deleted, not kept "in case". The one
+exception is the showcase's `_presentation.scss`, imported by its lazy `ShowcaseRoutes`
+chunk so production never ships it (see **The showcase**).
 
 | File              | Holds                                                               |
 | ----------------- | ------------------------------------------------------------------- |
@@ -425,7 +427,7 @@ trigger when it closes.
 
 ```
 src/
-  main.tsx                 root render, startTheme, startup getProfile, the one stylesheet import
+  main.tsx                 root render, startTheme, startup getProfile, the main stylesheet import
   App.tsx                  router: every route and its gate, the ToastContainer
   i18n/  en.json index.ts  every user-facing string; `text` + `format`
   api/
@@ -489,6 +491,9 @@ Using a hypothetical `drivers` backend module with `GET /drivers` behind
 4. **Page** — `pages/DriversPage.tsx` modelled on `AdminsPage`: `PageHeader`,
    `PageActions`, `Table`, `Pagination`, modals keyed by a `DRIVER_DIALOG` const in
    `pages/constants.ts`, page size and default sort there too. Copy under `text.drivers`.
+   Column widths must add up to less than 100% (`ADMINS_COLUMN_WIDTH` leaves about 10%)
+   when the table has `actions` or `menu` — at 100% the actions column gets no room and
+   the row menu disappears.
 5. **Route** — in `App.tsx`, inside the `AppLayout` route, wrapped in the gate the backend
    controller uses (rule 4); add the path to `PATHNAMES`.
 6. **Nav** — an entry in `components/nav.ts` with the same gate, an icon from `icons.tsx`,
@@ -499,29 +504,46 @@ Using a hypothetical `drivers` backend module with `GET /drivers` behind
 
 ## The showcase (`src/presentation-data/`)
 
-The sidebar's **Auth screens** and **Components** sections are a living catalogue of the
-kit, rendered inside the shell next to the sidebar. The auth screens are preview copies
-of `LoginPage`, `ForgotPasswordPage`, and `ResetPasswordPage`: the same `AuthScreen`,
-fields, copy, and validation, but submitting only shows a toast. The component pages
-render every variant of a primitive with fake local data. Nothing in the showcase calls
-the API, and its routes sit outside `RequireAuth`, so it works with no backend. While it
-exists, `/` lands a signed-out visitor on the sign-in preview (`PresentationLanding`);
-a signed-in admin still goes through `LandingRedirect`. The real auth screens stay at
-`/login`, `/forgot-password`, and `/reset-password`.
+In development the sidebar gains **Auth screens**, **Components**, and **Foundations**
+sections: a living catalogue of the kit, rendered inside the shell next to the sidebar.
+
+- **Auth screens** are preview copies of `LoginPage`, `ForgotPasswordPage`, and
+  `ResetPasswordPage`: the same `AuthScreen`, fields, copy, and validation, but submitting
+  only shows a toast. The real screens stay at `/login`, `/forgot-password`, and
+  `/reset-password`.
+- **Components** (buttons, inputs, tables, filter bar, modals, feedback) render every
+  variant of a primitive with fake data from `sample-data.ts`.
+- **Foundations** shows the design tokens and every export of `icons.tsx`. Icons are
+  read from the module, so new ones appear on their own. Token values and swatches are
+  generated from the SCSS maps, but which tokens appear is the hand-kept
+  `COLOR_TOKEN_GROUPS` / `SCALE_TOKENS` list, so a new token needs adding there.
+
+Nothing in the showcase calls the API, and its routes sit outside `RequireAuth`, so it
+works with no backend. While it exists, `/` lands a signed-out visitor on the sign-in
+preview (`PresentationLanding`); a signed-in admin still goes through `LandingRedirect`.
+
+**It exists only in development.** Both hook-ins check `import.meta.env.DEV`, and the pages
+load through one lazy `ShowcaseRoutes` chunk that also imports `_presentation.scss`, so a
+production build contains none of its code, copy, or styles. Keep it that way: nothing in
+the folder may run work at import time that the hook-ins would pull into the main bundle
+(the sidebar entries are a function, `presentationNavSections()`, for this reason), and
+after touching the hook-ins check that `grep -c showcase dist/assets/*` is 0 after
+`npm run build`.
 
 The folder is self-contained so it can be cut in one go, which makes it the one
 exception to rules 6 and 7: it keeps its own copy (`text.json`, read as
 `presentationText`), its own `constants.ts`, and its own `_presentation.scss`. Within
-the folder every other rule still applies. It is wired in at exactly three places:
+the folder every other rule still applies. It is wired in at exactly two places:
 
-- `App.tsx`: the layout route holding `PresentationLanding` (as the index, declared
-  before the `RequireAuth` block so it wins) and `PRESENTATION_ROUTES`
-- `components/Sidebar.tsx`: `...PRESENTATION_NAV_SECTIONS` appended to the sections
-- `styles/main.scss`: `@use "../presentation-data/presentation"`
+- `App.tsx`: `ShowcaseRoutes` (lazy, `null` outside development) and the layout route
+  holding `PresentationLanding` as the index — declared before the `RequireAuth` block so
+  it wins — plus `SHOWCASE_ROUTE`
+- `components/Sidebar.tsx`: `...presentationNavSections()` appended to the sections
 
-To remove it, delete those three hook-ins and the folder. Apart from those three, nothing
-outside the folder may import from it. When a primitive gains a variant or prop, or an auth page changes its
-fields or validation, update the showcase in the same change.
+To remove it, delete those two hook-ins and the folder. Apart from them, nothing outside
+the folder may import from it. When a primitive gains a variant or prop, a token is added
+to a theme map, or an auth page changes its fields or validation, update the showcase in
+the same change (`COLOR_TOKEN_GROUPS` and `SCALE_TOKENS` list what the tokens page shows).
 
 ## Comments
 
