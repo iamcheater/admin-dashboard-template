@@ -5,6 +5,7 @@ import { IconsPage } from "./IconsPage";
 import { InputsPage } from "./InputsPage";
 import { LoginPreviewPage } from "./LoginPreviewPage";
 import { ResetPasswordPreviewPage } from "./ResetPasswordPreviewPage";
+import { TablesPage } from "./TablesPage";
 
 export const PRESENTATION_ROUTES = [
   { path: PRESENTATION_PATHNAMES.LOGIN, Page: LoginPreviewPage },
@@ -18,5 +19,6 @@ export const PRESENTATION_ROUTES = [
   },
   { path: PRESENTATION_PATHNAMES.BUTTONS, Page: ButtonsPage },
   { path: PRESENTATION_PATHNAMES.INPUTS, Page: InputsPage },
+  { path: PRESENTATION_PATHNAMES.TABLES, Page: TablesPage },
   { path: PRESENTATION_PATHNAMES.ICONS, Page: IconsPage },
 ];

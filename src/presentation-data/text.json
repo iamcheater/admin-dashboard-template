@@ -10,7 +10,8 @@
       "resetPassword": "Reset password",
       "buttons": "Buttons",
       "inputs": "Inputs",
-      "icons": "Icons"
+      "icons": "Icons",
+      "tables": "Tables"
     }
   },
   "code": {
@@ -199,10 +200,153 @@
     "copied": "Copied {tag}",
     "copyFailed": "Could not copy to the clipboard."
   },
+  "tables": {
+    "title": "Tables",
+    "description": "The Table component in every shape a list screen uses. Sorting, search, and paging live in the URL, so every view here is linkable.",
+    "list": {
+      "title": "List screen",
+      "description": "Search, sortable columns, a row menu, clickable rows, and pagination wired together the way AdminsPage does it. Sort a column or change page and watch the URL.",
+      "searchCriteria": "Name, email",
+      "menuLabel": "Actions for this row",
+      "opened": "Opened {name}",
+      "empty": "No records yet.",
+      "emptyFiltered": "No records match “{search}”."
+    },
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "note": "Note",
+      "created": "Created"
+    },
+    "menu": {
+      "edit": "Edit",
+      "copyEmail": "Copy email",
+      "delete": "Delete"
+    },
+    "actions": {
+      "title": "Row actions",
+      "description": "Buttons at the end of each row. An icon action needs a label for screen readers; tone sets its colour, and text turns it into a labelled button.",
+      "edit": "Edit",
+      "approve": "Approve",
+      "delete": "Delete",
+      "resend": "Resend",
+      "locked": "Locked"
+    },
+    "states": {
+      "title": "States",
+      "description": "What a table shows before, between, and instead of rows. The page only passes isLoading, error, and emptyMessage.",
+      "loading": "First load: skeleton rows while there is nothing to show yet.",
+      "refreshing": "Refreshing: existing rows stay and dim while the next page loads.",
+      "empty": "Empty: the emptyMessage you pass, filtered or not.",
+      "emptyMessage": "No records yet.",
+      "error": "Error: the request failed and the table shows why.",
+      "errorMessage": "Cannot reach the API. Is the backend running?"
+    },
+    "done": "{action}: {name}"
+  },
   "sampleOptions": {
     "admin": "Admin",
     "manager": "Manager",
     "viewer": "Viewer",
     "auditor": "Auditor"
-  }
+  },
+  "sampleRecords": [
+    {
+      "id": "1",
+      "name": "Ani Petrosyan",
+      "email": "ani.petrosyan@example.com",
+      "role": "admin",
+      "note": "Owns billing and invoices for the whole organisation",
+      "createdAt": "2026-01-12T09:30:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Ben Carter",
+      "email": "ben.carter@example.com",
+      "role": "manager",
+      "note": "On leave until next month",
+      "createdAt": "2026-02-03T14:05:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Chloe Martin",
+      "email": "chloe.martin@example.com",
+      "role": "viewer",
+      "note": "Read-only access for the quarterly audit",
+      "createdAt": "2026-02-21T08:10:00Z"
+    },
+    {
+      "id": "4",
+      "name": "David Kim",
+      "email": "david.kim@example.com",
+      "role": "auditor",
+      "note": "External auditor, contract ends in December",
+      "createdAt": "2026-03-02T16:45:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Elena Rossi",
+      "email": "elena.rossi@example.com",
+      "role": "manager",
+      "note": "Runs onboarding for new admins",
+      "createdAt": "2026-03-18T11:20:00Z"
+    },
+    {
+      "id": "6",
+      "name": "Farid Hassan",
+      "email": "farid.hassan@example.com",
+      "role": "admin",
+      "note": "Second contact for security incidents",
+      "createdAt": "2026-04-07T07:55:00Z"
+    },
+    {
+      "id": "7",
+      "name": "Grace Liu",
+      "email": "grace.liu@example.com",
+      "role": "viewer",
+      "note": "Support team, needs read access only",
+      "createdAt": "2026-04-29T13:30:00Z"
+    },
+    {
+      "id": "8",
+      "name": "Hugo Weber",
+      "email": "hugo.weber@example.com",
+      "role": "manager",
+      "note": "Approves refunds above the daily limit",
+      "createdAt": "2026-05-14T10:00:00Z"
+    },
+    {
+      "id": "9",
+      "name": "Isla Novak",
+      "email": "isla.novak@example.com",
+      "role": "auditor",
+      "note": "Reviews access logs every Friday",
+      "createdAt": "2026-06-01T15:15:00Z"
+    },
+    {
+      "id": "10",
+      "name": "Jonas Berg",
+      "email": "jonas.berg@example.com",
+      "role": "viewer",
+      "note": "Temporary account for the migration",
+      "createdAt": "2026-06-23T09:40:00Z"
+    },
+    {
+      "id": "11",
+      "name": "Karen Adams",
+      "email": "karen.adams@example.com",
+      "role": "admin",
+      "note": "Primary contact for the infrastructure team",
+      "createdAt": "2026-07-10T12:25:00Z"
+    },
+    {
+      "id": "12",
+      "name": "Lucas Moreau",
+      "email": "lucas.moreau@example.com",
+      "role": "manager",
+      "note": "Handles escalations from the support queue",
+      "createdAt": "2026-08-05T17:05:00Z"
+    }
+  ]
 }

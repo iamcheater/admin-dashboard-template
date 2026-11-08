@@ -8,19 +8,12 @@ import { Field, PasswordField, TextField } from "../components/ui";
 import { format, text } from "../i18n";
 import { passwordComplexityHint } from "../lib/password";
 import { SAMPLE_OPTION_VALUES, SAMPLE_RANGE_PARAMS } from "./constants";
+import { SAMPLE_OPTIONS } from "./sample-data";
 import { ShowcaseGrid, ShowcaseSample, ShowcaseSection } from "./Showcase";
 import { presentationText } from "./text";
 
 const copy = presentationText.inputs;
 const code = presentationText.code;
-
-const SAMPLE_OPTIONS = SAMPLE_OPTION_VALUES.map((value) => ({
-  value,
-  label:
-    presentationText.sampleOptions[
-      value as keyof typeof presentationText.sampleOptions
-    ],
-}));
 
 const component = (name: string) => format(code.component, { name });
 const flag = (name: string) => format(code.flag, { name });

@@ -12,6 +12,7 @@ export const PRESENTATION_PATHNAMES = {
   BUTTONS: "/showcase/buttons",
   INPUTS: "/showcase/inputs",
   ICONS: "/showcase/icons",
+  TABLES: "/showcase/tables",
 } as const;
 
 export const BUTTON_VARIANTS: ButtonVariant[] = [
@@ -31,4 +32,23 @@ export const SAMPLE_OPTION_VALUES = ["admin", "manager", "viewer", "auditor"];
 export const SAMPLE_RANGE_PARAMS = {
   FROM: "createdFrom",
   TO: "createdTo",
+} as const;
+
+export const SAMPLE_SORT_BY = {
+  NAME: "name",
+  EMAIL: "email",
+  CREATED_AT: "createdAt",
+} as const;
+
+export type SampleSortBy = (typeof SAMPLE_SORT_BY)[keyof typeof SAMPLE_SORT_BY];
+
+export const SAMPLE_PAGE_SIZE = 5;
+export const SAMPLE_STATE_ROW_COUNT = 3;
+
+export const SAMPLE_COLUMN_WIDTH = {
+  NAME: "16%",
+  EMAIL: "22%",
+  ROLE: "14%",
+  NOTE: "20%",
+  CREATED: "18%",
 } as const;
