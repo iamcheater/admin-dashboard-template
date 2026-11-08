@@ -1,0 +1,120 @@
+@use "sass:map";
+@use "variables" as v;
+
+@function token($name) {
+  @return var(--#{$name});
+}
+
+@function z($layer) {
+  @if not map.has-key(v.$z-index, $layer) {
+    @error 'Unknown z-index layer "#{$layer}".';
+  }
+  @return map.get(v.$z-index, $layer);
+}
+
+@mixin respond-below($breakpoint) {
+  @if not map.has-key(v.$breakpoints, $breakpoint) {
+    @error 'Unknown breakpoint "#{$breakpoint}".';
+  }
+  @media (max-width: map.get(v.$breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin hover-capable {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin dark-theme {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin emit-theme($theme) {
+  @each $name, $value in $theme {
+    --#{$name}: #{$value};
+  }
+}
+
+@mixin surface($radius: v.$radius) {
+  background: token("surface");
+  border: 1px solid token("border");
+  border-radius: $radius;
+}
+
+@mixin raised($radius: v.$radius) {
+  @include surface($radius);
+  box-shadow: token("shadow-sm");
+}
+
+@mixin label-caps($size: v.$font-size-label) {
+  font-size: $size;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: token("text-muted");
+}
+
+@mixin scroll-x {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+@mixin unstyled-button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@mixin field-control {
+  font: inherit;
+  font-size: 14px;
+  width: 100%;
+  padding: 8px 11px;
+  color: token("text");
+  background: token("surface");
+  border: 1px solid token("border-strong");
+  border-radius: v.$radius-sm;
+
+  &:focus {
+    outline: none;
+    border-color: token("accent");
+    box-shadow: 0 0 0 3px token("accent-soft");
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@mixin tone($name) {
+  color: token($name);
+  background: token("#{$name}-soft");
+}
+
+@mixin dot($size: 6px) {
+  content: "";
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+@mixin overlay($layer) {
+  position: fixed;
+  inset: 0;
+  z-index: z($layer);
+  background: token("overlay");
+}

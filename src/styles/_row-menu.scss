@@ -1,0 +1,85 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.row-menu {
+  display: contents;
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: v.$radius;
+    background: transparent;
+    color: m.token("text-muted");
+    cursor: pointer;
+    transition: background v.$duration-fast ease;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      background: m.token("surface-2");
+      color: m.token("text");
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__menu {
+    position: fixed;
+    z-index: m.z("popup");
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+    background: m.token("surface");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    box-shadow: m.token("shadow-md");
+    width: 195px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px 8px 0px;
+    border: none;
+    border-radius: v.$radius-sm;
+    background: transparent;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: m.token("surface-2");
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    &--danger {
+      color: m.token("danger");
+    }
+  }
+}

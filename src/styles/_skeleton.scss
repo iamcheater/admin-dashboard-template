@@ -1,0 +1,77 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.custom-skeleton {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background-color: m.token("surface-2");
+
+  &--text {
+    height: 1.2em;
+    border-radius: v.$radius-sm;
+    transform: scale(1, 0.6);
+    transform-origin: 0 55%;
+  }
+
+  &--rectangular {
+    border-radius: 0;
+  }
+
+  &--rounded {
+    border-radius: v.$radius-sm;
+  }
+
+  &--circular {
+    border-radius: 50%;
+  }
+
+  &--pulse {
+    animation: skeleton-pulse v.$duration-skeleton-pulse ease-in-out infinite;
+  }
+
+  &--wave::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      m.token("border"),
+      transparent
+    );
+    animation: skeleton-wave v.$duration-skeleton-wave linear infinite;
+  }
+
+  @include m.reduced-motion {
+    &--pulse,
+    &--wave::after {
+      animation: none;
+    }
+  }
+}

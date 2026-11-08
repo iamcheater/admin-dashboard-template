@@ -1,0 +1,53 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.popup {
+  position: fixed;
+  z-index: m.z("popup");
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  max-width: calc(100vw - 32px);
+  padding: 16px;
+  background: m.token("surface");
+  border: 1px solid m.token("border");
+  border-radius: 16px;
+  box-shadow: m.token("shadow-md");
+
+  &:focus {
+    outline: none;
+  }
+
+  &__title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+    text-align: center;
+    color: m.token("text");
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: m.token("text-muted");
+  }
+
+  &__input {
+    min-height: 84px;
+    resize: vertical;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+
+    .button {
+      flex: 1 1 0;
+    }
+  }
+}

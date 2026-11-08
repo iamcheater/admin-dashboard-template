@@ -1,0 +1,270 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.muted {
+  color: m.token("text-muted");
+}
+
+.text-sm {
+  font-size: v.$font-size-sm;
+}
+
+.mono {
+  font-family: m.token("mono");
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.spaced-above {
+  margin-top: v.$space-md;
+}
+
+.spaced-above-tight {
+  margin-top: v.$space-xs;
+}
+
+.spaced-below {
+  margin-bottom: v.$space-lg;
+}
+
+.spaced-below-tight {
+  margin-bottom: v.$space-sm;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+
+  &__trigger {
+    @include m.unstyled-button;
+    display: inline-flex;
+    color: inherit;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px m.token("accent-soft");
+      border-radius: v.$radius-sm;
+    }
+  }
+
+  &__bubble {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: m.z("tooltip");
+    width: max-content;
+    max-width: 280px;
+    padding: 16px;
+    border-radius: 20px;
+    background: m.token("surface");
+    color: m.token("text");
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: center;
+    box-shadow: m.token("shadow-popover");
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity v.$duration-fast ease;
+
+    &--start {
+      left: 0;
+      transform: none;
+    }
+
+    &--end {
+      left: auto;
+      right: 0;
+      transform: none;
+    }
+
+    &--bottom {
+      bottom: auto;
+      top: calc(100% + 10px);
+    }
+
+    &--left {
+      bottom: auto;
+      left: auto;
+      top: 50%;
+      right: calc(100% + 10px);
+      transform: translateY(-50%);
+    }
+
+    &--right {
+      bottom: auto;
+      left: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__tail {
+    position: absolute;
+    bottom: calc(100% + 1px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    background: m.token("surface");
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    z-index: m.z("tooltip");
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity v.$duration-fast ease;
+
+    &--bottom {
+      bottom: auto;
+      top: calc(100% + 1px);
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+
+    &--left {
+      bottom: auto;
+      left: auto;
+      top: 50%;
+      right: calc(100% + 1px);
+      transform: translateY(-50%) rotate(-90deg);
+    }
+
+    &--right {
+      bottom: auto;
+      left: calc(100% + 1px);
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+
+  &:focus-within &__bubble,
+  &:focus-within &__tail {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__bubble.is-open,
+  &__tail.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @include m.hover-capable {
+    &:hover &__bubble,
+    &:hover &__tail {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.truncated-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+
+  &__value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__info {
+    @include m.unstyled-button;
+    display: inline-flex;
+    flex-shrink: 0;
+    color: m.token("text-muted");
+    cursor: help;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      color: m.token("accent");
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px m.token("accent-soft");
+      border-radius: v.$radius-sm;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.truncated-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: m.z("tooltip");
+  width: max-content;
+  max-width: 280px;
+  padding: 12px 16px;
+  border-radius: 20px;
+  background: m.token("surface");
+  color: m.token("text");
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  box-shadow: m.token("shadow-popover");
+  pointer-events: none;
+
+  &__tail {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 20px;
+    height: 10px;
+    transform: translateX(-50%);
+    background: m.token("surface");
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+
+  &[data-side="bottom"] &__tail {
+    top: auto;
+    bottom: 100%;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  }
+}

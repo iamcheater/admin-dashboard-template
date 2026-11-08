@@ -1,0 +1,220 @@
+{
+  "common": {
+    "empty": "—",
+    "cancel": "Cancel",
+    "close": "Close",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "save": "Save",
+    "saving": "Saving…",
+    "creating": "Creating…",
+    "loading": "Loading…",
+    "signedIn": "Signed in",
+    "superAdmin": "Super admin",
+    "restoringSession": "Restoring session…",
+    "logoAlt": "Admin Dashboard",
+    "dialog": "Dialog",
+    "retry": "Try again",
+    "requiredMark": "*"
+  },
+  "table": {
+    "actions": "Actions"
+  },
+  "pageActions": {
+    "selectedCount": "{label} ({count})",
+    "noMatches": "No matches",
+    "searchPlaceholder": "Search",
+    "searchCriteriaLabel": "Searchable fields: {criteria}"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "gap": "...",
+    "goToPage": "Go to page {page}"
+  },
+  "api": {
+    "unreachable": "Cannot reach the API. Is the backend running?",
+    "sessionEnded": "Your session ended. Please sign in again.",
+    "requestFailedWithStatus": "Request failed ({status})",
+    "requestFailed": "Request failed."
+  },
+  "auth": {
+    "unreadableToken": "The API returned a token this app cannot read."
+  },
+  "domain": {
+    "permissions": {
+      "ADMINS_INVITE": "Invite admins",
+      "ADMINS_MANAGE": "Manage admins",
+      "ROLES_MANAGE": "Manage roles"
+    },
+    "adminRoles": {
+      "ADMIN": "Admin",
+      "MANAGER": "Manager"
+    }
+  },
+  "format": {
+    "dateRange": "{from} – {to}"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Enter a valid email address."
+  },
+  "password": {
+    "tooShort": "Use at least {count} characters.",
+    "tooLong": "Use at most {count} characters.",
+    "mismatch": "The two passwords do not match.",
+    "weak": "Use an uppercase letter, a lowercase letter, a number, and a symbol.",
+    "complexityHint": "At least {count} characters with an uppercase letter, a lowercase letter, a number, and a symbol."
+  },
+  "nav": {
+    "label": "Main",
+    "empty": "No sections available",
+    "accountLink": "Your account and password",
+    "open": "Open navigation",
+    "close": "Close navigation",
+    "sections": {
+      "overview": "Overview",
+      "administration": "Administration"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "admins": "Admins"
+    }
+  },
+  "guards": {
+    "notAvailableTitle": "Not available",
+    "missingPermissionLead": "Your role does not include",
+    "missingPermissionTail": ". Ask the super admin to change your role, then sign in again — permissions are read from your token when you sign in.",
+    "superAdminOnly": "This screen is available to the super admin only.",
+    "welcomeTitle": "Welcome",
+    "noPermissions": "Your account has no access to any screen yet. Ask the super admin to change your role, then sign in again."
+  },
+  "login": {
+    "title": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "forgotPassword": "Forgot your password?",
+    "failed": "Sign in failed."
+  },
+  "forgotPassword": {
+    "title": "Forgot password",
+    "subtitle": "Enter the address on your admin account and we will email you a link to choose a new password.",
+    "email": "Email",
+    "submit": "Send link",
+    "submitting": "Sending…",
+    "sentLead": "Email sent to",
+    "checkSpam": "Check spam if you don't see it.",
+    "failed": "Could not request a reset link."
+  },
+  "resetPassword": {
+    "title": "Choose a new password",
+    "verifying": "Checking your link…",
+    "missingToken": "This link is missing its token. Request a new reset email.",
+    "invalidToken": "This link is invalid or has expired. Request a new one.",
+    "requestNewLink": "Request a new link",
+    "done": "Your password is set. Every other session was signed out. Sign in with your new password.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "submit": "Save password",
+    "failed": "Could not set the password."
+  },
+  "account": {
+    "title": "Account",
+    "email": "Email",
+    "role": "Role",
+    "memberSince": "Member since",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "changed": "Password changed. Every other session was signed out; this one stays open.",
+    "failed": "Could not change the password.",
+    "personalInformation": "Personal information",
+    "accountSecurity": "Account security",
+    "fullName": "Full name",
+    "editName": "Edit full name",
+    "nameChanged": "Your name was updated.",
+    "nameFailed": "Could not update your name.",
+    "changePassword": "Change password",
+    "logOut": "Sign out",
+    "changePasswordTitle": "Change password",
+    "savePassword": "Save password",
+    "updatePersonalInformation": "Update personal information",
+    "logOutTitle": "Sign out?",
+    "logOutDescription": "You will be signed out of this admin session. Any unsaved changes will be lost.",
+    "loadFailed": "Could not load your account."
+  },
+  "admins": {
+    "title": "Admins",
+    "description": "Accounts with dashboard access.",
+    "searchCriteria": "Name, email",
+    "newAdmin": "+ New admin",
+    "empty": "No admin accounts found.",
+    "emptyFiltered": "No admins match “{search}”.",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "created": "Created"
+    },
+    "delete": "Delete admin",
+    "invite": {
+      "title": "Add admin",
+      "email": "Email",
+      "fullName": "Full name",
+      "password": "Password",
+      "role": "Role",
+      "roleHint": "Pick the access level this admin starts with.",
+      "submit": "Create admin",
+      "done": "Created {email}. Share the password over a secure channel.",
+      "failed": "Could not create the admin."
+    },
+    "remove": {
+      "title": "Delete this admin?",
+      "description": "{name} loses access immediately and their sessions end. This cannot be undone.",
+      "submit": "Delete",
+      "done": "{name} was deleted.",
+      "failed": "Could not delete the admin."
+    },
+    "changeRole": {
+      "title": "Change this admin’s role?",
+      "description": "{name} will become {role}. This takes effect immediately and signs them out of every session.",
+      "submit": "Change role",
+      "done": "{name}’s role is now {role}.",
+      "failed": "Could not change the admin’s role."
+    }
+  },
+  "datePicker": {
+    "weekdays": [
+      "S",
+      "M",
+      "T",
+      "W",
+      "T",
+      "F",
+      "S"
+    ],
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "previousYear": "Previous year",
+    "nextYear": "Next year",
+    "pickStart": "Pick a start date",
+    "pickEnd": "From {date} — now pick an end date",
+    "clear": "Clear",
+    "apply": "Apply",
+    "time": "Time",
+    "hour": "Hour",
+    "minute": "Minute",
+    "period": "AM or PM",
+    "am": "AM",
+    "pm": "PM",
+    "tooEarly": "Pick a later time — that moment has passed."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Your workspace overview.",
+    "placeholder": "Nothing here yet. Replace this page with your first screen."
+  }
+}

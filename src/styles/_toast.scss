@@ -1,0 +1,109 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.Toastify {
+  --toastify-font-family: #{v.$font-sans};
+  --toastify-container-width: auto;
+  --toastify-toast-width: 360px;
+  --toastify-toast-min-height: 56px;
+  --toastify-toast-max-height: 800px;
+  --toastify-toast-padding: 14px;
+  --toastify-toast-bd-radius: 12px;
+  --toastify-toast-shadow: #{m.token("shadow-md")};
+
+  --toastify-color-light: #{m.token("surface")};
+  --toastify-color-dark: #{m.token("surface")};
+  --toastify-text-color-light: #{m.token("text")};
+  --toastify-text-color-dark: #{m.token("text")};
+
+  --toastify-color-success: #{m.token("success")};
+  --toastify-color-error: #{m.token("danger")};
+  --toastify-color-warning: #{m.token("warning")};
+  --toastify-color-info: #{m.token("info")};
+
+  --toastify-icon-color-success: #{m.token("success")};
+  --toastify-icon-color-error: #{m.token("danger")};
+  --toastify-icon-color-warning: #{m.token("warning")};
+  --toastify-icon-color-info: #{m.token("info")};
+
+  --toastify-color-progress-success: #{m.token("success")};
+  --toastify-color-progress-error: #{m.token("danger")};
+  --toastify-color-progress-warning: #{m.token("warning")};
+  --toastify-color-progress-info: #{m.token("info")};
+}
+
+.Toastify__toast-container {
+  padding: 0;
+}
+
+.Toastify__toast {
+  align-items: center;
+  gap: 12px;
+  margin-bottom: v.$space-sm;
+  padding: 16px 48px 16px 16px !important;
+  font-size: v.$font-size-sm;
+  color: m.token("text");
+
+  &--success {
+    border-color: m.token("success");
+  }
+
+  &--error {
+    border-color: m.token("danger");
+  }
+
+  &--warning {
+    border-color: m.token("warning");
+  }
+
+  &--info {
+    border-color: m.token("info");
+  }
+
+  &-icon {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+  }
+}
+
+.Toastify__toast-body {
+  margin: 0;
+  padding: 0;
+  white-space: pre-line;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.Toastify__close-button {
+  align-self: center;
+  color: m.token("text-muted");
+  background: m.token("surface");
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+
+  &:hover,
+  &:focus-visible {
+    color: m.token("text");
+  }
+}
+
+.Toastify--animate {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+}
+
+@include m.respond-below("tablet") {
+  .Toastify {
+    --toastify-toast-width: 100vw;
+  }
+}

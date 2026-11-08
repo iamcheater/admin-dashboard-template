@@ -1,0 +1,213 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.dropdown {
+  position: relative;
+  min-width: 0;
+
+  @include m.respond-below("tablet") {
+    flex: 1 1 auto;
+  }
+
+  &:has(.dropdown__input:disabled) {
+    opacity: 0.6;
+
+    .dropdown__trigger,
+    .dropdown__input {
+      cursor: not-allowed;
+    }
+  }
+
+  &__trigger {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 6px 12px;
+    background: m.token("surface-2");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 18px;
+    cursor: pointer;
+    transition: border-color v.$duration-fast ease;
+
+    &:hover {
+      border-color: m.token("border-strong");
+    }
+
+    &:focus-within,
+    &.is-open {
+      border-color: m.token("accent");
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: m.token("text-muted");
+      transition: transform v.$duration-fast ease;
+    }
+
+    &.is-open svg {
+      transform: rotate(180deg);
+    }
+
+    @include m.respond-below("tablet") {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    @include m.reduced-motion {
+      transition: none;
+
+      svg {
+        transition: none;
+      }
+    }
+  }
+
+  &__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      cursor: text;
+    }
+
+    &::placeholder {
+      color: m.token("text-muted");
+      opacity: 1;
+    }
+  }
+
+  &__caret {
+    @include m.unstyled-button;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__empty {
+    padding: 8px 12px;
+    color: m.token("text-muted");
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  &__option-skeleton {
+    padding: 8px 12px;
+
+    .custom-skeleton {
+      display: block;
+      width: 100% !important;
+      height: 18px !important;
+    }
+  }
+
+  &__menu {
+    position: fixed;
+    z-index: m.z("popup");
+    max-height: 260px;
+    margin: 0;
+    padding: 4px;
+    overflow-y: auto;
+    list-style: none;
+    background: m.token("surface");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    box-shadow: m.token("shadow-md");
+  }
+
+  &__option {
+    padding: 8px 12px;
+    border-radius: v.$radius-sm;
+    color: m.token("text");
+    font-size: 14px;
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &.is-active {
+      background: m.token("surface-2");
+    }
+
+    &.is-selected {
+      color: m.token("accent");
+      font-weight: 500;
+    }
+  }
+}
+
+.dropdown__menu[aria-multiselectable] .dropdown__option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown__checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: 1px solid m.token("border-strong");
+  border-radius: 4px;
+  background: m.token("surface");
+}
+
+.dropdown__option.is-selected .dropdown__checkbox {
+  border-color: m.token("accent");
+  background: m.token("accent");
+  box-shadow: inset 0 0 0 3px m.token("surface");
+}
+
+.dropdown--chip {
+  flex: 0 0 auto;
+
+  .dropdown__input {
+    flex: 0 0 auto;
+    width: v.$dropdown-chip-width;
+    font-weight: 500;
+  }
+
+  .dropdown__trigger {
+    width: auto;
+    height: v.$field-height-compact;
+    gap: 8px;
+    padding: 0 14px;
+    border-color: transparent;
+    border-radius: v.$radius-pill;
+    background: m.token("chip-bg");
+
+    &:hover {
+      border-color: transparent;
+      background: m.token("chip-bg-hover");
+    }
+
+    &:focus-within,
+    &.is-open {
+      border-color: m.token("accent");
+    }
+  }
+}

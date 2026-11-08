@@ -1,0 +1,28 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.shell {
+  display: grid;
+  grid-template-columns: v.$sidebar-width 1fr;
+  min-height: 100svh;
+
+  @include m.respond-below("laptop") {
+    grid-template-columns: 1fr;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    padding: 24px 28px 40px;
+
+    @include m.respond-below("tablet") {
+      padding-inline: 16px;
+    }
+  }
+}

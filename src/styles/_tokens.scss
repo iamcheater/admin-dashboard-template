@@ -1,0 +1,29 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+:root {
+  @include m.emit-theme(v.$theme-light);
+
+  --radius: #{v.$radius};
+  --radius-sm: #{v.$radius-sm};
+  --sidebar-width: #{v.$sidebar-width};
+  --topbar-height: #{v.$topbar-height};
+
+  --sans: #{v.$font-sans};
+  --mono: #{v.$font-mono};
+
+  font-family: m.token("sans");
+  font-size: v.$font-size-base;
+  line-height: 1.5;
+  color: m.token("text");
+  background: m.token("bg");
+  color-scheme: light dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@include m.dark-theme {
+  :root {
+    @include m.emit-theme(v.$theme-dark);
+  }
+}

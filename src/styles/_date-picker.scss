@@ -1,0 +1,441 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.date-picker {
+  position: relative;
+  min-width: 0;
+
+  @include m.respond-below("tablet") {
+    flex: 1 1 auto;
+  }
+
+  &__trigger {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 40px;
+    padding: 6px 12px;
+    background: m.token("surface-2");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 18px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      border-color: m.token("border-strong");
+    }
+
+    &:focus-visible,
+    &.is-open {
+      outline: none;
+      border-color: m.token("accent");
+    }
+
+    &.is-invalid {
+      border-color: m.token("danger");
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: m.token("text-muted");
+    }
+
+    @include m.respond-below("tablet") {
+      width: 100%;
+    }
+  }
+
+  &__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.is-placeholder {
+      color: m.token("text-muted");
+    }
+  }
+}
+
+.date-picker {
+  &__panel {
+    position: fixed;
+    z-index: m.z("popup");
+    width: v.$date-picker-width;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    padding: 12px;
+    background: m.token("surface");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    box-shadow: m.token("shadow-md");
+
+    @include m.respond-below("desktop") {
+      width: v.$date-picker-width-desktop;
+      padding: 10px;
+    }
+
+    @include m.respond-below("tablet") {
+      width: v.$date-picker-width-tablet;
+    }
+
+    @include m.respond-below("mobile") {
+      width: v.$date-picker-width-mobile;
+      padding: 8px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  &__month-toggle {
+    @include m.unstyled-button;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: m.token("text");
+
+    svg {
+      width: 14px;
+      height: 14px;
+      color: m.token("text-muted");
+    }
+
+    &[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__steps,
+  &__year {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__year {
+    justify-content: center;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+
+  &__year-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: m.token("text");
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: v.$radius-sm;
+    background: transparent;
+    color: m.token("text");
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: m.token("surface-2");
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__weekdays,
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  &__weekday {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    font-size: 12px;
+    color: m.token("text-muted");
+
+    @include m.respond-below("desktop") {
+      height: 26px;
+    }
+
+    @include m.respond-below("tablet") {
+      height: 24px;
+    }
+
+    @include m.respond-below("mobile") {
+      height: 22px;
+    }
+  }
+
+  &__blank {
+    height: 32px;
+
+    @include m.respond-below("desktop") {
+      height: 30px;
+    }
+
+    @include m.respond-below("tablet") {
+      height: 28px;
+    }
+
+    @include m.respond-below("mobile") {
+      height: 26px;
+    }
+  }
+
+  &__day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+
+    @include m.respond-below("desktop") {
+      height: 30px;
+      width: 30px;
+    }
+
+    @include m.respond-below("tablet") {
+      height: 28px;
+      width: 28px;
+    }
+
+    @include m.respond-below("mobile") {
+      height: 26px;
+      width: 26px;
+      font-size: 12px;
+    }
+
+    &:hover:not(:disabled) {
+      background: m.token("surface-2");
+    }
+
+    &:disabled {
+      color: m.token("text-muted");
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    &.is-between {
+      background: m.token("accent-soft");
+    }
+
+    &.is-start {
+      background: m.token("accent");
+      color: m.token("accent-fg");
+    }
+
+    &.is-end {
+      border-color: m.token("accent");
+      background: transparent;
+      color: m.token("text");
+    }
+  }
+
+  &__month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  &__month {
+    padding: 8px 0;
+    border: none;
+    border-radius: v.$radius-sm;
+    background: transparent;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: m.token("surface-2");
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    &.is-active {
+      background: m.token("accent");
+      color: m.token("accent-fg");
+    }
+  }
+
+  &__time {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid m.token("border");
+  }
+
+  &__time-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: m.token("text-muted");
+  }
+
+  &__time-fields {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__time-input {
+    box-sizing: border-box;
+    width: 40px;
+    padding: 6px 0;
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-sm;
+    background: m.token("surface-2");
+    color: m.token("text");
+    font: inherit;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+
+    &:focus {
+      outline: none;
+      border-color: m.token("accent");
+    }
+  }
+
+  &__time-colon {
+    flex-shrink: 0;
+    color: m.token("text-muted");
+    font-weight: 600;
+  }
+
+  &__time-period {
+    display: flex;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-sm;
+  }
+
+  &__time-period-option {
+    padding: 6px 10px;
+    border: none;
+    background: m.token("surface-2");
+    color: m.token("text-muted");
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover:not(.is-active) {
+      background: m.token("border");
+    }
+
+    &.is-active {
+      background: m.token("accent");
+      color: m.token("accent-fg");
+    }
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  &__hint {
+    font-size: 12px;
+    line-height: 16px;
+    color: m.token("text-muted");
+  }
+
+  &__clear {
+    @include m.unstyled-button;
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border: 1px solid m.token("border-strong");
+    border-radius: v.$radius-sm;
+    font-size: 13px;
+    color: m.token("text");
+
+    &:hover {
+      background: m.token("surface-2");
+    }
+  }
+
+  &__apply {
+    @include m.unstyled-button;
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: v.$radius-sm;
+    background: m.token("accent");
+    color: m.token("accent-fg");
+    font-size: 13px;
+    font-weight: 500;
+
+    &:hover:not(:disabled) {
+      background: m.token("accent-hover");
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+  }
+}

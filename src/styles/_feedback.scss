@@ -1,0 +1,70 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+$alert-tones: (
+  'error': 'danger',
+  'success': 'success',
+  'warning': 'warning',
+);
+
+.alert {
+  padding: 10px 13px;
+  margin-bottom: 14px;
+  border-radius: v.$radius-sm;
+  font-size: 13.5px;
+
+  @each $name, $tone in $alert-tones {
+    &--#{$name} {
+      @include m.tone($tone);
+    }
+  }
+}
+
+.empty {
+  padding: 44px 20px;
+  text-align: center;
+  color: m.token('text-muted');
+  font-size: 14px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 44px 20px;
+  color: m.token('text-muted');
+  font-size: 14px;
+
+  &--full-page {
+    flex-direction: column;
+    gap: 16px;
+    min-height: 100svh;
+    font-size: v.$font-size-base;
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border-width: 4px;
+    }
+  }
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid m.token('border-strong');
+  border-top-color: m.token('accent');
+  animation: spin 0.7s linear infinite;
+
+  @include m.reduced-motion {
+    animation-duration: 2s;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

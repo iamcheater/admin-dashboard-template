@@ -1,0 +1,141 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+
+  &:has(:disabled) {
+    opacity: 0.5;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    font-weight: 500;
+  }
+
+  &__required {
+    margin-left: 2px;
+  }
+
+  &__hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: v.$font-size-xs;
+    color: m.token("text-muted");
+
+    &--invalid {
+      color: m.token("danger");
+    }
+  }
+
+  &__hint-icon {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    margin-top: 1.5px;
+  }
+
+  &__error {
+    font-size: v.$font-size-xs;
+    color: m.token("danger");
+  }
+}
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__input {
+    padding-right: 48px;
+
+    &::-webkit-credentials-auto-fill-button {
+      position: relative;
+      right: 32px;
+    }
+  }
+
+  &__toggle {
+    position: absolute;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: v.$radius-sm;
+    background: none;
+    color: m.token("text");
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px m.token("accent-soft");
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.input,
+.select,
+.textarea {
+  @include m.field-control;
+
+  &[aria-invalid="true"] {
+    border-color: m.token("danger");
+
+    &:focus {
+      border-color: m.token("danger");
+      box-shadow: 0 0 0 3px m.token("danger-soft");
+    }
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 78px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0 14px;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 8px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border: 1px solid m.token("border");
+  border-radius: v.$radius-sm;
+  font-size: 13.5px;
+  cursor: pointer;
+
+  &:hover {
+    background: m.token("surface-2");
+  }
+
+  input {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    accent-color: m.token("accent");
+  }
+}

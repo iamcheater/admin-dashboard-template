@@ -1,0 +1,133 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.page-actions {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: v.$page-actions-gap;
+  padding: 16px;
+  background: m.token("surface");
+  border: 1px solid m.token("border");
+  border-radius: 20px;
+
+  &::before {
+    content: "";
+    flex: v.$page-actions-spacer-grow 1 0;
+    margin-inline-start: -(v.$page-actions-gap);
+
+    @include m.respond-below("tablet") {
+      display: none;
+    }
+  }
+
+  > .dropdown,
+  > .date-picker {
+    flex: 1 1 auto;
+  }
+
+  .date-picker__trigger {
+    width: 100%;
+  }
+
+  &__search {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+    padding: 6px 12px;
+    background: m.token("surface-2");
+    border: 1px solid m.token("border");
+    border-radius: v.$radius-md;
+    color: m.token("text-muted");
+
+    &:focus-within {
+      border-color: m.token("accent");
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__search {
+    order: -1;
+    flex: 0 1 v.$page-actions-search-width;
+    min-width: v.$page-actions-search-min-width;
+
+    @include m.respond-below("tablet") {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+  }
+
+  &__search-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    cursor: text;
+  }
+
+  &__search-info {
+    flex-shrink: 0;
+    color: m.token("text-muted");
+
+    &:hover,
+    &:focus-within {
+      color: m.token("text");
+    }
+  }
+
+  &__search-input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 18px;
+
+    &::placeholder {
+      color: m.token("text-muted");
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-search-cancel-button {
+      cursor: pointer;
+    }
+  }
+
+  &__toggle {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    color: m.token("text");
+    font-size: 14px;
+    line-height: 21px;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: m.token("accent");
+    cursor: pointer;
+  }
+}

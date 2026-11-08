@@ -1,0 +1,71 @@
+@use "mixins" as m;
+
+.page-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 20px;
+
+  &__nav {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 1px solid m.token("border");
+    border-radius: 10px;
+    background: m.token("surface");
+    color: m.token("text");
+    cursor: pointer;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    @include m.respond-below("laptop") {
+      display: inline-flex;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__title {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 700;
+    color: m.token("text");
+  }
+
+  &__subtitle {
+    padding-top: 4px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: m.token("text-muted");
+
+    @include m.respond-below("tablet") {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    @include m.respond-below("mobile") {
+      display: none;
+    }
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+}

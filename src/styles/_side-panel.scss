@@ -1,0 +1,126 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+@keyframes side-panel-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes side-panel-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+html:has(.side-panel-overlay) {
+  overflow: hidden;
+}
+
+@keyframes side-panel-overlay-in {
+  from {
+    background-color: transparent;
+  }
+}
+
+@keyframes side-panel-overlay-out {
+  to {
+    background-color: transparent;
+  }
+}
+
+.side-panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: m.z("drawer");
+  background: m.token("modal-backdrop");
+  animation: side-panel-overlay-in v.$duration-modal-in ease-out;
+
+  &--popup {
+    z-index: m.z("popup");
+  }
+
+  &.is-closing {
+    animation: side-panel-overlay-out v.$duration-drawer ease-in forwards;
+  }
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+}
+
+.side-panel {
+  box-sizing: border-box;
+  position: fixed;
+  inset-block: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 400px;
+  max-width: 100%;
+  background: m.token("surface");
+  border-left: 1px solid m.token("border");
+  box-shadow: m.token("shadow-md");
+  overscroll-behavior: contain;
+  animation: side-panel-in v.$duration-drawer cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include m.respond-below("tablet") {
+    width: 100%;
+    border-left: none;
+  }
+
+  .is-closing > & {
+    animation: side-panel-out v.$duration-drawer ease-in forwards;
+  }
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &__header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 56px 0;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 700;
+    text-align: center;
+    overflow-wrap: anywhere;
+    color: m.token("text");
+  }
+
+  &__subtitle {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    overflow-wrap: anywhere;
+    color: m.token("text");
+  }
+
+  &__close {
+    position: absolute;
+    top: 17px;
+    right: 15px;
+  }
+
+  &__body {
+    flex: 1;
+    min-height: 0;
+    padding: 24px;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+  }
+}

@@ -1,0 +1,172 @@
+$breakpoints: (
+  "desktop": 1200px,
+  "laptop": 1024px,
+  "tablet": 768px,
+  "mobile": 576px,
+);
+
+$z-index: (
+  "raised": 1,
+  "backdrop": 55,
+  "drawer": 60,
+  "modal": 100,
+  "popup": 110,
+  "tooltip": 120,
+);
+
+$space-xs: 8px;
+$space-sm: 10px;
+$space-md: 14px;
+$space-lg: 16px;
+
+$radius: 8px;
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-pill: 999px;
+
+$opacity-disabled: 0.5;
+
+$field-height: 40px;
+$field-height-compact: 32px;
+
+$table-min-width: 1080px;
+
+$dropdown-chip-width: 88px;
+$page-actions-gap: 12px;
+$page-actions-search-width: 240px;
+$page-actions-search-min-width: 188px;
+$page-actions-spacer-grow: 1000;
+
+$sidebar-width: 220px;
+$sidebar-width-mobile: min(280px, 84vw);
+
+$date-picker-width: 296px;
+$date-picker-width-desktop: 272px;
+$date-picker-width-tablet: 248px;
+$date-picker-width-mobile: 224px;
+$topbar-height: 60px;
+
+$duration-fast: 0.12s;
+$duration-drawer: 0.5s;
+$duration-modal-in: 0.2s;
+$duration-modal-out: 0.14s;
+$duration-skeleton-pulse: 1.5s;
+$duration-skeleton-wave: 1.6s;
+
+$font-sans: (
+  "DM Sans",
+  "Inter",
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  Helvetica,
+  Arial,
+  sans-serif
+);
+$font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+$font-size-base: 15px;
+$font-size-sm: 13px;
+$font-size-xs: 12px;
+$font-size-label: 11.5px;
+
+$theme-light: (
+  "bg": #f6f7f9,
+  "surface": #ffffff,
+  "surface-2": #f0f2f5,
+  "surface-3": #f5f5f8,
+  "chip-bg": #e6e9ee,
+  "chip-bg-hover": #dbdfe7,
+  "sidebar-bg": #f5f5f7,
+  "sidebar-fg": #8e8e93,
+  "sidebar-fg-strong": #0d1017,
+  "sidebar-muted": #666f79,
+  "sidebar-active-bg": rgba(0, 110, 255, 0.1),
+  "sidebar-divider": #e5e5ea,
+  "sidebar-heading": #8e8e93,
+  "icon-button-bg": rgba(189, 189, 189, 0.2),
+  "table-header-bg": #e5e5ea,
+  "text": #1c2430,
+  "text-secondary": #2b303b,
+  "text-muted": #64748b,
+  "border": #e2e6ec,
+  "border-strong": #cbd3de,
+
+  "accent": #006eff,
+  "accent-hover": #0057cc,
+  "accent-fg": #ffffff,
+  "accent-soft": rgba(0, 110, 255, 0.1),
+  "success": #30d158,
+  "success-soft": rgba(48, 209, 88, 0.2),
+  "warning": #ff8c00,
+  "warning-hover": #e67e00,
+  "warning-soft": #ff8c001a,
+  "danger": #ff453a,
+  "danger-hover": #fa291d,
+  "danger-soft": rgba(255, 69, 58, 0.1),
+  "danger-soft-hover": rgba(255, 69, 58, 0.3),
+  "info": #0369a1,
+  "info-soft": rgba(3, 105, 161, 0.12),
+  "overlay": rgba(9, 13, 20, 0.55),
+  "modal-backdrop": rgba(0, 0, 0, 0.5),
+  "shadow-sm": (
+    0 1px 2px rgba(16, 24, 40, 0.06),
+  ),
+  "shadow-md": (
+    0 8px 24px rgba(16, 24, 40, 0.12),
+  ),
+  "shadow-popover": (
+    0 4px 12px rgba(15, 23, 42, 0.05),
+  ),
+);
+
+$theme-dark: (
+  "bg": #0e131b,
+  "surface": #161d27,
+  "surface-2": #1e2732,
+  "surface-3": #222b36,
+  "chip-bg": #2b3543,
+  "chip-bg-hover": #364253,
+  "sidebar-bg": #12161d,
+  "sidebar-fg": #8b98ab,
+  "sidebar-fg-strong": #e6ebf2,
+  "sidebar-muted": #8b98ab,
+  "sidebar-active-bg": rgba(0, 110, 255, 0.18),
+  "sidebar-divider": #232b37,
+  "sidebar-heading": #6b7688,
+  "icon-button-bg": rgba(255, 255, 255, 0.1),
+  "table-header-bg": #1e2732,
+  "text": #e6ebf2,
+  "text-secondary": #e6ebf2,
+  "text-muted": #8b98ab,
+  "border": #263140,
+  "border-strong": #334154,
+
+  "accent": #3b8cff,
+  "accent-hover": #6aa8ff,
+  "accent-fg": #ffffff,
+  "accent-soft": rgba(0, 110, 255, 0.22),
+  "success": #4ade80,
+  "success-soft": rgba(74, 222, 128, 0.14),
+  "warning": #ff8c00,
+  "warning-hover": #e67e00,
+  "warning-soft": rgba(251, 191, 36, 0.14),
+  "danger": #f87171,
+  "danger-hover": #fca5a5,
+  "danger-soft": rgba(248, 113, 113, 0.14),
+  "danger-soft-hover": rgba(248, 113, 113, 0.28),
+  "info": #38bdf8,
+  "info-soft": rgba(56, 189, 248, 0.14),
+  "overlay": rgba(0, 0, 0, 0.6),
+  "modal-backdrop": rgba(0, 0, 0, 0.6),
+  "shadow-sm": (
+    0 1px 2px rgba(0, 0, 0, 0.4),
+  ),
+  "shadow-md": (
+    0 8px 24px rgba(0, 0, 0, 0.5),
+  ),
+  "shadow-popover": (
+    0 4px 12px rgba(0, 0, 0, 0.35),
+  ),
+);

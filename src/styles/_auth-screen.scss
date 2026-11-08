@@ -1,0 +1,140 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.auth-screen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 100svh;
+  padding: v.$space-lg;
+  overflow: hidden;
+  background-color: m.token("bg");
+
+  &--plain {
+    background-color: m.token("surface");
+  }
+
+  &-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  &-logo {
+    display: flex;
+    width: 164px;
+    max-width: 100%;
+    height: auto;
+    align-self: center;
+  }
+
+  &-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 380px;
+    padding: 40px 32px;
+    background: m.token("surface");
+    border-radius: 32px;
+    gap: 24px;
+  }
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &-title {
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 700;
+    text-align: center;
+    color: m.token("text");
+  }
+
+  &-subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: center;
+    color: m.token("text-muted");
+  }
+
+  &-form {
+    display: grid;
+    gap: 24px;
+
+    .field {
+      gap: 8px;
+      margin: 0;
+    }
+
+    .field__label {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 500;
+      color: m.token("text-muted");
+    }
+
+    .field__hint {
+      font-size: 12px;
+      line-height: 14px;
+      color: m.token("text");
+
+      &--invalid {
+        color: m.token("danger");
+      }
+    }
+
+    .field__error {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
+    .input {
+      height: 44px;
+
+      padding: 0 16px;
+      font-size: 16px;
+      border-color: m.token("border");
+      border-radius: 10px;
+
+      &[aria-invalid="true"] {
+        border-color: m.token("danger");
+      }
+    }
+  }
+
+  &-link {
+    font-size: 14px;
+    line-height: 20px;
+    color: m.token("text-muted");
+    text-align: center;
+
+    &-anchor {
+      color: m.token("accent");
+
+      &:hover {
+        color: m.token("accent-hover");
+      }
+    }
+  }
+
+  @include m.respond-below("tablet") {
+    gap: 28px;
+
+    &-content {
+      padding: 28px 20px;
+    }
+
+    &-title {
+      font-size: 28px;
+    }
+  }
+}

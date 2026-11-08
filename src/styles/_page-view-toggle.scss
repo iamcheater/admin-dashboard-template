@@ -1,0 +1,49 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.page-view-toggle {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 4px;
+  background: m.token("surface");
+  border: 1px solid m.token("border");
+  border-radius: v.$radius;
+
+  &__option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 16px;
+    border: none;
+    border-radius: v.$radius-sm;
+    background: transparent;
+    color: m.token("text");
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background v.$duration-fast ease,
+      color v.$duration-fast ease;
+
+    &:hover:not(.is-active) {
+      background: m.token("surface-2");
+    }
+
+    &.is-active {
+      background: m.token("accent");
+      color: m.token("accent-fg");
+    }
+
+    @include m.reduced-motion {
+      transition: none;
+    }
+  }
+}

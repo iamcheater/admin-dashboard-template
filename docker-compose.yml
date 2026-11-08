@@ -1,0 +1,15 @@
+services:
+  admin-dashboard:
+    image: gitlab.nextstack.org:5050/web/admin-dashboard-template:${IMAGE_TAG}
+    # build:
+    #   context: ./
+    #   dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    container_name: admin-dashboard
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      NODE_ENV: production
+    volumes:
+      - ./docker-compose/nginx:/etc/nginx/conf.d/

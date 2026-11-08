@@ -1,0 +1,191 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: v.$radius-md;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background v.$duration-fast ease,
+    border-color v.$duration-fast ease;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px m.token("accent-soft");
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @include m.reduced-motion {
+    transition: none;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  &--primary {
+    background: m.token("accent");
+    color: m.token("accent-fg");
+
+    &:not(:disabled):hover {
+      background: m.token("accent-hover");
+    }
+  }
+
+  &--secondary {
+    background: m.token("surface");
+    color: m.token("text");
+    border-color: m.token("border-strong");
+
+    &:not(:disabled):hover {
+      background: m.token("surface-2");
+    }
+  }
+
+  &--danger {
+    @include m.tone("danger");
+    border-color: transparent;
+
+    &:not(:disabled):hover {
+      border-color: m.token("danger");
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: m.token("text-muted");
+
+    &:not(:disabled):hover {
+      background: m.token("surface-2");
+      color: m.token("text");
+    }
+  }
+
+  &--outline {
+    gap: 8px;
+    background: transparent;
+    color: m.token("text");
+    border: 1.37px solid m.token("text");
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 21px;
+
+    &:not(:disabled):hover {
+      background: m.token("surface-2");
+    }
+  }
+
+  &--danger-solid {
+    gap: 8px;
+    background: m.token("danger");
+    color: m.token("accent-fg");
+    border-color: m.token("danger");
+    font-size: 14px;
+    line-height: 21px;
+
+    &:not(:disabled):hover {
+      background: m.token("danger-hover");
+      border-color: m.token("danger-hover");
+    }
+  }
+
+  &--warning-solid {
+    gap: 8px;
+    background: m.token("warning");
+    color: m.token("accent-fg");
+    border-color: m.token("warning");
+    font-size: 14px;
+    line-height: 21px;
+
+    &:not(:disabled):hover {
+      background: m.token("warning-hover");
+      border-color: m.token("warning-hover");
+    }
+  }
+
+  &--danger-outline {
+    gap: 8px;
+    background: transparent;
+    color: m.token("danger");
+    border: 1px solid m.token("danger");
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 21px;
+
+    &:not(:disabled):hover {
+      background: m.token("danger-soft");
+    }
+  }
+
+  &--danger-soft {
+    gap: 4px;
+    padding: 6px 10px !important;
+    background: m.token("danger-soft");
+    color: m.token("danger");
+    border-color: transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 18px;
+
+    &:not(:disabled):hover {
+      background: m.token("danger-soft-hover");
+    }
+  }
+
+  &--small {
+    padding: 5px 10px;
+    font-size: 12.5px;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  padding: 8px;
+  border: 0;
+  border-radius: v.$radius-sm;
+  background: m.token("icon-button-bg");
+  backdrop-filter: blur(6.75px);
+  color: m.token("text-muted");
+  cursor: pointer;
+  transition: color v.$duration-fast ease;
+
+  &:hover {
+    color: m.token("text");
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px m.token("accent-soft");
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
